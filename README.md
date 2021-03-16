@@ -36,7 +36,7 @@ Follow these instructions to set up this project on local machine.
   ...
   127.0.0.1	master.local
   127.0.0.1	admin.local
-  127.0.0.1	guess.local
+  127.0.0.1	guest.local
   ...
   ```
   save.
