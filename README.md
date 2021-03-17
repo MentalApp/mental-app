@@ -66,7 +66,7 @@ Follow these instructions to set up this project on local machine.
   ```
 - Run json-server for API
   ```
-  json-server <json file name>
+  json-server mock-data.json
   ```
 
 ## Running the tests

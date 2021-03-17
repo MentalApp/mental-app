@@ -1,0 +1,27 @@
+{
+  "guests": [
+    {
+      "id": 1,
+      "fullname": "Nguyen Van A",
+      "date_of_birth": "1990/01/01",
+      "nation": "Kinh",
+      "gender": "Nam",
+      "join_army": "2010/01/01",
+      "unit": "b2c4d1",
+      "rank": "b1",
+      "position": "Chien si"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "question": "how are you1?",
+      "answer": "true"
+    }, 
+    {
+      "id": 2,
+      "question": "how are you2?",
+      "answer": "true"
+    }
+  ]
+}
