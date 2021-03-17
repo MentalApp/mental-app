@@ -59,6 +59,15 @@ Follow these instructions to set up this project on local machine.
   yarn start
   ```
 - Open browser and test `http://master.local:3001`
+### Test with json-server
+- Install json-server
+  ```
+  npm install -g json-server
+  ```
+- Run json-server for API
+  ```
+  json-server <json file name>
+  ```
 
 ## Running the tests
 
