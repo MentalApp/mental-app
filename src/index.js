@@ -1,7 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import reportWebVitals from './reportWebVitals';
 
 const domain = (() => {
   const currentDomain = window.location.hostname;
@@ -9,7 +8,7 @@ const domain = (() => {
   const {
     REACT_APP_MASTER_DOMAIN,
     REACT_APP_ADMIN_DOMAIN,
-    REACT_APP_GUESS_DOMAIN,
+    REACT_APP_GUEST_DOMAIN,
   } = process.env;
 
   switch (currentDomain) {
@@ -17,21 +16,19 @@ const domain = (() => {
       return 'master';
     case REACT_APP_ADMIN_DOMAIN:
       return 'admin';
-    case REACT_APP_GUESS_DOMAIN:
-      return 'guess';
+    case REACT_APP_GUEST_DOMAIN:
+      return 'guest';
     default:
-      return 'guess';
+      return 'guest';
   }
 })();
 
 const App = lazy(() => import(`domain/${domain}/containers/App`));
 
 ReactDOM.render(
-  // <React.StrictMode>
   <Suspense fallback={null}>
     <App />
   </Suspense>,
-  // </React.StrictMode>,
   document.getElementById('root')
 );
 

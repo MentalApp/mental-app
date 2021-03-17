@@ -2,8 +2,10 @@ import React from 'react';
 
 import BaseApp from 'containers/BaseApp';
 
+import routes from '../../routes';
+
 const App = () => {
-  return <BaseApp domain="Guess"/>;
+  return <BaseApp routes={routes} />;
 };
 
 export default App;
