@@ -1,6 +1,8 @@
 import React, { Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+import '../src/common/style/mainStyle.scss';
 
 const domain = (() => {
   const currentDomain = window.location.hostname;
