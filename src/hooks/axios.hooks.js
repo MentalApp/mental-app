@@ -24,18 +24,18 @@ export const useQuery = ({ url, params = {}, skip = false, ignoreCancel = false 
       method: 'GET',
       params,
       ignoreCancel,
-      paramsSerializer: /* istanbul ignore next */ params => {
+      paramsSerializer: /* istanbul ignore next */ (params) => {
         return qs.stringify(params, { arrayFormat: 'repeat' });
       },
     })
-      .then(response => {
+      .then((response) => {
         if (response.status === 200) {
           setData(response.data);
         }
         setErrors(null);
         setLoading(false);
       })
-      .catch(error => {
+      .catch((error) => {
         const message = error?.message;
         if (message !== 'REQUEST_IS_CANCELLED') {
           setErrors(error);
@@ -54,7 +54,7 @@ export const useQuery = ({ url, params = {}, skip = false, ignoreCancel = false 
 
 export const useMutation = ({ url, method = 'POST' }) => {
   const mutate = useCallback(
-    async data => {
+    async (data) => {
       const dataRequest = data ? data : null;
       return api[method.toLocaleLowerCase()](url, dataRequest);
     },

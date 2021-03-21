@@ -2,12 +2,12 @@ import React, { useCallback } from 'react';
 import { useQuery } from 'hooks/axios.hooks';
 import Loading from 'components/Loading';
 
-import QuestionHeader from '../../components/QuestionHeader/QuestionHeader'
-import QuestionForm from '../../components/QuestionForm/QuestionForm'
+import QuestionHeader from '../../components/QuestionHeader/QuestionHeader';
+import QuestionForm from '../../components/QuestionForm/QuestionForm';
 
 const Question = () => {
   const { data, force, loading } = useQuery({ url: '/questions' });
-  console.log(data)
+  console.log(data);
 
   return (
     <>
@@ -15,9 +15,8 @@ const Question = () => {
       <QuestionHeader user_id={1} />
       <QuestionForm question={!!data && data[0].question} />
       <button> Tiếp theo </button>
-      
     </>
-  )
+  );
 };
 
-export default Question
+export default Question;

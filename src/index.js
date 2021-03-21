@@ -6,12 +6,8 @@ import '../src/common/style/mainStyle.scss';
 
 const domain = (() => {
   const currentDomain = window.location.hostname;
-  
-  const {
-    REACT_APP_MASTER_DOMAIN,
-    REACT_APP_ADMIN_DOMAIN,
-    REACT_APP_GUEST_DOMAIN,
-  } = process.env;
+
+  const { REACT_APP_MASTER_DOMAIN, REACT_APP_ADMIN_DOMAIN, REACT_APP_GUEST_DOMAIN } = process.env;
 
   switch (currentDomain) {
     case REACT_APP_MASTER_DOMAIN:
@@ -31,7 +27,7 @@ ReactDOM.render(
   <Suspense fallback={null}>
     <App />
   </Suspense>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

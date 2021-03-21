@@ -3,11 +3,7 @@ import * as constants from './constants';
 export const getCurrentEndpoint = () => {
   const currentDomain = window.location.hostname;
 
-  const {
-    REACT_APP_MASTER_DOMAIN,
-    REACT_APP_ADMIN_DOMAIN,
-    REACT_APP_GUEST_DOMAIN,
-  } = process.env;
+  const { REACT_APP_MASTER_DOMAIN, REACT_APP_ADMIN_DOMAIN, REACT_APP_GUEST_DOMAIN } = process.env;
 
   switch (currentDomain) {
     case REACT_APP_MASTER_DOMAIN:
