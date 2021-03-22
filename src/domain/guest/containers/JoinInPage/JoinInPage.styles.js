@@ -10,7 +10,7 @@ export default styled.div`
 
   .login-form {
     margin: 0 auto;
-    width: 260px;
+
     input.form-control {
       height: 40px;
       width: 100%;
@@ -26,6 +26,12 @@ export default styled.div`
         font-size: 16px;
       }
     }
+  }
+  .form-join {
+    background-color: #fff;
+    padding: 50px;
+    box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+    border: 1px solid #e0e0e0;
   }
   button {
     margin-top: 20px;
