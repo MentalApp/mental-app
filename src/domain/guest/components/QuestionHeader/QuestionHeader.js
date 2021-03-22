@@ -1,8 +1,7 @@
 import { useQuery } from 'hooks/axios.hooks';
 
-const QuestionHeader = ({user_id}) => {
-  const { data, force, loading } = useQuery({ url: `/guests/${user_id}` });
-  console.log(data)
+const QuestionHeader = ({ user_id }) => {
+  const { data } = useQuery({ url: `/guests/${user_id}` });
   return (
     <>
       <p> Họ và tên: {!!data && data.fullname} </p>
@@ -14,7 +13,7 @@ const QuestionHeader = ({user_id}) => {
       <p> Cấp bậc: {!!data && data.rank} </p>
       <p> Chức vụ: {!!data && data.position} </p>
     </>
-  )
+  );
 };
 
-export default QuestionHeader
+export default QuestionHeader;

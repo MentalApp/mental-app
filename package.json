@@ -6,15 +6,25 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@typescript-eslint/eslint-plugin": "2.x",
+    "@typescript-eslint/parser": "2.x",
     "axios": "^0.21.1",
+    "babel-eslint": "10.x",
     "bootstrap": "^4.6.0",
+    "eslint-config-react-app": "^6.0.0",
+    "eslint-plugin-flowtype": "4.x",
+    "eslint-plugin-react-hooks": "2.x",
+    "lodash": "^4.17.21",
     "navi": "^0.14.0",
     "node-sass": "^5.0.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
     "react-datepicker": "^3.6.0",
     "react-dom": "^17.0.1",
+    "react-feather": "^2.0.9",
     "react-navi": "^0.14.4",
+    "react-paginate": "^7.1.0",
     "react-scripts": "4.0.3",
     "styled-components": "^5.2.1",
     "web-vitals": "^1.0.1"
@@ -42,5 +52,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "7.x",
+    "prettier": "^2.2.1"
   }
 }

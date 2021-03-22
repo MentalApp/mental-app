@@ -2,7 +2,7 @@ import axios from 'axios';
 import get from 'lodash/get';
 
 import { authService } from 'utils/auth.service';
-import { getCurrentEndpoint } from 'utils/endpoint';
+// import { getCurrentEndpoint } from 'utils/endpoint';
 
 const TIMEOUT = 65 * 1000;
 
@@ -14,7 +14,7 @@ const request = axios.create({
 const pending = {};
 const CancelToken = axios.CancelToken;
 
-request.interceptors.request.use(function(config) {
+request.interceptors.request.use(function (config) {
   const token = authService.getToken();
   if (!!token) {
     /* istanbul ignore next */
@@ -29,7 +29,7 @@ request.interceptors.request.use(function(config) {
 });
 
 request.interceptors.request.use(
-  config => {
+  (config) => {
     if (config.method === 'get') {
       if (pending[config.url]) {
         pending[config.url].cancel('REQUEST_IS_CANCELLED');
@@ -41,18 +41,18 @@ request.interceptors.request.use(
 
     return config;
   },
-  error => {
+  (error) => {
     Promise.reject(error);
   },
 );
 
 /* istanbul ignore next */
 request.interceptors.response.use(
-  response => {
+  (response) => {
     delete pending[response.config.url];
     return response;
   },
-  error => {
+  (error) => {
     const token = authService.getToken();
     if (token && get(error, 'response.status') === 401) {
       authService.clearStorage();

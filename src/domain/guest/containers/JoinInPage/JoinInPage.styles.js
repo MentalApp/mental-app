@@ -29,7 +29,7 @@ export default styled.div`
   }
   button {
     margin-top: 20px;
-    background-color: #4CAF50; /* Green */
+    background-color: #4caf50; /* Green */
     border: none;
     color: white;
     padding: 15px 32px;

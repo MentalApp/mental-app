@@ -6,9 +6,7 @@ const JoinInPage = () => {
   const initialValues = { code: '' };
   const [sign_in] = useMutation({ url: '/sign_in' });
 
-  const handleSubmit = useCallback(
-    
-  );
+  const handleSubmit = useCallback();
 
   return (
     <JoinInPageWrapper>
@@ -21,7 +19,7 @@ const JoinInPage = () => {
         </form>
       </div>
     </JoinInPageWrapper>
-  )
+  );
 };
 
-export default JoinInPage
+export default JoinInPage;
