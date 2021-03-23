@@ -46,7 +46,7 @@ const Question = ({ information }) => {
             rows="4"
             cols="80"
           />
-          <p>Các đồng chí trong cùng đơn vị có biểu hiện bất thường hoặc có triệu chứng bệnh như trên:</p>
+          <p>Các đồng chí trong cùng đơn vị có biểu hiện bất thường hoặc có triệu chứng bệnh như trên (nếu có):</p>
           <textarea
             value={note.for_teammate}
             onChange={(event) => setNote({ ...note, for_teammate: event.target.value })}
