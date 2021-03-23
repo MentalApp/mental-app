@@ -7,15 +7,13 @@ import { View } from 'react-navi';
 //   QUESTION,
 // } from './breadcrumb';
 import JoinInPage from '../containers/JoinInPage/JoinInPage';
-import Question from '../containers/Question/Question';
-import Information from '../containers/Information/Information';
 
 import withAuth from 'routes/withAuth';
 import withNotAuth from 'routes/withNotAuth';
+import ExaminationHealth from '../containers/ExaminationHealthy';
 
 export const routes = {
   '/sign_in': withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <JoinInPage /> })),
-  '/question': withNotAuth('/', route({ title: 'guest.routes.resource.question', view: <Question /> })),
-  '/information': withNotAuth('/', route({ title: 'guest.routes.resource.information', view: <Information /> })),
+  '/examination': withNotAuth('/', route({ title: 'guest.routes.resource.question', view: <ExaminationHealth /> })),
   '/': withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <JoinInPage /> })),
 };
