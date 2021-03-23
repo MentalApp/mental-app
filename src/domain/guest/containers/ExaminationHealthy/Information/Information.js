@@ -1,14 +1,14 @@
 import React from 'react';
 
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Information.scss';
-
+import vi from 'date-fns/locale/vi';
 import InformationForm from 'domain/guest/components/InformationForm/InformationForm';
 import { format } from 'date-fns';
 
+registerLocale('vi', vi);
 const Information = ({ information, setInformation, onClick }) => {
-  console.log(information);
   return (
     <div className="root-info-form">
       <div className="wrap-form">
@@ -27,6 +27,10 @@ const Information = ({ information, setInformation, onClick }) => {
               value={(!!information?.yearOfBirth && format(information?.yearOfBirth, 'dd/MM/yyyy')) || null}
               onChange={(date) => setInformation({ ...information, yearOfBirth: date })}
               dataFormat="dd/MM/yyyy"
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select"
+              locale="vi"
             ></DatePicker>
           </div>
           <div className="col">
@@ -76,6 +80,10 @@ const Information = ({ information, setInformation, onClick }) => {
               value={(!!information?.dateOfEnlistment && format(information?.dateOfEnlistment, 'MM/yyyy')) || null}
               onChange={(date) => setInformation({ ...information, dateOfEnlistment: date })}
               dataFormat="mm/yyyy"
+              showMonthDropdown
+              showYearDropdown
+              dropdownMode="select"
+              locale="vi"
             ></DatePicker>
           </div>
         </div>
