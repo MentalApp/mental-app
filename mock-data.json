@@ -1,27 +1,94 @@
 {
-  "guests": [
+  "officer_tests": [
     {
       "id": 1,
-      "fullname": "Nguyen Van A",
-      "date_of_birth": "1990/01/01",
+      "name": "Nguyen Van A",
+      "dateOfBirth": "1990/01/01",
       "nation": "Kinh",
-      "gender": "Nam",
+      "gender": 1,
       "join_army": "2010/01/01",
       "unit": "b2c4d1",
       "rank": "b1",
-      "position": "Chien si"
+      "position": "Chien si",
+      "answer": [
+        { "test_pool_id": 1, "answer": "Co" },
+        { "test_pool_id": 2, "answer": "Khong" },
+        { "test_pool_id": 3, "answer": "Khong" },
+        { "test_pool_id": 4, "answer": "Co" },
+        { "test_pool_id": 5, "answer": "Co" },
+        { "test_pool_id": 6, "answer": "Khong" },
+        { "test_pool_id": 7, "answer": "Khong" },
+        { "test_pool_id": 8, "answer": "Khong" },
+        { "test_pool_id": 9, "answer": "Co" },
+        { "test_pool_id": 10, "answer": "Khong" },
+        { "test_pool_id": 11, "answer": "Co" },
+        { "test_pool_id": 12, "answer": "Khong" }        
+      ],
+      "testVersion": "2021/02",
+      "otherSymptom": "Đau đầu nhức mỏi, tê bì chân tay",
+      "otherPeople": "Đồng chí Nguyễn Ngọc Nghĩa"
     }
   ],
-  "questions": [
+  "tests": [
     {
       "id": 1,
-      "question": "how are you1?",
-      "answer": "true"
-    }, 
+      "question": "Mất ngủ không?",
+      "code": "abcdef"
+    },
     {
       "id": 2,
-      "question": "how are you2?",
-      "answer": "true"
+      "question": "Buổi sáng ngủ dậy có mệt mỏi không?",
+      "code": "abcdef"
+    },
+    {
+      "id": 3,
+      "question": "Hay buồn vô cớ không?",
+      "code": "abcdef"
+    },
+    {
+      "id": 4,
+      "question": "Nghe có tiếng người nói chuyện trong đầu?",
+      "code": "abcdef"
+    },
+    {
+      "id": 5,
+      "question": "Cho rằng có người theo dõi, làm hại mình?",
+      "code": "abcdef"
+    },
+    {
+      "id": 6,
+      "question": "Ngủ quá ít không?",
+      "code": "abcdef"
+    },
+    {
+      "id": 7,
+      "question": "Thấy người rất khỏe mạnh không?",
+      "code": "abcdef"
+    },
+    {
+      "id": 8,
+      "question": "Rất vui vẻ không?",
+      "code": "abcdef"
+    },
+    {
+      "id": 9,
+      "question": "Hoạt động quá nhiều không?",
+      "code": "abcdef"
+    },
+    {
+      "id": 10,
+      "question": "Dễ nổi cáu không?",
+      "code": "abcdef"
+    },
+    {
+      "id": 11,
+      "question": "Khó vào giấc ngủ không?",
+      "code": "abcdef"
+    },
+    {
+      "id": 12,
+      "question": "Hay đánh trống ngực không?",
+      "code": "abcdef"
     }
   ]
 }
