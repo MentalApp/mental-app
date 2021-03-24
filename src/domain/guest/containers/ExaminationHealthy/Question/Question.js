@@ -6,6 +6,7 @@ import { Button } from 'react-bootstrap';
 import Wrapper from './Question.styles';
 import PreviewPage from '../PreviewPage';
 import { useNavigation } from 'react-navi';
+import data from './mockData.json';
 
 const Question = ({ information }) => {
   const [count, setCount] = useState(0);
@@ -13,7 +14,7 @@ const Question = ({ information }) => {
   const [note, setNote] = useState({ for_me: '', for_teammate: '' });
   const { navigate } = useNavigation();
 
-  const { data, loading } = useQuery({ url: '/tests' });
+  // const { data, loading } = useQuery({ url: '/tests' });
   const [submit] = useMutation({ url: '/officer_tests', method: 'POST' });
 
   const handleEvent = useCallback(
@@ -66,7 +67,7 @@ const Question = ({ information }) => {
 
   return (
     <Wrapper>
-      {loading && <Loading />}
+      {/* {loading && <Loading />} */}
       {count < data?.length && (
         <QuestionForm
           question={!!data && data[count]}
