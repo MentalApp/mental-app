@@ -6,6 +6,10 @@ const Wrapper = styled.div`
     background-color: #fff;
     padding: 15px 30px;
     margin-top: 30px;
+
+    textarea {
+      width: 100%;
+    }
   }
   .group-button {
     background-color: #fff;
