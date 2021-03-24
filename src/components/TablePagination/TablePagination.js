@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import get from 'lodash/get';
 import PropTypes from 'prop-types';
@@ -6,8 +6,6 @@ import styled from 'styled-components';
 
 import Loading from 'components/Loading';
 import Pagination from 'components/Pagination';
-import Sort from 'components/Sort';
-import { I18nContext } from 'contexts/i18n';
 
 const propTypes = {
   columns: PropTypes.arrayOf(
@@ -63,8 +61,6 @@ const TablePaginationData = ({
   sortBy = '',
   hiddenHeader = false,
 }) => {
-  const { translate } = useContext(I18nContext);
-
   const colSpan = columns.length + (sortTitle ? 1 : 0);
 
   return (
@@ -77,11 +73,6 @@ const TablePaginationData = ({
                 {columns.map(({ name, field }, index) => (
                   <th key={index} className={field} onClick={field === sortBy ? onSort : undefined}>
                     {name}
-                    {field === sortBy && (
-                      <div className="th-head-sorts">
-                        <Sort sort={sortValue} />
-                      </div>
-                    )}
                   </th>
                 ))}
               </tr>
@@ -99,7 +90,7 @@ const TablePaginationData = ({
             {!isLoading && !data.length && (
               <tr className="empty-data">
                 <td className="text-center" colSpan={colSpan}>
-                  {translate('global.not_found')}
+                  Không có dữ liệu.
                 </td>
               </tr>
             )}
