@@ -1,50 +1,69 @@
-import React from 'react';
+import TablePaginationData from 'components/TablePagination';
+import { useQuery } from 'hooks/axios.hooks';
+import React, { useMemo } from 'react';
 import { Container } from 'react-bootstrap';
+import Filter from './Filter';
 import Wrapper from './Home.styles';
 
 const Home = () => {
+  const { data } = useQuery({ url: '/officer_tests' });
+  console.log(data);
+  const collums = [
+    {
+      name: 'Đợt kiểm tra',
+      field: 'testVersion',
+    },
+    {
+      name: 'Tên quân nhân',
+      field: 'name',
+    },
+    {
+      name: 'Giới tính',
+      field: 'gender',
+    },
+    {
+      name: 'Ngày sinh',
+      field: 'dateOfBirth',
+    },
+    {
+      name: 'Dân tộc',
+      field: 'nation',
+    },
+    {
+      name: 'Đơn vị',
+      field: 'unit',
+    },
+    {
+      name: 'Cấp bậc',
+      field: 'rank',
+    },
+    {
+      name: 'Chức vụ',
+      field: 'position',
+    },
+    {
+      name: 'Ngày nhập ngũ',
+      field: 'joinArmy',
+    },
+  ];
+
+  const restructureData = useMemo(() => {
+    if (!data) return [];
+    return (
+      !!data &&
+      data?.map((item) => ({
+        ...item,
+        onClick: () => alert('detail'),
+      }))
+    );
+  }, [data]);
   return (
     <Wrapper>
       <Container>
         <div className="filter">
-          <div className="group-filter">
-            <div className="group-item-filter">
-              <div className="title">Đợt kiểm tra</div>
-              <select>
-                <option>Tất cả</option>
-                <option>Đợt 1 năm 2021</option>
-                <option>Đợt 2 năm 2021</option>
-              </select>
-            </div>
-            <div className="group-item-filter">
-              <div className="title">Tên quân nhân</div>
-              <input type="text" />
-            </div>
-          </div>
-          <div className="group-filter">
-            <div className="group-item-filter">
-              <div className="title">Mã quân nhân</div>
-              <input type="number" />
-            </div>
-            <div className="group-item-filter">
-              <div className="title">Mức độ trung thực</div>
-              <select>
-                <option>Tất cả</option>
-                <option>Trung thực</option>
-                <option>Chưa trung thực</option>
-              </select>
-            </div>
-            <div className="group-item-filter">
-              <div className="title">Mức độ vấn đề </div>
-              <select>
-                <option>Tất cả</option>
-                <option>Bình thường</option>
-                <option>Có vấn đề</option>
-                <option>Nghiêm trọng</option>
-              </select>
-            </div>
-          </div>
+          <Filter />
         </div>
+        <TablePaginationData columns={collums} data={restructureData} />
       </Container>
     </Wrapper>
   );
