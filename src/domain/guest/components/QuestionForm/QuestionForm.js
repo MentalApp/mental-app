@@ -15,17 +15,17 @@ const QuestionForm = ({ question, index, resultTest, setResultTest }) => {
   return (
     <Wrapper>
       <p>
-        {index + 1}. {question}
+        {index + 1}. {question?.question}
       </p>
       <input
         type="radio"
         id="true"
         name="question"
         className="input-yes"
-        checked={resultTest[index] === '0'}
+        checked={resultTest[index]?.answer === 'Có'}
         onChange={(e) => {
           if (e.currentTarget.checked) {
-            handleSelect('0');
+            handleSelect({ test_pool_id: question?.id, answer: 'Có' });
           }
         }}
       />
@@ -35,10 +35,10 @@ const QuestionForm = ({ question, index, resultTest, setResultTest }) => {
         id="false"
         name="question"
         className="input-no"
-        checked={resultTest[index] === '1'}
+        checked={resultTest[index]?.answer === 'Không'}
         onChange={(e) => {
           if (e.currentTarget.checked) {
-            handleSelect('1');
+            handleSelect({ test_pool_id: question?.id, answer: 'Không' });
           }
         }}
       />

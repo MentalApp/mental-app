@@ -11,22 +11,183 @@
       "rank": "b1",
       "position": "Chien si",
       "answer": [
-        { "test_pool_id": 1, "answer": "Co" },
-        { "test_pool_id": 2, "answer": "Khong" },
-        { "test_pool_id": 3, "answer": "Khong" },
-        { "test_pool_id": 4, "answer": "Co" },
-        { "test_pool_id": 5, "answer": "Co" },
-        { "test_pool_id": 6, "answer": "Khong" },
-        { "test_pool_id": 7, "answer": "Khong" },
-        { "test_pool_id": 8, "answer": "Khong" },
-        { "test_pool_id": 9, "answer": "Co" },
-        { "test_pool_id": 10, "answer": "Khong" },
-        { "test_pool_id": 11, "answer": "Co" },
-        { "test_pool_id": 12, "answer": "Khong" }        
+        {
+          "test_pool_id": 1,
+          "answer": "Co"
+        },
+        {
+          "test_pool_id": 2,
+          "answer": "Khong"
+        },
+        {
+          "test_pool_id": 3,
+          "answer": "Khong"
+        },
+        {
+          "test_pool_id": 4,
+          "answer": "Co"
+        },
+        {
+          "test_pool_id": 5,
+          "answer": "Co"
+        },
+        {
+          "test_pool_id": 6,
+          "answer": "Khong"
+        },
+        {
+          "test_pool_id": 7,
+          "answer": "Khong"
+        },
+        {
+          "test_pool_id": 8,
+          "answer": "Khong"
+        },
+        {
+          "test_pool_id": 9,
+          "answer": "Co"
+        },
+        {
+          "test_pool_id": 10,
+          "answer": "Khong"
+        },
+        {
+          "test_pool_id": 11,
+          "answer": "Co"
+        },
+        {
+          "test_pool_id": 12,
+          "answer": "Khong"
+        }
       ],
       "testVersion": "2021/02",
       "otherSymptom": "Đau đầu nhức mỏi, tê bì chân tay",
       "otherPeople": "Đồng chí Nguyễn Ngọc Nghĩa"
+    },
+    {
+      "name": "asdasd",
+      "nation": "asdasd",
+      "unit": "asdasd",
+      "rank": "asdasd",
+      "position": "asdasd",
+      "answer": [
+        {
+          "test_pool_id": 1,
+          "answer": "Không"
+        },
+        {
+          "test_pool_id": 2,
+          "answer": "Có"
+        },
+        {
+          "test_pool_id": 3,
+          "answer": "Có"
+        },
+        {
+          "test_pool_id": 4,
+          "answer": "Không"
+        },
+        {
+          "test_pool_id": 5,
+          "answer": "Có"
+        },
+        {
+          "test_pool_id": 6,
+          "answer": "Không"
+        },
+        {
+          "test_pool_id": 7,
+          "answer": "Có"
+        },
+        {
+          "test_pool_id": 8,
+          "answer": "Không"
+        },
+        {
+          "test_pool_id": 9,
+          "answer": "Có"
+        },
+        {
+          "test_pool_id": 10,
+          "answer": "Không"
+        },
+        {
+          "test_pool_id": 11,
+          "answer": "Không"
+        },
+        {
+          "test_pool_id": 12,
+          "answer": "Không"
+        }
+      ],
+      "testVersion": "2021/02",
+      "otherSymptom": "haha",
+      "otherPeople": "tran van tuan",
+      "id": 2
+    },
+    {
+      "name": "tran van tuan",
+      "dateOfBirth": "1999-01-04T17:00:00.000Z",
+      "nation": "Tay",
+      "gender": "male",
+      "joinArmy": "2021-02-04T17:00:00.000Z",
+      "unit": "ND",
+      "rank": "Thieu uy",
+      "position": "Hau can",
+      "answer": [
+        {
+          "test_pool_id": 1,
+          "answer": "Có"
+        },
+        {
+          "test_pool_id": 2,
+          "answer": "Có"
+        },
+        {
+          "test_pool_id": 3,
+          "answer": "Không"
+        },
+        {
+          "test_pool_id": 4,
+          "answer": "Có"
+        },
+        {
+          "test_pool_id": 5,
+          "answer": "Có"
+        },
+        {
+          "test_pool_id": 6,
+          "answer": "Không"
+        },
+        {
+          "test_pool_id": 7,
+          "answer": "Có"
+        },
+        {
+          "test_pool_id": 8,
+          "answer": "Có"
+        },
+        {
+          "test_pool_id": 9,
+          "answer": "Có"
+        },
+        {
+          "test_pool_id": 10,
+          "answer": "Không"
+        },
+        {
+          "test_pool_id": 11,
+          "answer": "Không"
+        },
+        {
+          "test_pool_id": 12,
+          "answer": "Không"
+        }
+      ],
+      "testVersion": "2021/02",
+      "otherSymptom": "Noi nhieu",
+      "otherPeople": "Nguyen Thanh Nam",
+      "id": 3
     }
   ],
   "tests": [

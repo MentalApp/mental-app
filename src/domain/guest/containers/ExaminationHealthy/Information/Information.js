@@ -25,7 +25,7 @@ const Information = ({ information, setInformation, onClick }) => {
             <div>Năm sinh</div>
             <DatePicker
               value={(!!information?.yearOfBirth && format(information?.yearOfBirth, 'dd/MM/yyyy')) || null}
-              onChange={(date) => setInformation({ ...information, yearOfBirth: date })}
+              onChange={(date) => setInformation({ ...information, yearOfBirth: format(date, 'dd/MM/yyyy') })}
               dataFormat="dd/MM/yyyy"
               showMonthDropdown
               showYearDropdown
@@ -74,11 +74,11 @@ const Information = ({ information, setInformation, onClick }) => {
               onChange={(event) => setInformation({ ...information, nation: event.target.value })}
             />
           </div>
-          <div className="col">
+          <div className="col join-army">
             <div>Nhập ngũ</div>
             <DatePicker
               value={(!!information?.dateOfEnlistment && format(information?.dateOfEnlistment, 'MM/yyyy')) || null}
-              onChange={(date) => setInformation({ ...information, dateOfEnlistment: date })}
+              onChange={(date) => setInformation({ ...information, dateOfEnlistment: format(date, 'dd/MM/yyyy') })}
               dataFormat="mm/yyyy"
               showMonthDropdown
               showYearDropdown

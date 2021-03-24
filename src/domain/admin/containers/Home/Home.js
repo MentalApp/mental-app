@@ -11,6 +11,7 @@ const Home = () => {
             <div className="group-item-filter">
               <div className="title">Đợt kiểm tra</div>
               <select>
+                <option>Tất cả</option>
                 <option>Đợt 1 năm 2021</option>
                 <option>Đợt 2 năm 2021</option>
               </select>
@@ -26,8 +27,17 @@ const Home = () => {
               <input type="number" />
             </div>
             <div className="group-item-filter">
+              <div className="title">Mức độ trung thực</div>
+              <select>
+                <option>Tất cả</option>
+                <option>Trung thực</option>
+                <option>Chưa trung thực</option>
+              </select>
+            </div>
+            <div className="group-item-filter">
               <div className="title">Mức độ vấn đề </div>
               <select>
+                <option>Tất cả</option>
                 <option>Bình thường</option>
                 <option>Có vấn đề</option>
                 <option>Nghiêm trọng</option>

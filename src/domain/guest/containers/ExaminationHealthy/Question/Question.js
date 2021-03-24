@@ -1,17 +1,20 @@
 import React, { useCallback, useState } from 'react';
-import { useQuery } from 'hooks/axios.hooks';
+import { useMutation, useQuery } from 'hooks/axios.hooks';
 import Loading from 'components/Loading';
 import QuestionForm from 'domain/guest/components/QuestionForm/QuestionForm';
 import { Button } from 'react-bootstrap';
 import Wrapper from './Question.styles';
 import PreviewPage from '../PreviewPage';
+import { useNavigation } from 'react-navi';
 
 const Question = ({ information }) => {
   const [count, setCount] = useState(0);
   const [resultTest, setResultTest] = useState([]);
   const [note, setNote] = useState({ for_me: '', for_teammate: '' });
+  const { navigate } = useNavigation();
 
   const { data, loading } = useQuery({ url: '/tests' });
+  const [submit] = useMutation({ url: '/officer_tests', method: 'POST' });
 
   const handleEvent = useCallback(
     (action) => {
@@ -25,6 +28,29 @@ const Question = ({ information }) => {
     [count],
   );
 
+  const handleSubmit = useCallback(() => {
+    submit({
+      name: information?.name,
+      dateOfBirth: information?.yearOfBirth,
+      nation: information?.nation,
+      gender: information?.gender,
+      joinArmy: information?.dateOfEnlistment,
+      unit: information?.unit,
+      rank: information?.rank,
+      position: information?.position,
+      answer: resultTest,
+      testVersion: '2021/02',
+      otherSymptom: note?.for_me,
+      otherPeople: note?.for_teammate,
+    })
+      .then((response) => {
+        // if (response.data.success) {
+        navigate('/thanks');
+        // }
+      })
+      .catch((error) => console.log(error));
+  }, [information, note, navigate, resultTest, submit]);
+
   if (count === data?.length + 1) {
     return (
       <PreviewPage
@@ -33,6 +59,7 @@ const Question = ({ information }) => {
         data={data}
         note={note}
         handlePrevious={() => handleEvent('previous')}
+        handleSubmit={handleSubmit}
       />
     );
   }
@@ -42,7 +69,7 @@ const Question = ({ information }) => {
       {loading && <Loading />}
       {count < data?.length && (
         <QuestionForm
-          question={!!data && data[count].question}
+          question={!!data && data[count]}
           index={count}
           resultTest={resultTest}
           setResultTest={setResultTest}

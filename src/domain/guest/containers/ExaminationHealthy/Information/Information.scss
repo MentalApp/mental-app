@@ -1,30 +1,38 @@
-@import "src/common/style/variable";
+@import 'src/common/style/variable';
 
 .root-info-form {
-    height: 100%;
-    background-color: #f0ede9;
+  height: 100%;
+  background-color: #f0ede9;
+  display: flex;
+  position: relative;
+  align-items: center;
+  .wrap-form {
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    border: 1px solid #e0e0e0;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
     display: flex;
-    position: relative;
-    align-items: center;
-    .wrap-form {
-        width: 500px;
-        height: 500px;
-        margin: auto;
-        border: 1px solid #e0e0e0;
-        padding: 30px;
-        background-color: #fff;
-        box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
-        display: flex;
-        flex-direction: column;
+    flex-direction: column;
 
-        button.btn-control {
-            background-color: $main-color;
-        }
-        .row {
-            margin-top: 15px;
-            div.info-container {
-                width: 100%;
-            }
-        }
+    button.btn-control {
+      background-color: $main-color;
     }
+    .row {
+      margin-top: 15px;
+      div.info-container {
+        width: 100%;
+      }
+    }
+    .join-army {
+      .react-datepicker {
+        left: -100px;
+      }
+      .react-datepicker__triangle {
+        left: 160px !important;
+      }
+    }
+  }
 }

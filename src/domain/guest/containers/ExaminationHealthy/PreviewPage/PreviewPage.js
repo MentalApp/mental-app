@@ -4,15 +4,12 @@ import TablePaginationData from 'components/TablePagination';
 import QuestionHeader from 'domain/guest/components/QuestionHeader/QuestionHeader';
 import Wrapper from './PreviewPage.styles';
 import { Button } from 'react-bootstrap';
-import { useNavigation } from 'react-navi';
 
-const PreviewPage = ({ information, resultTest, data, note, handlePrevious }) => {
-  const { navigate } = useNavigation();
-
+const PreviewPage = ({ information, resultTest, data, note, handlePrevious, handleSubmit }) => {
   const restructureData = useMemo(() => {
     return data.map((item, index) => ({
       question: `${index + 1}. ${item.question}`,
-      answer: resultTest[index] === '0' ? 'Có' : 'Không',
+      answer: resultTest[index].answer,
     }));
   }, [data, resultTest]);
 
@@ -37,7 +34,7 @@ const PreviewPage = ({ information, resultTest, data, note, handlePrevious }) =>
           Trở lại
         </Button>
 
-        <Button variant="outline-success" onClick={() => navigate('/thanks')}>
+        <Button variant="outline-success" onClick={handleSubmit}>
           Nộp
         </Button>
       </div>
