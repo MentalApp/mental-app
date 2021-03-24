@@ -1,17 +1,17 @@
 import React, { useCallback, useState } from 'react';
 import { useQuery } from 'hooks/axios.hooks';
 import Loading from 'components/Loading';
-import QuestionHeader from 'domain/guest/components/QuestionHeader/QuestionHeader';
 import QuestionForm from 'domain/guest/components/QuestionForm/QuestionForm';
 import { Button } from 'react-bootstrap';
 import Wrapper from './Question.styles';
+import PreviewPage from '../PreviewPage';
 
 const Question = ({ information }) => {
   const [count, setCount] = useState(0);
   const [resultTest, setResultTest] = useState([]);
   const [note, setNote] = useState({ for_me: '', for_teammate: '' });
 
-  const { data, loading } = useQuery({ url: '/questions' });
+  const { data, loading } = useQuery({ url: '/tests' });
 
   const handleEvent = useCallback(
     (action) => {
@@ -25,10 +25,21 @@ const Question = ({ information }) => {
     [count],
   );
 
+  if (count === data?.length + 1) {
+    return (
+      <PreviewPage
+        information={information}
+        resultTest={resultTest}
+        data={data}
+        note={note}
+        handlePrevious={() => handleEvent('previous')}
+      />
+    );
+  }
+
   return (
     <Wrapper>
       {loading && <Loading />}
-      <QuestionHeader information={information} />
       {count < data?.length && (
         <QuestionForm
           question={!!data && data[count].question}
@@ -44,14 +55,12 @@ const Question = ({ information }) => {
             value={note.for_me}
             onChange={(event) => setNote({ ...note, for_me: event.target.value })}
             rows="4"
-            cols="80"
           />
           <p>Các đồng chí trong cùng đơn vị có biểu hiện bất thường hoặc có triệu chứng bệnh như trên (nếu có):</p>
           <textarea
             value={note.for_teammate}
             onChange={(event) => setNote({ ...note, for_teammate: event.target.value })}
             rows="4"
-            cols="80"
           />
         </div>
       )}
@@ -65,7 +74,7 @@ const Question = ({ information }) => {
           </Button>
         )}
         {count === data?.length && (
-          <Button variant="outline-success" onClick={() => alert('ok')}>
+          <Button variant="outline-success" onClick={() => handleEvent('next')}>
             Kết thúc
           </Button>
         )}
