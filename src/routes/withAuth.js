@@ -10,5 +10,5 @@ export default (matcher) =>
       return matcher;
     }
 
-    return redirect('/sign_in');
+    return redirect('/');
   });

@@ -1,15 +1,26 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  .filter {
+  background-color: #f0ede9;
+  overflow: auto;
+
+  .information {
+    padding: 30px;
     background-color: #fff;
-    padding: 15px;
   }
 
   table {
     thead {
       border-top: 1px solid #707070;
       border-bottom: 1px solid #707070;
+
+      .question {
+        padding-left: 50px;
+      }
+      .answer {
+        width: 12%;
+        white-space: nowrap;
+      }
     }
     p {
       margin-bottom: 0;
@@ -74,11 +85,40 @@ const Wrapper = styled.div`
   .three-up {
     width: 100%;
     background-color: #fff;
-    padding-bottom: 30px;
 
     .notice-table {
       width: 100%;
-      border-bottom: 1px solid #707070;
+    }
+  }
+
+  .note-information {
+    background-color: #fff;
+    padding: 30px;
+    border-bottom: 1px solid #707070;
+  }
+
+  .note-answer {
+    margin-left: 20px;
+  }
+
+  .note-by-doctor {
+    background-color: #fff;
+    margin-bottom: 100px;
+    padding: 30px;
+
+    textarea {
+      width: 100%;
+    }
+
+    .button-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+
+      button {
+        width: 105px;
+      }
     }
   }
 `;
