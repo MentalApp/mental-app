@@ -1,15 +1,58 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import Wrapper from './ExaminationHealthy.styles';
 import Information from './Information';
 import Question from './Question';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 const ExaminationHealth = () => {
   const [toExamtest, setToExamTest] = useState(false);
   const [information, setInformation] = useState({});
 
+  const initialValues = {
+    name: information?.name || '',
+    yearOfBirth: information?.yearOfBirth || '',
+    gender: information?.gender || '',
+    nation: information?.nation || '',
+    dateOfEnlistment: information?.dateOfEnlistment || '',
+    unit: information?.unit || '',
+    rank: information?.rank || '',
+    position: information?.position || '',
+  };
+
+  const validationSchema = Yup.object({
+    name: Yup.string().required('*Bắt buộc').trim().max(255, 'Tên quá dài'),
+    yearOfBirth: Yup.string().required('*Bắt buộc'),
+    gender: Yup.string().required('*Bắt buộc'),
+    nation: Yup.string().required('*Bắt buộc').trim(),
+    dateOfEnlistment: Yup.string().required('*Bắt buộc'),
+    unit: Yup.string().required('*Bắt buộc').trim(),
+    rank: Yup.string().required('*Bắt buộc').trim(),
+    position: Yup.string().required('*Bắt buộc').trim(),
+  });
+
+  const handleSubmit = useCallback(
+    (values) => {
+      const valuesCasted = validationSchema.cast(values);
+      const valuesCloned = { ...valuesCasted };
+      setInformation(valuesCloned);
+      setToExamTest(true);
+    },
+    [validationSchema],
+  );
+
   if (!toExamtest) {
-    return <Information onClick={setToExamTest} information={information} setInformation={setInformation} />;
+    return (
+      <Formik
+        initialValues={initialValues}
+        enableReinitialize
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {(props) => <Information {...props} />}
+      </Formik>
+    );
   }
   return (
     <Wrapper>

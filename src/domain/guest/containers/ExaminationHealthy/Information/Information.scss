@@ -1,14 +1,14 @@
 @import 'src/common/style/variable';
 
 .root-info-form {
-  height: 100%;
+  height: 100vh;
   background-color: #f0ede9;
   display: flex;
   position: relative;
   align-items: center;
+
   .wrap-form {
     width: 500px;
-    height: 500px;
     margin: auto;
     border: 1px solid #e0e0e0;
     padding: 30px;
@@ -34,5 +34,14 @@
         left: 160px !important;
       }
     }
+  }
+
+  .error-text {
+    margin: 0;
+    color: red;
+  }
+
+  .has-error {
+    border-color: red !important;
   }
 }

@@ -5,11 +5,12 @@ import { Container } from 'react-bootstrap';
 import { useNavigation } from 'react-navi';
 import Filter from './Filter';
 import Wrapper from './Home.styles';
+import data from './mockData.json';
 
 const Home = () => {
   const { navigate } = useNavigation();
 
-  const { data } = useQuery({ url: '/officer_tests' });
+  // const { data } = useQuery({ url: '/officer_tests' });
   console.log(data);
   const collums = [
     {
