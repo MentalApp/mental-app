@@ -2,10 +2,13 @@ import TablePaginationData from 'components/TablePagination';
 import { useQuery } from 'hooks/axios.hooks';
 import React, { useMemo } from 'react';
 import { Container } from 'react-bootstrap';
+import { useNavigation } from 'react-navi';
 import Filter from './Filter';
 import Wrapper from './Home.styles';
 
 const Home = () => {
+  const { navigate } = useNavigation();
+
   const { data } = useQuery({ url: '/officer_tests' });
   console.log(data);
   const collums = [
@@ -53,10 +56,10 @@ const Home = () => {
       !!data &&
       data?.map((item) => ({
         ...item,
-        onClick: () => alert('detail'),
+        onClick: () => navigate(`/home/${item.id}`),
       }))
     );
-  }, [data]);
+  }, [data, navigate]);
   return (
     <Wrapper>
       <Container>

@@ -1,23 +1,33 @@
 import React from 'react';
 
-import { route } from 'navi';
+import { mount, route, withView } from 'navi';
 
 import withNotAuth from 'routes/withNotAuth';
 import Home from '../containers/Home';
 import CommonLayout from 'containers/layouts/CommonLayout';
 import QuestionSurvey from '../containers/QuestionSurvey';
 import SignIn from '../containers/SignIn';
+import { View } from 'react-navi';
+import Detail from '../containers/Home/Detail';
 
 export const routes = {
-  '/sign_in': withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <SignIn /> })),
-  '/': withNotAuth(
-    '/',
-    route({
-      title: 'guest.routes.resource.sign_in',
-      view: (
-        <CommonLayout>
-          <Home />
-        </CommonLayout>
+  '/': withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <SignIn /> })),
+  '/home': withView(
+    <CommonLayout>
+      <View />
+    </CommonLayout>,
+    mount({
+      '/': withNotAuth(
+        '/',
+        route({
+          view: <Home />,
+        }),
+      ),
+      '/:id': withNotAuth(
+        '/:id',
+        route((req) => ({
+          view: <Detail id={req.params.id} />,
+        })),
       ),
     }),
   ),

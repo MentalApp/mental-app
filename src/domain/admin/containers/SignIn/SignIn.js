@@ -13,7 +13,7 @@ const SignIn = () => {
         <Form>
           <Form.Control placeholder="Tài khoản" />
           <Form.Control type="password" placeholder="Mật khẩu" />
-          <Button variant="outline-primary" onClick={() => navigate('/')}>
+          <Button variant="outline-primary" onClick={() => navigate('/home')}>
             Đăng nhập
           </Button>
         </Form>
