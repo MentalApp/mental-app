@@ -1,10 +1,8 @@
-const InformationForm = ({ label, onChange, type = 'text' }) => {
+const InformationForm = ({ label, onChange, value, type = 'text', ...props }) => {
   return (
     <div className="info-container">
       <div>{label}</div>
-      <div>
-        <input type={type} className="input-control" onChange={onChange}></input>
-      </div>
+      <input value={value} type={type} className="input-control" onChange={onChange} {...props}></input>
     </div>
   );
 };

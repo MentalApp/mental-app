@@ -7,13 +7,51 @@ const Wrapper = styled.div`
   align-items: center;
 
   .form-sign_in {
-    width: 260px;
+    padding: 50px;
     margin: 0 auto;
+    position: relative;
+    background: #fff;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 10px 34px -15px rgb(0 0 0 / 24%);
+    -moz-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
+    box-shadow: 0px 10px 34px -15px rgb(0 0 0 / 24%);
 
+    .icon-user {
+      margin: auto;
+      width: 80px;
+      height: 80px;
+      background-color: #8d448b;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
     .title {
       font-size: 28px;
       text-align: center;
       margin-bottom: 15px;
+      color: #8d448b;
+    }
+
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #8d448b;
+
+      .remember {
+        position: relative;
+      }
+
+      .check-label {
+        color: #8d448b;
+        padding-left: 25px;
+
+        .checkmark {
+          top: 1.5px;
+        }
+      }
     }
 
     form {
@@ -24,7 +62,14 @@ const Wrapper = styled.div`
       margin-bottom: 10px;
     }
     button {
-      margin: 0 auto;
+      position: absolute;
+      bottom: -15px;
+      margin: auto;
+      left: 0;
+      right: 0;
+      background-color: #8d448b;
+      border-color: #8d448b;
+      padding: 10px 30px;
     }
   }
 `;
