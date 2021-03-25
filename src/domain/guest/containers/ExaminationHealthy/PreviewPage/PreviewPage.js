@@ -9,7 +9,7 @@ const PreviewPage = ({ information, resultTest, data, note, handlePrevious, hand
   const restructureData = useMemo(() => {
     return data.map((item, index) => ({
       question: `${index + 1}. ${item.question}`,
-      answer: resultTest[index]?.answer,
+      answer: resultTest[index]?.answer || '',
     }));
   }, [data, resultTest]);
 
