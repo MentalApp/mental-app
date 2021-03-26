@@ -22,16 +22,8 @@ const Home = () => {
       field: 'name',
     },
     {
-      name: 'Giới tính',
-      field: 'gender',
-    },
-    {
       name: 'Ngày sinh',
       field: 'dateOfBirth',
-    },
-    {
-      name: 'Dân tộc',
-      field: 'nation',
     },
     {
       name: 'Đơn vị',
@@ -49,6 +41,10 @@ const Home = () => {
       name: 'Ngày nhập ngũ',
       field: 'joinArmy',
     },
+    {
+      name: 'Nghi ngờ',
+      field: 'gender',
+    },
   ];
 
   const restructureData = useMemo(() => {
@@ -63,7 +59,7 @@ const Home = () => {
   }, [data, navigate]);
   return (
     <Wrapper>
-      <Container>
+      <Container fluid>
         <div className="filter">
           <Filter />
         </div>

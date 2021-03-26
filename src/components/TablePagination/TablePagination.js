@@ -3,7 +3,7 @@ import React from 'react';
 import get from 'lodash/get';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
+import { Container, Row, Table, Col } from 'react-bootstrap';
 import Loading from 'components/Loading';
 import Pagination from 'components/Pagination';
 
@@ -64,56 +64,62 @@ const TablePaginationData = ({
   const colSpan = columns.length + (sortTitle ? 1 : 0);
 
   return (
-    <Wrapper className="three-up d-block">
-      <div className="table-pagination-wrapper">
-        <table className="table-borderless notice-table" style={customStyle}>
-          {!hiddenHeader && (
-            <thead>
-              <tr>
-                {columns.map(({ name, field }, index) => (
-                  <th key={index} className={field} onClick={field === sortBy ? onSort : undefined}>
-                    {name}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-          )}
-          <tbody>
-            {isLoading && (
-              <tr className="empty-data">
-                <td colSpan={colSpan}>
-                  <Loading />
-                </td>
-              </tr>
-            )}
+    <Container fluid>
+      <Row>
+        <Col sm={12}>
+          <Wrapper className="three-up d-block">
+            <div className="table-pagination-wrapper">
+              <Table striped bordered hover responsive>
+                {!hiddenHeader && (
+                  <thead>
+                    <tr>
+                      {columns.map(({ name, field }, index) => (
+                        <th key={index} className={field} onClick={field === sortBy ? onSort : undefined}>
+                          {name}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                )}
+                <tbody>
+                  {isLoading && (
+                    <tr className="empty-data">
+                      <td colSpan={colSpan}>
+                        <Loading />
+                      </td>
+                    </tr>
+                  )}
 
-            {!isLoading && !data.length && (
-              <tr className="empty-data">
-                <td className="text-center" colSpan={colSpan}>
-                  Không có dữ liệu.
-                </td>
-              </tr>
-            )}
+                  {!isLoading && !data.length && (
+                    <tr className="empty-data">
+                      <td className="text-center" colSpan={colSpan}>
+                        Không có dữ liệu.
+                      </td>
+                    </tr>
+                  )}
 
-            {!isLoading &&
-              data.map((row, index) => (
-                <tr key={index} onClick={row.onClick} className={row.className || ''}>
-                  {columns.map(({ field }, index) => (
-                    <td key={index} className={'td-' + field} colSpan={0}>
-                      <div>{get(row, field, '')}</div>
-                    </td>
-                  ))}
-                </tr>
-              ))}
-          </tbody>
-        </table>
-      </div>
-      {totalPages !== 0 && (
-        <div className="pagination block">
-          <Pagination currentPage={page} totalPages={totalPages} onChange={onChangePage} />
-        </div>
-      )}
-    </Wrapper>
+                  {!isLoading &&
+                    data.map((row, index) => (
+                      <tr key={index} onClick={row.onClick} className={row.className || ''}>
+                        {columns.map(({ field }, index) => (
+                          <td key={index} className={'td-' + field} colSpan={0}>
+                            <div>{get(row, field, '')}</div>
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+            </div>
+            {totalPages !== 0 && (
+              <div className="pagination block">
+                <Pagination currentPage={page} totalPages={totalPages} onChange={onChangePage} />
+              </div>
+            )}
+          </Wrapper>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

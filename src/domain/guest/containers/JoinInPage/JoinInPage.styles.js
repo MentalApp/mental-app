@@ -47,16 +47,3 @@ export default styled.div`
     text-align: center;
   }
 `;
-
-// button {
-//   margin-top: 20px;
-//   background-color: #4caf50; /* Green */
-//   border: none;
-//   color: white;
-//   padding: 15px 32px;
-//   text-align: center;
-//   text-decoration: none;
-//   display: inline-block;
-//   font-size: 16px;
-//   // position: absolute;
-// }
