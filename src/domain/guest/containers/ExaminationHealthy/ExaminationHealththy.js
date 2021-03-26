@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Container } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import Wrapper from './ExaminationHealthy.styles';
 import Information from './Information';
 import Question from './Question';
@@ -57,7 +57,11 @@ const ExaminationHealth = () => {
   return (
     <Wrapper>
       <Container>
-        <Question information={information} />
+        <Row className="justify-content-center">
+          <Col sm={11} md={10} lg={7}>
+            <Question information={information} />
+          </Col>
+        </Row>
       </Container>
     </Wrapper>
   );

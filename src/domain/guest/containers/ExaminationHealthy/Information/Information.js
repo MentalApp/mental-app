@@ -6,7 +6,7 @@ import './Information.scss';
 import vi from 'date-fns/locale/vi';
 import InformationForm from 'domain/guest/components/InformationForm/InformationForm';
 import { format } from 'date-fns';
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 
 registerLocale('vi', vi);
 const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) => {
@@ -137,9 +137,9 @@ const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) =
           </div>
           <div className="row">
             <div className="col-12" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <button className="btn-control" type="submit">
+              <Button variant="outline-success" className="justify-content-center buttonTest" type="submit">
                 Vào test
-              </button>
+              </Button>
             </div>
           </div>
         </div>

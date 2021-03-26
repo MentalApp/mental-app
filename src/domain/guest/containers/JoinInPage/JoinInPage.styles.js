@@ -10,11 +10,15 @@ export default styled.div`
 
   .login-form {
     margin: 0 auto;
+    color: #dd4b39;
+    justify-content: center;
 
     input.form-control {
       height: 40px;
-      width: 100%;
       padding: 8px;
+      width: 100%;
+      text-align: center;
+      border: 1px solid #c3b9b9;
     }
     .has-error {
       input {
@@ -31,22 +35,28 @@ export default styled.div`
     background-color: #fff;
     padding: 50px;
     box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
-    border: 1px solid #e0e0e0;
+    border: 1px solid #c3b9b9;
   }
-  button {
-    margin-top: 20px;
-    background-color: #4caf50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
+  .title {
+    padding: 10px;
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    // position: absolute;
   }
+
   .wrapper {
-    width: 280px;
+    padding: 10px;
     text-align: center;
   }
 `;
+
+// button {
+//   margin-top: 20px;
+//   background-color: #4caf50; /* Green */
+//   border: none;
+//   color: white;
+//   padding: 15px 32px;
+//   text-align: center;
+//   text-decoration: none;
+//   display: inline-block;
+//   font-size: 16px;
+//   // position: absolute;
+// }
