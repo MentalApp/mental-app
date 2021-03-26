@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
-  padding: 50px 30px;
+  padding: 10px 30px;
   .active {
     color: #29afaf;
   }

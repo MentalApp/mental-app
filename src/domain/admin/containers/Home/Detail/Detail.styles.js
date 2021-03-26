@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   .information {
     padding: 30px;
     background-color: #fff;
+    margin: 10px 15px;
   }
 
   table {
@@ -94,6 +95,7 @@ const Wrapper = styled.div`
   .note-information {
     background-color: #fff;
     padding: 30px;
+    margin: 10px 15px;
     border-bottom: 1px solid #707070;
   }
 
@@ -105,6 +107,7 @@ const Wrapper = styled.div`
     background-color: #fff;
     margin-bottom: 100px;
     padding: 30px;
+    margin: 10px 15px;
 
     textarea {
       width: 100%;

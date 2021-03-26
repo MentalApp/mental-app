@@ -24,21 +24,21 @@ const Detail = ({ id }) => {
       <Container>
         <div className="information">
           <div className="row">
-            <p className="col"> Họ và tên: {data?.name || ''} </p>
-            <p className="col">Đợt kiểm tra: {data?.testVersion || ''}</p>
+            <p className="col"> Họ và tên: {data?.name || '-'} </p>
+            <p className="col">Đợt kiểm tra: {data?.testVersion || '-'}</p>
           </div>
           <div className="row">
-            <p className="col">Năm sinh: {data?.dateOfBirth || ''} </p>
-            <p className="col"> Giới tính: {data?.gender || ''} </p>
+            <p className="col">Năm sinh: {data?.dateOfBirth || '-'} </p>
+            <p className="col"> Giới tính: {data?.gender || '-'} </p>
           </div>
           <div className="row">
-            <p className="col"> Dân tộc: {data?.nation || ''} </p>
-            <p className="col">Nhập ngũ: {data?.joinArmy || ''} </p>
+            <p className="col"> Dân tộc: {data?.nation || '-'} </p>
+            <p className="col">Nhập ngũ: {data?.joinArmy || '-'} </p>
           </div>
-          <p> Đơn vị: {data?.unit || ''} </p>
+          <p> Đơn vị: {data?.unit || '-'} </p>
           <div className="row">
-            <p className="col"> Cấp bậc: {data?.rank || ''} </p>
-            <p className="col"> Chức vụ: {data?.position || ''} </p>
+            <p className="col"> Cấp bậc: {data?.rank || '-'} </p>
+            <p className="col"> Chức vụ: {data?.position || '-'} </p>
           </div>
         </div>
         <TablePaginationData

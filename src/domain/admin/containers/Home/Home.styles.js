@@ -4,6 +4,7 @@ const Wrapper = styled.div`
   .filter {
     background-color: #fff;
     padding: 15px;
+    margin: 10px;
   }
 
   table {
