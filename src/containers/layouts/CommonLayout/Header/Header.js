@@ -1,22 +1,87 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useCurrentRoute, useNavigation } from 'react-navi';
 import Wrapper from './Header.styles';
+import { Navigation } from 'react-minimal-side-navigation';
+import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
+import { AlignLeft, Home, Power, Server, X } from 'react-feather';
 
 const Header = () => {
   const { navigate } = useNavigation();
   const activeRoute = useCurrentRoute().url.pathname;
-
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   return (
     <Wrapper>
-      <div onClick={() => navigate('/home')} className={`item-header ${activeRoute.includes('/home') ? 'active' : ''}`}>
-        Trang chủ
+      <div>
+        <button className="btn-menu" onClick={() => setIsSidebarOpen(true)} type="button">
+          <AlignLeft name="burger" className="w-6 h-6" />
+        </button>
       </div>
-      <div
-        onClick={() => navigate('/question')}
-        className={`item-header ${activeRoute.includes('/question') ? 'active' : ''}`}
-      >
-        Câu hỏi khảo sát
-      </div>
+
+      {/* Sidebar */}
+      {isSidebarOpen && (
+        <div className="side-bar-menu">
+          <div className="title">
+            <span>Ứng dụng khảo sát</span>
+            <X className="button-close" onClick={() => setIsSidebarOpen(false)} />
+          </div>
+
+          <Navigation
+            activeItemId={activeRoute}
+            onSelect={({ itemId }) => {
+              navigate(itemId);
+              setIsSidebarOpen(false);
+            }}
+            items={[
+              {
+                title: 'Trang chủ',
+                itemId: '/home',
+                elemBefore: () => <Home />,
+              },
+              {
+                title: 'Câu hỏi khảo sát',
+                itemId: '/question',
+                elemBefore: () => <Server name="user" />,
+                // subNav: [
+                //   {
+                //     title: 'Bộ câu hỏi',
+                //     itemId: '/question',
+                //   },
+                //   {
+                //     title: 'Kỳ khảo sát',
+                //     itemId: '/about/members',
+                //   },
+                // ],
+              },
+              // {
+              //   title: 'Chức năng khác',
+              //   subNav: [
+              //     {
+              //       title: 'Teams',
+              //       itemId: '/another/teams',
+              //     },
+              //   ],
+              // },
+            ]}
+          />
+
+          <div className="settings">
+            <Navigation
+              activeItemId={activeRoute}
+              items={[
+                {
+                  title: 'Đăng xuất',
+                  itemId: '/',
+                  elemBefore: () => <Power name="activity" />,
+                },
+              ]}
+              onSelect={({ itemId }) => {
+                navigate(itemId);
+                setIsSidebarOpen(false);
+              }}
+            />
+          </div>
+        </div>
+      )}
     </Wrapper>
   );
 };
