@@ -8,6 +8,7 @@ const Wrapper = styled.div`
     padding: 30px;
     background-color: #fff;
     margin: 10px 15px;
+    border-radius: 7px;
   }
 
   table {
@@ -97,10 +98,13 @@ const Wrapper = styled.div`
     padding: 30px;
     margin: 10px 15px;
     border-bottom: 1px solid #707070;
+    border-radius: 7px;
   }
 
   .note-answer {
     margin-left: 20px;
+    border-bottom: 1px dotted;
+    overflow-wrap: break-word;
   }
 
   .note-by-doctor {
@@ -108,6 +112,7 @@ const Wrapper = styled.div`
     margin-bottom: 100px;
     padding: 30px;
     margin: 10px 15px;
+    border-radius: 7px;
 
     textarea {
       width: 100%;
