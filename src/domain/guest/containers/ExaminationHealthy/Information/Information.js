@@ -14,6 +14,8 @@ const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) =
     <Form onSubmit={handleSubmit}>
       <div className="root-info-form">
         <div className="wrap-form">
+          <p className="text-center text--tiltle">Nhập thông tin cá nhân.</p>
+          <hr className="m-0 text-center" />
           <div className="row">
             <div className="col-12">
               <InformationForm
@@ -103,7 +105,6 @@ const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) =
               )}
             </div>
           </div>
-
           <div className="row">
             <div className="col-12">
               <InformationForm
