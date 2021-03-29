@@ -92,6 +92,8 @@ const Wrapper = styled.div`
 
   .note-answer {
     margin-left: 20px;
+    border-bottom: 1px dotted;
+    overflow-wrap: break-word;
   }
 
   .group-button {

@@ -5,6 +5,10 @@ const Wrapper = styled.div`
   margin-top: 30px;
   padding: 15px 30px;
 
+  .format--quest {
+    padding: 10px 0px 100px 0px;
+  }
+
   input {
     margin-right: 5px;
   }

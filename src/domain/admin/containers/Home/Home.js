@@ -1,5 +1,5 @@
 import TablePaginationData from 'components/TablePagination';
-import { useQuery } from 'hooks/axios.hooks';
+// import { useQuery } from 'hooks/axios.hooks';
 import React, { useMemo } from 'react';
 import { Container } from 'react-bootstrap';
 import { useNavigation } from 'react-navi';
@@ -9,9 +9,7 @@ import data from './mockData.json';
 
 const Home = () => {
   const { navigate } = useNavigation();
-
   // const { data } = useQuery({ url: '/officer_tests' });
-  console.log(data);
   const collums = [
     {
       name: 'Đợt kiểm tra',
@@ -57,6 +55,7 @@ const Home = () => {
       }))
     );
   }, [data, navigate]);
+
   return (
     <Wrapper>
       <Container fluid>

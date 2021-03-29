@@ -42,6 +42,10 @@ export default styled.div`
     text-align: center;
   }
 
+  .alert {
+    margin: 10px 0px;
+  }
+
   .wrapper {
     padding: 10px;
     text-align: center;

@@ -29,6 +29,7 @@ const Wrapper = styled.div`
     align-items: center;
     display: flex;
     text-align: right;
+    padding: 0px;
   }
 
   .empty-data {
@@ -37,6 +38,11 @@ const Wrapper = styled.div`
     td {
       vertical-align: middle;
     }
+  }
+
+  .no-padding {
+    width: 100%;
+    padding: 0px;
   }
 
   tbody {
@@ -67,50 +73,49 @@ const TablePaginationData = ({
     <Container fluid>
       <Row>
         <Col sm={12}>
-          <Wrapper className="three-up d-block">
-            <div className="table-pagination-wrapper">
-              <Table striped bordered hover responsive>
-                {!hiddenHeader && (
-                  <thead>
-                    <tr>
-                      {columns.map(({ name, field }, index) => (
-                        <th key={index} className={field} onClick={field === sortBy ? onSort : undefined}>
-                          {name}
-                        </th>
+          <Wrapper className="no-padding">
+            <Table striped bordered hover responsive>
+              {!hiddenHeader && (
+                <thead>
+                  <tr>
+                    {columns.map(({ name, field }, index) => (
+                      <th key={index} className={field} onClick={field === sortBy ? onSort : undefined}>
+                        {name}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+              )}
+              <tbody>
+                {isLoading && (
+                  <tr className="empty-data">
+                    <td colSpan={colSpan}>
+                      <Loading />
+                    </td>
+                  </tr>
+                )}
+
+                {!isLoading && !data.length && (
+                  <tr className="empty-data">
+                    <td className="text-center" colSpan={colSpan}>
+                      Không có dữ liệu.
+                    </td>
+                  </tr>
+                )}
+
+                {!isLoading &&
+                  data.map((row, index) => (
+                    <tr key={index} onClick={row.onClick} className={row.className || ''}>
+                      {columns.map(({ field }, index) => (
+                        <td key={index} className={'td-' + field} colSpan={0}>
+                          <div>{get(row, field, '')}</div>
+                        </td>
                       ))}
                     </tr>
-                  </thead>
-                )}
-                <tbody>
-                  {isLoading && (
-                    <tr className="empty-data">
-                      <td colSpan={colSpan}>
-                        <Loading />
-                      </td>
-                    </tr>
-                  )}
-
-                  {!isLoading && !data.length && (
-                    <tr className="empty-data">
-                      <td className="text-center" colSpan={colSpan}>
-                        Không có dữ liệu.
-                      </td>
-                    </tr>
-                  )}
-
-                  {!isLoading &&
-                    data.map((row, index) => (
-                      <tr key={index} onClick={row.onClick} className={row.className || ''}>
-                        {columns.map(({ field }, index) => (
-                          <td key={index} className={'td-' + field} colSpan={0}>
-                            <div>{get(row, field, '')}</div>
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                </tbody>
-              </Table>
-            </div>
+                  ))}
+              </tbody>
+            </Table>
+            <hr />
             {totalPages !== 0 && (
               <div className="pagination block">
                 <Pagination currentPage={page} totalPages={totalPages} onChange={onChangePage} />

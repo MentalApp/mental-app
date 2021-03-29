@@ -1,5 +1,5 @@
 import TablePaginationData from 'components/TablePagination';
-import { useQuery } from 'hooks/axios.hooks';
+// import { useQuery } from 'hooks/axios.hooks';
 import React, { useMemo } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import Wrapper from './Detail.styles';

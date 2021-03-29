@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import { useMutation, useQuery } from 'hooks/axios.hooks';
-import Loading from 'components/Loading';
+import { useMutation } from 'hooks/axios.hooks';
+// import Loading from 'components/Loading';
 import QuestionForm from 'domain/guest/components/QuestionForm/QuestionForm';
 import { Button } from 'react-bootstrap';
 import Wrapper from './Question.styles';
@@ -16,7 +16,6 @@ const Question = ({ information }) => {
 
   // const { data, loading } = useQuery({ url: '/tests' });
   const [submit] = useMutation({ url: '/officer_tests', method: 'POST' });
-
   const handleEvent = useCallback(
     (action) => {
       if (action === 'next') {
@@ -49,7 +48,9 @@ const Question = ({ information }) => {
         navigate('/thanks');
         // }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+      });
   }, [information, note, navigate, resultTest, submit]);
 
   if (count === data?.length + 1) {

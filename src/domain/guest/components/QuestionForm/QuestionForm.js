@@ -15,7 +15,7 @@ const QuestionForm = ({ question, index, resultTest, setResultTest }) => {
   return (
     <Wrapper>
       <div>
-        <p>
+        <p className="format--quest">
           {index + 1}. {question?.question}
         </p>
         <input

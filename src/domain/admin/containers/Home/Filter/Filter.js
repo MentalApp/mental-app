@@ -1,6 +1,6 @@
 import React from 'react';
 import Wrapper from './Filter.styles';
-import { Container, Row, Table, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const Filter = () => {
   return (

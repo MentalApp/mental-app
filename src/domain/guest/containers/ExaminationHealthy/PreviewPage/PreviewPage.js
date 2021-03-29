@@ -16,6 +16,7 @@ const PreviewPage = ({ information, resultTest, data, note, handlePrevious, hand
   return (
     <Wrapper>
       <QuestionHeader information={information} />
+      <hr />
       <TablePaginationData
         columns={[
           { name: 'Câu hỏi', field: 'question' },
