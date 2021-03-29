@@ -7,6 +7,7 @@ const CommonLayout = ({ children }) => {
   return (
     <CommonLayoutWrapper>
       <Header />
+      <div id="overlay"></div>
       {children}
     </CommonLayoutWrapper>
   );

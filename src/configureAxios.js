@@ -2,12 +2,12 @@ import axios from 'axios';
 import get from 'lodash/get';
 
 import { authService } from 'utils/auth.service';
-// import { getCurrentEndpoint } from 'utils/endpoint';
+import { getCurrentEndpoint } from 'utils/endpoint';
 
 const TIMEOUT = 65 * 1000;
 
 const request = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_API_URL + getCurrentEndpoint(),
   timeout: TIMEOUT,
 });
 
