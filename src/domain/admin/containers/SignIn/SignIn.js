@@ -5,18 +5,27 @@ import { Button, Form } from 'react-bootstrap';
 import { User } from 'react-feather';
 import { useNavigation } from 'react-navi';
 import Wrapper from './SignIn.styles';
+import { authService } from 'utils/auth.service';
 
 const SignIn = () => {
   const [loginInfo, setLoginInfo] = useState({});
   const [remember, setRemember] = useState(false);
   const { navigate } = useNavigation();
 
-  const [signin] = useMutation({ url: '/api/admin/login' });
+  const [signin] = useMutation({ url: '/login' });
 
   const handleLogin = useCallback(() => {
     signin({ email: loginInfo.email, password: loginInfo.password })
-      .then((req) => {
-        if (req.success) {
+      .then((response) => {
+        if (response.data.success) {
+          const { headers } = response;
+          delete headers['content-type'];
+          authService.login({
+            currentUser: { ...response.data.data, role: response.data.role },
+            token: headers,
+            // isRememberMe: !!valuesCasted.rememberMe,
+            // isCheckingStaffRole: !!isCheckViewMode,
+          });
           navigate('/home');
         }
       })

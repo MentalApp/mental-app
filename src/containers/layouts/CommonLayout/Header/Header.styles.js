@@ -9,10 +9,11 @@ const Wrapper = styled.div`
   .side-bar-menu {
     position: fixed;
     min-height: 100vh;
+    width: 300px;
     background-color: #e9ecef;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 2;
 
     .title {
       margin: 20px;
@@ -29,13 +30,18 @@ const Wrapper = styled.div`
       width: 100%;
     }
 
-    .button-close {
+    /* .button-close {
       position: absolute;
-      right: -70px;
+      right: -60px;
       top: -20px;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       background-color: #e9ecef;
+    } */
+
+    .side-navigation-panel-select-option-selected {
+      background-color: #6ecee4 !important;
+      color: #fff !important;
     }
   }
 

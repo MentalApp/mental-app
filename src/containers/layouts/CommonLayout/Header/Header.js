@@ -1,18 +1,36 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useCurrentRoute, useNavigation } from 'react-navi';
 import Wrapper from './Header.styles';
 import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
-import { AlignLeft, Home, Power, Server, X } from 'react-feather';
+import { AlignLeft, Home, Power, Server } from 'react-feather';
 
 const Header = () => {
   const { navigate } = useNavigation();
   const activeRoute = useCurrentRoute().url.pathname;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const handleOpenSidebar = useCallback(() => {
+    document.getElementById('overlay').style.display = 'block';
+    setIsSidebarOpen(true);
+  }, []);
+
+  const handleCloseSidebar = useCallback(() => {
+    document.getElementById('overlay').style.display = 'none';
+    setIsSidebarOpen(false);
+  }, []);
+
+  useEffect(() => {
+    document.getElementById('overlay').onclick = () => {
+      document.getElementById('overlay').style.display = 'none';
+      setIsSidebarOpen(false);
+    };
+  }, []);
+
   return (
     <Wrapper>
       <div>
-        <button className="btn-menu" onClick={() => setIsSidebarOpen(true)} type="button">
+        <button className="btn-menu" onClick={handleOpenSidebar} type="button">
           <AlignLeft name="burger" className="w-6 h-6" />
         </button>
       </div>
@@ -22,14 +40,14 @@ const Header = () => {
         <div className="side-bar-menu">
           <div className="title">
             <span>Ứng dụng khảo sát</span>
-            <X className="button-close" onClick={() => setIsSidebarOpen(false)} />
+            {/* <X className="button-close" onClick={handleCloseSidebar} /> */}
           </div>
 
           <Navigation
             activeItemId={activeRoute}
             onSelect={({ itemId }) => {
               navigate(itemId);
-              setIsSidebarOpen(false);
+              handleCloseSidebar();
             }}
             items={[
               {
@@ -76,7 +94,7 @@ const Header = () => {
               ]}
               onSelect={({ itemId }) => {
                 navigate(itemId);
-                setIsSidebarOpen(false);
+                handleCloseSidebar();
               }}
             />
           </div>
