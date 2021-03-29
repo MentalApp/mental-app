@@ -54,7 +54,7 @@ const Home = () => {
         onClick: () => navigate(`/home/${item.id}`),
       }))
     );
-  }, [data, navigate]);
+  }, [navigate]);
 
   return (
     <Wrapper>
