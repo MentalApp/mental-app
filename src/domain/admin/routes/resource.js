@@ -7,6 +7,8 @@ import Home from '../containers/Home';
 import CommonLayout from 'containers/layouts/CommonLayout';
 import QuestionSurvey from '../containers/QuestionSurvey';
 import SignIn from '../containers/SignIn';
+import VersionTest from '../containers/VersionTest';
+import VersionDetail from '../containers/VersionTest/VersionDetail';
 import { View } from 'react-navi';
 import Detail from '../containers/Home/Detail';
 
@@ -27,6 +29,25 @@ export const routes = {
         '/:id',
         route((req) => ({
           view: <Detail id={req.params.id} />,
+        })),
+      ),
+    }),
+  ),
+  '/version': withView(
+    <CommonLayout>
+      <View />
+    </CommonLayout>,
+    mount({
+      '/': withNotAuth(
+        '/',
+        route({
+          view: <VersionTest />,
+        }),
+      ),
+      '/:id': withNotAuth(
+        '/:id',
+        route((req) => ({
+          view: <VersionDetail id={req.params.id} />,
         })),
       ),
     }),
