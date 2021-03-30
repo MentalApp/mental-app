@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -7,9 +7,16 @@ import vi from 'date-fns/locale/vi';
 import InformationForm from 'domain/guest/components/InformationForm/InformationForm';
 import { format } from 'date-fns';
 import { Form, Button } from 'react-bootstrap';
+import { LIST_UNIT } from 'utils/constants';
 
 registerLocale('vi', vi);
 const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) => {
+  useEffect(() => {
+    if (!values?.unit) {
+      setFieldValue('unit', '1');
+    }
+  }, [setFieldValue, values]);
+
   return (
     <Form onSubmit={handleSubmit}>
       <div className="root-info-form">
@@ -105,14 +112,20 @@ const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) =
               )}
             </div>
           </div>
+          {console.log(values, touched, errors)}
           <div className="row">
             <div className="col-12">
-              <InformationForm
+              <select
                 className={`input-control ${touched.unit && errors.unit ? 'has-error' : ''}`}
-                value={values?.unit}
-                label={'Đơn vị'}
                 onChange={(event) => setFieldValue('unit', event.target.value)}
-              />
+                value={values?.unit}
+              >
+                {LIST_UNIT.map((item, index) => (
+                  <option key={index} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
               {touched.unit && errors.unit && <p className="error-text">{errors.unit}</p>}
             </div>
           </div>

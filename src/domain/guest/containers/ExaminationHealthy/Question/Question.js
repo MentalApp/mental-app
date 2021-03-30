@@ -1,19 +1,20 @@
 import React, { useCallback, useState } from 'react';
-import { useMutation } from 'hooks/axios.hooks';
-// import Loading from 'components/Loading';
+import { useMutation, useQuery } from 'hooks/axios.hooks';
+import Loading from 'components/Loading';
 import QuestionForm from 'domain/guest/components/QuestionForm/QuestionForm';
 import { Button } from 'react-bootstrap';
 import Wrapper from './Question.styles';
 import PreviewPage from '../PreviewPage';
 import { useNavigation } from 'react-navi';
-import data from './mockData.json';
+import dataMock from './mockData.json';
 
 const Question = ({ information, setToExamTest, resultTest, setResultTest }) => {
   const [count, setCount] = useState(0);
   const [note, setNote] = useState({ for_me: '', for_teammate: '' });
   const { navigate } = useNavigation();
+  const code = window.localStorage.getItem('code');
 
-  // const { data, loading } = useQuery({ url: '/tests' });
+  const { data, loading } = useQuery({ url: '/tests', params: { code: code } });
   const [submit] = useMutation({ url: '/officer_tests', method: 'POST' });
   const handleEvent = useCallback(
     (action) => {
@@ -52,31 +53,34 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
       });
   }, [information, note, navigate, resultTest, submit]);
 
-  if (count === data?.length + 1) {
+  if (count === dataMock?.length + 1) {
     return (
       <PreviewPage
         information={information}
         resultTest={resultTest}
-        data={data}
+        data={dataMock}
         note={note}
         handlePrevious={() => handleEvent('previous')}
         handleSubmit={handleSubmit}
       />
     );
   }
-
+  if (loading) {
+    <Wrapper>
+      <Loading />
+    </Wrapper>;
+  }
   return (
     <Wrapper>
-      {/* {loading && <Loading />} */}
-      {count < data?.length && (
+      {count < dataMock?.length && (
         <QuestionForm
-          question={!!data && data[count]}
+          question={!!dataMock && dataMock[count]}
           index={count}
           resultTest={resultTest}
           setResultTest={setResultTest}
         />
       )}
-      {count === data?.length && (
+      {count === dataMock?.length && (
         <div className="note-if">
           <p>Các triệu chứng bệnh khác (nếu có):</p>
           <textarea
@@ -105,12 +109,12 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
         >
           Về trước
         </Button>
-        {count < data?.length && (
+        {count < dataMock?.length && (
           <Button variant="outline-success" onClick={() => handleEvent('next')}>
             Tiếp theo
           </Button>
         )}
-        {count === data?.length && (
+        {count === dataMock?.length && (
           <Button variant="outline-success" onClick={() => handleEvent('next')}>
             Kết thúc
           </Button>
