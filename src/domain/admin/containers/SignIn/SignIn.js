@@ -1,36 +1,52 @@
 import Checkbox from 'components/Checkbox';
 import { useMutation } from 'hooks/axios.hooks';
 import React, { useCallback, useState } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Alert, Button, Form } from 'react-bootstrap';
 import { User } from 'react-feather';
 import { useNavigation } from 'react-navi';
 import Wrapper from './SignIn.styles';
-import { authService } from 'utils/auth.service';
+import { TOKEN } from 'utils/constants';
+import * as Yup from 'yup';
+import { Formik } from 'formik';
 
 const SignIn = () => {
-  const [loginInfo, setLoginInfo] = useState({});
   const [remember, setRemember] = useState(false);
   const { navigate } = useNavigation();
+  const [error, setError] = useState(null);
 
   const [signin] = useMutation({ url: '/login' });
 
-  const handleLogin = useCallback(() => {
-    signin({ email: loginInfo.email, password: loginInfo.password })
-      .then((response) => {
-        if (response.data.success) {
-          const { headers } = response;
-          delete headers['content-type'];
-          authService.login({
-            currentUser: { ...response.data.data, role: response.data.role },
-            token: headers,
-            // isRememberMe: !!valuesCasted.rememberMe,
-            // isCheckingStaffRole: !!isCheckViewMode,
-          });
+  const initialValues = {
+    email: '',
+    password: '',
+  };
+
+  const validationSchema = Yup.object({
+    email: Yup.string().trim().email('*Tài khoản phải là email').required('*Yêu cầu nhập tài khoản'),
+    password: Yup.string().required('*Yêu cầu nhập mật khẩu').min(6, '*Mật khẩu tối thiểu 8 ký tự'),
+  });
+
+  const handleLogin = useCallback(
+    (values, actions) => {
+      const valuesCasted = validationSchema.cast(values);
+
+      signin({ ...valuesCasted })
+        .then((response) => {
+          if (!response.data.success) {
+            setError('Thông tin tài khoản hoặc mật khẩu không chính xác.');
+          }
+          window.localStorage.setItem(TOKEN, JSON.stringify(response.data.token));
           navigate('/home');
-        }
-      })
-      .catch((error) => console.log(error));
-  }, [loginInfo, navigate, signin]);
+        })
+        .catch(() => setError('Thông tin tài khoản hoặc mật khẩu không chính xác.'))
+        .finally(() => actions.setSubmitting(false));
+    },
+    [navigate, signin, validationSchema],
+  );
+
+  setTimeout(() => {
+    setError(null);
+  }, 3000);
 
   return (
     <Wrapper>
@@ -39,24 +55,48 @@ const SignIn = () => {
           <User size="30px" color="#fff" />
         </div>
         <div className="title">Đăng nhập</div>
-        <Form>
-          <Form.Control
-            placeholder="Tài khoản"
-            value={loginInfo?.email || ''}
-            onChange={(event) => setLoginInfo({ ...loginInfo, email: event.target.value })}
-          />
-          <Form.Control
-            type="password"
-            placeholder="Mật khẩu"
-            value={loginInfo?.password || ''}
-            onChange={(event) => setLoginInfo({ ...loginInfo, password: event.target.value })}
-          />
-          <div className="remember-forgot">
-            <Checkbox label="Nhớ mật khẩu" size="medium" checked={remember} onChange={() => setRemember(!remember)} />
-            <p>Quên mật khẩu?</p>
-          </div>
-          <Button onClick={handleLogin}>Đăng nhập</Button>
-        </Form>
+        {error && <Alert variant="danger">{error}</Alert>}
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleLogin}>
+          {(props) => (
+            <Form onSubmit={props.handleSubmit}>
+              <div className={`form-input ${props.errors?.email && props.touched?.email ? 'has-error' : ''}`}>
+                <Form.Control
+                  placeholder="Tài khoản"
+                  name="email"
+                  value={props.values?.email || ''}
+                  onChange={props.handleChange}
+                />
+                {props.errors?.email && props.touched?.email && (
+                  <span className="help-block">{props.errors?.email}</span>
+                )}
+              </div>
+              <div className={`form-input ${props.errors?.password && props.touched?.password ? 'has-error' : ''}`}>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  placeholder="Mật khẩu"
+                  value={props.values?.password || ''}
+                  onChange={props.handleChange}
+                />
+                {props.errors?.password && props.touched?.password && (
+                  <span className="help-block">{props.errors?.password}</span>
+                )}
+              </div>
+              <div className="remember-forgot">
+                <Checkbox
+                  label="Nhớ mật khẩu"
+                  size="medium"
+                  checked={remember}
+                  onChange={() => setRemember(!remember)}
+                />
+                <p>Quên mật khẩu?</p>
+              </div>
+              <Button type="submit" disabled={props.isSubmitting}>
+                Đăng nhập
+              </Button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </Wrapper>
   );
