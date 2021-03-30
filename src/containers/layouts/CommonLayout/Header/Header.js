@@ -4,6 +4,7 @@ import Wrapper from './Header.styles';
 import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
 import { AlignLeft, Home, Power, Server, Layers } from 'react-feather';
+import { authService } from 'utils/auth.service';
 
 const Header = () => {
   const { navigate } = useNavigation();
@@ -99,6 +100,7 @@ const Header = () => {
               ]}
               onSelect={({ itemId }) => {
                 navigate(itemId);
+                authService.logout();
                 handleCloseSidebar();
               }}
             />

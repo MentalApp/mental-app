@@ -41,7 +41,7 @@ const VersionTest = () => {
         onClick: () => navigate(`/version/${item.id}`),
       }))
     );
-  }, [data, navigate]);
+  }, [navigate]);
 
   return (
     <Wrapper>

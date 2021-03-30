@@ -58,8 +58,19 @@ const Wrapper = styled.div`
       display: flex;
       flex-direction: column;
     }
-    input {
+    .form-input {
       margin-bottom: 10px;
+
+      .help-block {
+        color: red;
+        margin-left: 5px;
+      }
+    }
+
+    .has-error {
+      input {
+        border-color: red;
+      }
     }
     button {
       position: absolute;
