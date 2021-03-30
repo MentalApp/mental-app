@@ -8,9 +8,8 @@ import PreviewPage from '../PreviewPage';
 import { useNavigation } from 'react-navi';
 import data from './mockData.json';
 
-const Question = ({ information }) => {
+const Question = ({ information, setToExamTest, resultTest, setResultTest }) => {
   const [count, setCount] = useState(0);
-  const [resultTest, setResultTest] = useState([]);
   const [note, setNote] = useState({ for_me: '', for_teammate: '' });
   const { navigate } = useNavigation();
 
@@ -94,8 +93,17 @@ const Question = ({ information }) => {
         </div>
       )}
       <div className="group-button">
-        <Button variant="outline-secondary" onClick={() => handleEvent('previous')} disabled={count === 0}>
-          Câu trước
+        <Button
+          variant="outline-secondary"
+          onClick={() => {
+            if (count === 0) {
+              setToExamTest(false);
+              return;
+            }
+            handleEvent('previous');
+          }}
+        >
+          Về trước
         </Button>
         {count < data?.length && (
           <Button variant="outline-success" onClick={() => handleEvent('next')}>

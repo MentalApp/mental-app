@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 const ExaminationHealth = () => {
   const [toExamtest, setToExamTest] = useState(false);
   const [information, setInformation] = useState({});
+  const [resultTest, setResultTest] = useState([]);
 
   const initialValues = {
     name: information?.name || '',
@@ -59,7 +60,12 @@ const ExaminationHealth = () => {
       <Container>
         <Row className="justify-content-center">
           <Col sm={11} md={10} lg={7}>
-            <Question information={information} />
+            <Question
+              information={information}
+              setToExamTest={setToExamTest}
+              resultTest={resultTest}
+              setResultTest={setResultTest}
+            />
           </Col>
         </Row>
       </Container>
