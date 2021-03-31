@@ -3,7 +3,7 @@ import { Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import JoinInPageWrapper from './JoinInPage.styles';
 import { useNavigation } from 'react-navi';
 import { useMutation } from 'hooks/axios.hooks';
-import { CODE, TOKEN } from 'utils/constants';
+import { CODE, TOKEN, ErrorMessage } from 'utils/constants';
 
 const JoinInPage = () => {
   const { navigate } = useNavigation();
@@ -16,14 +16,19 @@ const JoinInPage = () => {
     joinin({ code: code })
       .then((response) => {
         if (!response.data.success) {
-          setError('Mã kiểm tra không chính xác.');
+          setError(ErrorMessage.VALIDATE_CODE_INVALID);
         }
         window.localStorage.setItem(TOKEN, JSON.stringify(response.data.token));
         window.localStorage.setItem(CODE, JSON.stringify(code));
 
         navigate('/examination');
       })
-      .catch(() => setError('Mã kiểm tra không chính xác.'));
+      .catch((err) => {
+        if (err.response.status === 500) {
+          setError(ErrorMessage.INTERNAL_SERVER_ERROR);
+        }
+        setError(ErrorMessage.VALIDATE_CODE_INVALID);
+      });
   }, [code, joinin, navigate]);
 
   setTimeout(() => {
@@ -34,10 +39,9 @@ const JoinInPage = () => {
     <JoinInPageWrapper>
       <Container>
         <Row className="justify-content-center">
-          <Col sm={8} md={6} lg={5}>
+          <Col sm={10} md={6} lg={5}>
             <div className="login-form">
               <form className="form-join">
-                {error && <Alert variant="danger">{error}</Alert>}
                 <input
                   className="form-control"
                   placeholder="Nhập mã kiểm tra"
@@ -45,6 +49,7 @@ const JoinInPage = () => {
                   value={code}
                   onChange={(event) => setCode(event.target.value)}
                 />
+                {error && <Alert variant="danger">{error}</Alert>}
 
                 <div className="wrapper">
                   <Button

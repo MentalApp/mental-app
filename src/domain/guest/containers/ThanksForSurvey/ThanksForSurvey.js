@@ -6,7 +6,8 @@ import { useNavigation } from 'react-navi';
 const ThanksForSurvey = () => {
   const { navigate } = useNavigation();
   const handleback = () => {
-    localStorage.removeItem('validCode');
+    localStorage.removeItem('code');
+    localStorage.removeItem('token');
     navigate('/');
   };
 

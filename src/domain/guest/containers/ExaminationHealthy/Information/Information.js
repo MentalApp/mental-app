@@ -112,7 +112,6 @@ const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) =
               )}
             </div>
           </div>
-          {console.log(values, touched, errors)}
           <div className="row">
             <div className="col-12">
               <select

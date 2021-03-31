@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useMutation, useQuery } from 'hooks/axios.hooks';
 import Loading from 'components/Loading';
 import QuestionForm from 'domain/guest/components/QuestionForm/QuestionForm';
@@ -7,15 +7,24 @@ import Wrapper from './Question.styles';
 import PreviewPage from '../PreviewPage';
 import { useNavigation } from 'react-navi';
 import dataMock from './mockData.json';
+import { CODE } from 'utils/constants';
 
 const Question = ({ information, setToExamTest, resultTest, setResultTest }) => {
   const [count, setCount] = useState(0);
+  const [error, setError] = useState(null);
+  const [questions, setQuestions] = useState([]);
   const [note, setNote] = useState({ for_me: '', for_teammate: '' });
   const { navigate } = useNavigation();
-  const code = window.localStorage.getItem('code');
+  const code = window.localStorage.getItem(CODE);
 
-  const { data, loading } = useQuery({ url: '/tests', params: { code: code } });
+  const { data, loading } = useQuery({ url: '/tests', params: { code: JSON.parse(code) } });
   const [submit] = useMutation({ url: '/officer_tests', method: 'POST' });
+  useEffect(() => {
+    if (!!data && data.success) {
+      setQuestions(data.data.questions);
+    }
+  }, [data]);
+
   const handleEvent = useCallback(
     (action) => {
       if (action === 'next') {
@@ -45,6 +54,7 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
     })
       .then((response) => {
         // if (response.data.success) {
+        console.log(response);
         navigate('/thanks');
         // }
       })
@@ -53,12 +63,12 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
       });
   }, [information, note, navigate, resultTest, submit]);
 
-  if (count === dataMock?.length + 1) {
+  if (questions.length > 0 && count === questions?.length + 1) {
     return (
       <PreviewPage
         information={information}
         resultTest={resultTest}
-        data={dataMock}
+        data={questions}
         note={note}
         handlePrevious={() => handleEvent('previous')}
         handleSubmit={handleSubmit}
@@ -72,15 +82,15 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
   }
   return (
     <Wrapper>
-      {count < dataMock?.length && (
+      {!loading && count < questions?.length && (
         <QuestionForm
-          question={!!dataMock && dataMock[count]}
+          question={!!questions && questions[count]}
           index={count}
           resultTest={resultTest}
           setResultTest={setResultTest}
         />
       )}
-      {count === dataMock?.length && (
+      {questions.length > 0 && count === questions?.length && (
         <div className="note-if">
           <p>Các triệu chứng bệnh khác (nếu có):</p>
           <textarea
@@ -109,12 +119,12 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
         >
           Về trước
         </Button>
-        {count < dataMock?.length && (
+        {questions.length > 0 && count < questions?.length && (
           <Button variant="outline-success" onClick={() => handleEvent('next')}>
             Tiếp theo
           </Button>
         )}
-        {count === dataMock?.length && (
+        {questions.length > 0 && count === questions?.length && (
           <Button variant="outline-success" onClick={() => handleEvent('next')}>
             Kết thúc
           </Button>

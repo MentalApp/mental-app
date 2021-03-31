@@ -6,45 +6,13 @@ import { useNavigation } from 'react-navi';
 import Filter from './Filter';
 import Wrapper from './Home.styles';
 import dataMock from './mockData.json';
+import { TestCollums } from 'utils/constants';
 
 const Home = () => {
   const { navigate } = useNavigation();
   const { data } = useQuery({ url: '/officer_tests' });
+  const columns = TestCollums;
   console.log(data);
-  const collums = [
-    {
-      name: 'Đợt kiểm tra',
-      field: 'testVersion',
-    },
-    {
-      name: 'Tên quân nhân',
-      field: 'name',
-    },
-    {
-      name: 'Ngày sinh',
-      field: 'dateOfBirth',
-    },
-    {
-      name: 'Đơn vị',
-      field: 'unit',
-    },
-    {
-      name: 'Cấp bậc',
-      field: 'rank',
-    },
-    {
-      name: 'Chức vụ',
-      field: 'position',
-    },
-    {
-      name: 'Ngày nhập ngũ',
-      field: 'joinArmy',
-    },
-    {
-      name: 'Nghi ngờ',
-      field: 'gender',
-    },
-  ];
 
   const restructureData = useMemo(() => {
     if (!dataMock) return [];
@@ -63,7 +31,7 @@ const Home = () => {
         <div className="filter">
           <Filter />
         </div>
-        <TablePaginationData columns={collums} data={restructureData} />
+        <TablePaginationData columns={columns} data={restructureData} />
       </Container>
     </Wrapper>
   );
