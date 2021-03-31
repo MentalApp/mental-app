@@ -1,12 +1,25 @@
 import React from 'react';
 import Wrapper from './Filter.styles';
 import { Container, Row, Col } from 'react-bootstrap';
+import { LIST_UNIT } from 'utils/constants';
 
 const Filter = () => {
   return (
     <Wrapper>
       <Container fluid>
         <Row>
+          <Col xs={12} sm={6} md={4}>
+            <div className="group-item-filter">
+              <div className="title">Đơn vị</div>
+              <select className="custom-select">
+                {LIST_UNIT.map((item, index) => (
+                  <option value={item.id} key={index}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </Col>
           <Col xs={12} sm={6} md={4}>
             <div className="group-item-filter">
               <div className="title">Tên quân nhân</div>

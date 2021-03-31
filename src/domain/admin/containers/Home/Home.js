@@ -1,15 +1,15 @@
 import TablePaginationData from 'components/TablePagination';
-// import { useQuery } from 'hooks/axios.hooks';
+import { useQuery } from 'hooks/axios.hooks';
 import React, { useMemo } from 'react';
 import { Container } from 'react-bootstrap';
 import { useNavigation } from 'react-navi';
 import Filter from './Filter';
 import Wrapper from './Home.styles';
-import data from './mockData.json';
+// import data from './mockData.json';
 
 const Home = () => {
   const { navigate } = useNavigation();
-  // const { data } = useQuery({ url: '/officer_tests' });
+  const { data } = useQuery({ url: '/officer_tests' });
   const collums = [
     {
       name: 'Đợt kiểm tra',
@@ -49,12 +49,13 @@ const Home = () => {
     if (!data) return [];
     return (
       !!data &&
-      data?.map((item) => ({
+      !!data.data &&
+      data.data?.map((item) => ({
         ...item,
         onClick: () => navigate(`/home/${item.id}`),
       }))
     );
-  }, [navigate]);
+  }, [data, navigate]);
 
   return (
     <Wrapper>

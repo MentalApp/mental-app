@@ -18,12 +18,8 @@ request.interceptors.request.use(function (config) {
   const token = authService.getToken();
   if (!!token) {
     /* istanbul ignore next */
-    const commonHeaders = token
-      ? {
-          ...JSON.parse(token),
-        }
-      : {};
-    config.headers.common = commonHeaders;
+    const commonHeaders = token ? JSON.parse(token) : '';
+    config.headers.accessToken = commonHeaders;
   }
   return config;
 });
