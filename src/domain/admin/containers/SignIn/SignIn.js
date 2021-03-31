@@ -5,7 +5,7 @@ import { Alert, Button, Form } from 'react-bootstrap';
 import { User } from 'react-feather';
 import { useNavigation } from 'react-navi';
 import Wrapper from './SignIn.styles';
-import { TOKEN } from 'utils/constants';
+import { TOKEN, ErrorMessage } from 'utils/constants';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 
@@ -33,12 +33,12 @@ const SignIn = () => {
       signin({ ...valuesCasted })
         .then((response) => {
           if (!response.data.success) {
-            setError('Thông tin tài khoản hoặc mật khẩu không chính xác.');
+            setError(ErrorMessage.EMAIL_AND_PASSWORD_IS_INVALID);
           }
           window.localStorage.setItem(TOKEN, JSON.stringify(response.data.token));
           navigate('/home');
         })
-        .catch(() => setError('Thông tin tài khoản hoặc mật khẩu không chính xác.'))
+        .catch(() => setError(ErrorMessage.EMAIL_AND_PASSWORD_IS_INVALID))
         .finally(() => actions.setSubmitting(false));
     },
     [navigate, signin, validationSchema],
