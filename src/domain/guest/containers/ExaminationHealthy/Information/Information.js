@@ -60,7 +60,7 @@ const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) =
                     style={{ marginRight: '4px' }}
                     onChange={(e) => {
                       if (e.currentTarget.checked) {
-                        setFieldValue('gender', 'male');
+                        setFieldValue('gender', 0);
                       }
                     }}
                   />
@@ -74,7 +74,7 @@ const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) =
                     style={{ marginRight: '4px' }}
                     onChange={(e) => {
                       if (e.currentTarget.checked) {
-                        setFieldValue('gender', 'female');
+                        setFieldValue('gender', 1);
                       }
                     }}
                   />

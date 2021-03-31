@@ -3,9 +3,9 @@ import React, { useMemo } from 'react';
 import TablePaginationData from 'components/TablePagination';
 import QuestionHeader from 'domain/guest/components/QuestionHeader/QuestionHeader';
 import Wrapper from './PreviewPage.styles';
-import { Button } from 'react-bootstrap';
+import { Alert, Button } from 'react-bootstrap';
 
-const PreviewPage = ({ information, resultTest, data, note, handlePrevious, handleSubmit }) => {
+const PreviewPage = ({ information, resultTest, data, note, handlePrevious, handleSubmit, error, setError }) => {
   const restructureData = useMemo(() => {
     return data.map((item, index) => ({
       question: `${index + 1}. ${item.question}`,
@@ -13,8 +13,13 @@ const PreviewPage = ({ information, resultTest, data, note, handlePrevious, hand
     }));
   }, [data, resultTest]);
 
+  setTimeout(() => {
+    setError(null);
+  }, 5000);
+
   return (
     <Wrapper>
+      {error && <Alert variant="danger">{error}</Alert>}
       <QuestionHeader information={information} />
       <hr />
       <TablePaginationData

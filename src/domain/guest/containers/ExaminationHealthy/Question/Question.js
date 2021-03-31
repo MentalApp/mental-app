@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 import Wrapper from './Question.styles';
 import PreviewPage from '../PreviewPage';
 import { useNavigation } from 'react-navi';
-import { CODE } from 'utils/constants';
+import { CODE, ErrorMessage } from 'utils/constants';
 
 const Question = ({ information, setToExamTest, resultTest, setResultTest }) => {
   const [count, setCount] = useState(0);
@@ -48,10 +48,11 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
       otherPeople: note?.for_teammate,
     })
       .then((response) => {
-        // if (response.data.success) {
-        console.log(response);
+        if (!response.data.success) {
+          setError(ErrorMessage.INTERNAL_SERVER_ERROR);
+          return;
+        }
         navigate('/thanks');
-        // }
       })
       .catch((error) => {
         console.log(error);
@@ -67,6 +68,8 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
         note={note}
         handlePrevious={() => handleEvent('previous')}
         handleSubmit={handleSubmit}
+        error={error}
+        setError={setError}
       />
     );
   }

@@ -12,6 +12,8 @@ const JoinInPage = () => {
 
   const [joinin] = useMutation({ url: '/joinin' });
 
+  const handleSetCode = useCallback((event) => setCode(event.target.value), []);
+
   const handleSubmit = useCallback(() => {
     joinin({ code: code })
       .then((response) => {
@@ -47,7 +49,7 @@ const JoinInPage = () => {
                   placeholder="Nhập mã kiểm tra"
                   type="text"
                   value={code}
-                  onChange={(event) => setCode(event.target.value)}
+                  onChange={handleSetCode}
                 />
                 {error && <Alert variant="danger">{error}</Alert>}
 
