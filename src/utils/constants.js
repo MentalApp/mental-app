@@ -19,6 +19,7 @@ export const LIST_UNIT = [
 export const ErrorMessage = {
   VALIDATE_CODE_INVALID: 'Mã kiểm tra không chính xác.',
   INTERNAL_SERVER_ERROR: 'Có lỗi xảy ra trên server.',
+  POST_TEST_IS_NOT_FOUND: 'Bài làm của bạn hiện không có, xin vui lòng làm lại.',
   EMAIL_AND_PASSWORD_IS_INVALID: 'Thông tin tài khoản hoặc mật khẩu không chính xác.',
 };
 

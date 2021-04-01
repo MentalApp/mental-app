@@ -54,8 +54,24 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
         }
         navigate('/thanks');
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        if (err.response.status === 404) {
+          setError(ErrorMessage.POST_TEST_IS_NOT_FOUND);
+          setTimeout(() => {
+            setError(null);
+            localStorage.clear();
+            navigate('/');
+          }, 5000);
+          return;
+        }
+        if (err.response.status === 500) {
+          setError(ErrorMessage.INTERNAL_SERVER_ERROR);
+          setTimeout(() => {
+            setError(null);
+            navigate('/examination');
+          }, 5000);
+          return;
+        }
       });
   }, [submit, information, resultTest, data, note, navigate]);
 

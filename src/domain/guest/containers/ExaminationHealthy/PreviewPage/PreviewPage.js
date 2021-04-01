@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 import TablePaginationData from 'components/TablePagination';
 import QuestionHeader from 'domain/guest/components/QuestionHeader/QuestionHeader';
 import Wrapper from './PreviewPage.styles';
-import { Alert, Button } from 'react-bootstrap';
+import { Alert, Button, Container } from 'react-bootstrap';
 
 const PreviewPage = ({ information, resultTest, data, note, handlePrevious, handleSubmit, error, setError }) => {
   const restructureData = useMemo(() => {
@@ -13,13 +13,8 @@ const PreviewPage = ({ information, resultTest, data, note, handlePrevious, hand
     }));
   }, [data, resultTest]);
 
-  setTimeout(() => {
-    setError(null);
-  }, 5000);
-
   return (
     <Wrapper>
-      {error && <Alert variant="danger">{error}</Alert>}
       <QuestionHeader information={information} />
       <hr />
       <TablePaginationData
@@ -35,6 +30,12 @@ const PreviewPage = ({ information, resultTest, data, note, handlePrevious, hand
         <p>Các đồng chí trong cùng đơn vị có biểu hiện bất thường hoặc có triệu chứng bệnh như trên (nếu có):</p>
         <p className="note-answer">{note?.for_teammate || ''}</p>
       </div>
+      {error && (
+        <Container>
+          <Alert variant="danger">{error}</Alert>
+        </Container>
+      )}
+
       <div className="group-button">
         <Button variant="outline-secondary" onClick={handlePrevious}>
           Trở lại
