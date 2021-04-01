@@ -34,7 +34,11 @@ const Detail = ({ id }) => {
             <p className="col"> Dân tộc: {data?.nation || '-'} </p>
             <p className="col">Nhập ngũ: {data?.joinArmy || '-'} </p>
           </div>
-          <p> Đơn vị: {data?.unit || '-'} </p>
+          <div className="row">
+            <p className="col"> Đơn vị: {data?.unit || '-'} </p>
+            <p className="col">Số hiệu quân nhân: {data?.militaryCode || '-'} </p>
+          </div>
+          <p> </p>
           <div className="row">
             <p className="col"> Cấp bậc: {data?.rank || '-'} </p>
             <p className="col"> Chức vụ: {data?.position || '-'} </p>
@@ -52,6 +56,10 @@ const Detail = ({ id }) => {
           <p className="note-answer">{data?.otherSymptom || ''}</p>
           <p>Các đồng chí trong cùng đơn vị có biểu hiện bất thường hoặc có triệu chứng bệnh như trên (nếu có):</p>
           <p className="note-answer">{data?.otherPeople || ''}</p>
+        </div>
+        <div className="note-information">
+          <p>Chẩn đoán:</p>
+          <p className="note-answer">{data?.predictShallowFilter || ''}</p>
         </div>
         <div className="note-by-doctor">
           <textarea rows="4" />

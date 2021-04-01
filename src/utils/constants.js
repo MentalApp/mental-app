@@ -1,6 +1,8 @@
 export const TOKEN = 'token';
 export const CODE = 'code';
 
+export const DATE_FORMAT = 'dd/MM/yyyy';
+export const MONTH_FORMAT = 'MM/yyyy';
 export const CURRENT_USER = 'currentUser';
 export const MASTER = 'master';
 export const MASTER_ENDPOINT = '/master';
@@ -33,8 +35,8 @@ export const TestCollums = [
     field: 'name',
   },
   {
-    name: 'Ngày sinh',
-    field: 'dateOfBirth',
+    name: 'Số hiệu quân nhân',
+    field: 'militaryCode',
   },
   {
     name: 'Đơn vị',
@@ -48,12 +50,9 @@ export const TestCollums = [
     name: 'Chức vụ',
     field: 'position',
   },
-  {
-    name: 'Ngày nhập ngũ',
-    field: 'joinArmy',
-  },
+
   {
     name: 'Nghi ngờ',
-    field: 'gender',
+    field: 'predictShallowFilter',
   },
 ];
