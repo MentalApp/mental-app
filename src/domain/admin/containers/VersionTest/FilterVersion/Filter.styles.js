@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   .title {
-    width: 150px;
+    min-width: 150px;
   }
 
   input,

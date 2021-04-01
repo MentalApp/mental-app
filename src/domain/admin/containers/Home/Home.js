@@ -18,7 +18,8 @@ const Home = () => {
     if (!dataMock) return [];
     return (
       !!dataMock &&
-      dataMock?.map((item) => ({
+      dataMock.success &&
+      dataMock?.data.map((item) => ({
         ...item,
         onClick: () => navigate(`/home/${item.id}`),
       }))
