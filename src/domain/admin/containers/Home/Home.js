@@ -1,55 +1,24 @@
 import TablePaginationData from 'components/TablePagination';
-// import { useQuery } from 'hooks/axios.hooks';
+import { useQuery } from 'hooks/axios.hooks';
 import React, { useMemo } from 'react';
 import { Container } from 'react-bootstrap';
 import { useNavigation } from 'react-navi';
 import Filter from './Filter';
 import Wrapper from './Home.styles';
-import data from './mockData.json';
+import dataMock from './mockData.json';
+import { TestCollums } from 'utils/constants';
 
 const Home = () => {
   const { navigate } = useNavigation();
-  // const { data } = useQuery({ url: '/officer_tests' });
-  const collums = [
-    {
-      name: 'Đợt kiểm tra',
-      field: 'testVersion',
-    },
-    {
-      name: 'Tên quân nhân',
-      field: 'name',
-    },
-    {
-      name: 'Ngày sinh',
-      field: 'dateOfBirth',
-    },
-    {
-      name: 'Đơn vị',
-      field: 'unit',
-    },
-    {
-      name: 'Cấp bậc',
-      field: 'rank',
-    },
-    {
-      name: 'Chức vụ',
-      field: 'position',
-    },
-    {
-      name: 'Ngày nhập ngũ',
-      field: 'joinArmy',
-    },
-    {
-      name: 'Nghi ngờ',
-      field: 'gender',
-    },
-  ];
+  const { data } = useQuery({ url: '/officer_tests' });
+  const columns = TestCollums;
+  console.log(data);
 
   const restructureData = useMemo(() => {
-    if (!data) return [];
+    if (!dataMock) return [];
     return (
-      !!data &&
-      data?.map((item) => ({
+      !!dataMock &&
+      dataMock?.map((item) => ({
         ...item,
         onClick: () => navigate(`/home/${item.id}`),
       }))
@@ -62,7 +31,7 @@ const Home = () => {
         <div className="filter">
           <Filter />
         </div>
-        <TablePaginationData columns={collums} data={restructureData} />
+        <TablePaginationData columns={columns} data={restructureData} />
       </Container>
     </Wrapper>
   );

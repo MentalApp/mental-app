@@ -7,7 +7,6 @@ import data from './mockData.json';
 
 const Detail = ({ id }) => {
   // const { data } = useQuery({ url: `/officer_tests/${id}` });
-  console.log(data);
 
   const restructureData = useMemo(() => {
     return (

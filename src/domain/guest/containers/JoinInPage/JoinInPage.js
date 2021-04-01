@@ -1,35 +1,47 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import JoinInPageWrapper from './JoinInPage.styles';
 import { useNavigation } from 'react-navi';
-import { Error, CodeTest } from 'const';
+import { useMutation } from 'hooks/axios.hooks';
+import { CODE, TOKEN, ErrorMessage } from 'utils/constants';
 
 const JoinInPage = () => {
-  const initialCodeMock = CodeTest;
   const { navigate } = useNavigation();
   const [code, setCode] = useState('');
   const [error, setError] = useState(null);
 
-  const handleCode = (e) => {
-    setCode(e.target.value);
-  };
-  const handleSubmit = () => {
+  const [joinin] = useMutation({ url: '/joinin' });
+
+  const handleSetCode = useCallback((event) => setCode(event.target.value), []);
+
+  const handleSubmit = useCallback(() => {
+    joinin({ code: code })
+      .then((response) => {
+        if (!response.data.success) {
+          setError(ErrorMessage.VALIDATE_CODE_INVALID);
+        }
+        window.localStorage.setItem(TOKEN, JSON.stringify(response.data.token));
+        window.localStorage.setItem(CODE, JSON.stringify(code));
+
+        navigate('/examination');
+      })
+      .catch((err) => {
+        if (err.response.status === 500) {
+          setError(ErrorMessage.INTERNAL_SERVER_ERROR);
+        }
+        setError(ErrorMessage.VALIDATE_CODE_INVALID);
+      });
+  }, [code, joinin, navigate]);
+
+  setTimeout(() => {
     setError(null);
-    if (initialCodeMock === code) {
-      localStorage.setItem('validCode', true);
-      navigate('/examination');
-    }
-    setTimeout(() => {
-      setError(Error.VALIDATION_CODE_INVALID);
-    }, 500);
-    setCode('');
-  };
+  }, 5000);
 
   return (
     <JoinInPageWrapper>
       <Container>
         <Row className="justify-content-center">
-          <Col sm={8} md={6} lg={5}>
+          <Col sm={10} md={6} lg={5}>
             <div className="login-form">
               <form className="form-join">
                 <input
@@ -37,9 +49,10 @@ const JoinInPage = () => {
                   placeholder="Nhập mã kiểm tra"
                   type="text"
                   value={code}
-                  onChange={handleCode}
+                  onChange={handleSetCode}
                 />
                 {error && <Alert variant="danger">{error}</Alert>}
+
                 <div className="wrapper">
                   <Button
                     variant="outline-success"

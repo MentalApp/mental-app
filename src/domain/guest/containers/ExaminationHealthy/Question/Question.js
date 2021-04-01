@@ -1,20 +1,25 @@
-import React, { useCallback, useState } from 'react';
-import { useMutation } from 'hooks/axios.hooks';
-// import Loading from 'components/Loading';
+import React, { useCallback, useState, useMemo } from 'react';
+import { useMutation, useQuery } from 'hooks/axios.hooks';
+import Loading from 'components/Loading';
 import QuestionForm from 'domain/guest/components/QuestionForm/QuestionForm';
 import { Button } from 'react-bootstrap';
 import Wrapper from './Question.styles';
 import PreviewPage from '../PreviewPage';
 import { useNavigation } from 'react-navi';
-import data from './mockData.json';
+import { CODE, ErrorMessage } from 'utils/constants';
 
 const Question = ({ information, setToExamTest, resultTest, setResultTest }) => {
   const [count, setCount] = useState(0);
+  const [error, setError] = useState(null);
   const [note, setNote] = useState({ for_me: '', for_teammate: '' });
   const { navigate } = useNavigation();
+  const code = window.localStorage.getItem(CODE);
 
-  // const { data, loading } = useQuery({ url: '/tests' });
+  const { data, loading } = useQuery({ url: '/tests', params: { code: JSON.parse(code) } });
+  const questions = useMemo(() => !!data && !!data.data && data.data?.questions, [data]);
+
   const [submit] = useMutation({ url: '/officer_tests', method: 'POST' });
+
   const handleEvent = useCallback(
     (action) => {
       if (action === 'next') {
@@ -38,84 +43,112 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
       rank: information?.rank,
       position: information?.position,
       answer: resultTest,
-      testVersion: '2021/02',
+      testVersion: !!data && !!data.data && data.data?.testVersionId,
       otherSymptom: note?.for_me,
       otherPeople: note?.for_teammate,
     })
       .then((response) => {
-        // if (response.data.success) {
+        if (!response.data.success) {
+          setError(ErrorMessage.INTERNAL_SERVER_ERROR);
+          return;
+        }
         navigate('/thanks');
-        // }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        if (err.response.status === 404) {
+          setError(ErrorMessage.POST_TEST_IS_NOT_FOUND);
+          setTimeout(() => {
+            setError(null);
+            localStorage.clear();
+            navigate('/');
+          }, 5000);
+          return;
+        }
+        if (err.response.status === 500) {
+          setError(ErrorMessage.INTERNAL_SERVER_ERROR);
+          setTimeout(() => {
+            setError(null);
+            navigate('/examination');
+          }, 5000);
+          return;
+        }
       });
-  }, [information, note, navigate, resultTest, submit]);
+  }, [submit, information, resultTest, data, note, navigate]);
 
-  if (count === data?.length + 1) {
+  if (questions.length > 0 && count === questions?.length + 1) {
     return (
       <PreviewPage
         information={information}
         resultTest={resultTest}
-        data={data}
+        data={questions}
         note={note}
         handlePrevious={() => handleEvent('previous')}
         handleSubmit={handleSubmit}
+        error={error}
+        setError={setError}
       />
     );
   }
 
   return (
     <Wrapper>
-      {/* {loading && <Loading />} */}
-      {count < data?.length && (
-        <QuestionForm
-          question={!!data && data[count]}
-          index={count}
-          resultTest={resultTest}
-          setResultTest={setResultTest}
-        />
+      {loading && <Loading />}
+      {!loading && (
+        <>
+          {count < questions?.length && (
+            <QuestionForm
+              question={!!questions && questions[count]}
+              index={count}
+              resultTest={resultTest}
+              setResultTest={setResultTest}
+            />
+          )}
+          {questions.length > 0 && count === questions?.length && (
+            <div className="note-if">
+              <p>Các triệu chứng bệnh khác (nếu có):</p>
+              <textarea
+                value={note.for_me}
+                onChange={(event) => setNote({ ...note, for_me: event.target.value })}
+                rows="4"
+              />
+              <p>Các đồng chí trong cùng đơn vị có biểu hiện bất thường hoặc có triệu chứng bệnh như trên (nếu có):</p>
+              <textarea
+                value={note.for_teammate}
+                onChange={(event) => setNote({ ...note, for_teammate: event.target.value })}
+                rows="4"
+              />
+            </div>
+          )}
+          <div className="group-button">
+            <Button
+              variant="outline-secondary"
+              onClick={() => {
+                if (count === 0) {
+                  setToExamTest(false);
+                  return;
+                }
+                handleEvent('previous');
+              }}
+            >
+              Về trước
+            </Button>
+            {questions.length > 0 && count < questions?.length && (
+              <Button
+                variant="outline-success"
+                onClick={() => handleEvent('next')}
+                disabled={resultTest.length === count}
+              >
+                Tiếp theo
+              </Button>
+            )}
+            {questions.length > 0 && count === questions?.length && (
+              <Button variant="outline-success" onClick={() => handleEvent('next')}>
+                Kết thúc
+              </Button>
+            )}
+          </div>
+        </>
       )}
-      {count === data?.length && (
-        <div className="note-if">
-          <p>Các triệu chứng bệnh khác (nếu có):</p>
-          <textarea
-            value={note.for_me}
-            onChange={(event) => setNote({ ...note, for_me: event.target.value })}
-            rows="4"
-          />
-          <p>Các đồng chí trong cùng đơn vị có biểu hiện bất thường hoặc có triệu chứng bệnh như trên (nếu có):</p>
-          <textarea
-            value={note.for_teammate}
-            onChange={(event) => setNote({ ...note, for_teammate: event.target.value })}
-            rows="4"
-          />
-        </div>
-      )}
-      <div className="group-button">
-        <Button
-          variant="outline-secondary"
-          onClick={() => {
-            if (count === 0) {
-              setToExamTest(false);
-              return;
-            }
-            handleEvent('previous');
-          }}
-        >
-          Về trước
-        </Button>
-        {count < data?.length && (
-          <Button variant="outline-success" onClick={() => handleEvent('next')}>
-            Tiếp theo
-          </Button>
-        )}
-        {count === data?.length && (
-          <Button variant="outline-success" onClick={() => handleEvent('next')}>
-            Kết thúc
-          </Button>
-        )}
-      </div>
     </Wrapper>
   );
 };

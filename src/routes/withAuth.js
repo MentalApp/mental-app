@@ -1,9 +1,10 @@
 import { map, redirect } from 'navi';
+import { authService } from 'utils/auth.service';
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (matcher) =>
-  map((_, context) => {
-    const valid = context.currentUser;
+  map(() => {
+    const valid = authService.getToken();
 
     // TODO: handle check authenticate user
     if (valid) {

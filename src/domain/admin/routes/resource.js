@@ -11,6 +11,7 @@ import VersionTest from '../containers/VersionTest';
 import VersionDetail from '../containers/VersionTest/VersionDetail';
 import { View } from 'react-navi';
 import Detail from '../containers/Home/Detail';
+import withAuth from 'routes/withAuth';
 
 export const routes = {
   '/': withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <SignIn /> })),
@@ -19,14 +20,12 @@ export const routes = {
       <View />
     </CommonLayout>,
     mount({
-      '/': withNotAuth(
-        '/',
+      '/': withAuth(
         route({
           view: <Home />,
         }),
       ),
-      '/:id': withNotAuth(
-        '/:id',
+      '/:id': withAuth(
         route((req) => ({
           view: <Detail id={req.params.id} />,
         })),
