@@ -14,7 +14,11 @@ const QuestionHeader = ({ information }) => {
         <p className="col"> Dân tộc: {(!!information && information.nation) || '-'} </p>
         <p className="col">Nhập ngũ: {(!!information?.dateOfEnlistment && information?.dateOfEnlistment) || '-'} </p>
       </div>
-      <p> Đơn vị: {(!!information && information.unit) || '-'} </p>
+      <div className="row">
+        <p className="col"> Đơn vị: {(!!information?.unit && information?.unit) || '-'} </p>
+        <p className="col">Số hiệu quân nhân: {(!!information?.militaryCode && information?.militaryCode) || '-'} </p>
+      </div>
+
       <div className="row">
         <p className="col"> Cấp bậc: {(!!information && information.rank) || '-'} </p>
         <p className="col"> Chức vụ: {(!!information && information.position) || '-'} </p>

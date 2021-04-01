@@ -39,6 +39,7 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
       nation: information?.nation,
       gender: information?.gender,
       joinArmy: information?.dateOfEnlistment,
+      militaryCode: information?.militaryCode,
       unit: information?.unit,
       rank: information?.rank,
       position: information?.position,
