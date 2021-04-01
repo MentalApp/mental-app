@@ -7,21 +7,23 @@ const Filter = () => {
     <Wrapper>
       <Container fluid>
         <Row>
-          <Col xs={12} sm={6} md={4}>
+          <Col xs={12} sm={6} lg={3}>
             <div className="group-item-filter">
-              <div className="title">Tên quân nhân</div>
+              <div className="title">Tên hoặc mã quân nhân</div>
               <input type="text" className="form-control" />
             </div>
           </Col>
-          <Col xs={12} sm={6} md={4}>
+          <Col xs={12} sm={6} lg={3}>
             <div className="group-item-filter">
-              <div className="title">Mã quân nhân</div>
-              <input type="text" className="form-control" />
+              <div className="title">Đơn vị</div>
+              <select className="custom-select">
+                <option selected>Tất cả</option>
+                <option value="1">bộ binh 1</option>
+                <option value="2">thủy binh 1</option>
+              </select>
             </div>
           </Col>
-        </Row>
-        <Row>
-          <Col xs={12} sm={6} md={4}>
+          <Col xs={12} sm={6} lg={3}>
             <div className="group-item-filter">
               <div className="title">Đợt kiểm tra</div>
               <select className="custom-select">
@@ -31,24 +33,13 @@ const Filter = () => {
               </select>
             </div>
           </Col>
-          <Col xs={12} sm={6} md={4}>
+          <Col xs={12} sm={6} lg={3}>
             <div className="group-item-filter">
               <div className="title">Mức độ trung thực</div>
               <select className="custom-select">
                 <option selected>Tất cả</option>
                 <option value="1">Trung thực</option>
                 <option value="2">Chưa trung thực</option>
-              </select>
-            </div>
-          </Col>
-          <Col xs={12} sm={6} md={4}>
-            <div className="group-item-filter">
-              <div className="title">Mức độ vấn đề </div>
-              <select className="custom-select">
-                <option selected>Tất cả</option>
-                <option>Bình thường</option>
-                <option>Có vấn đề</option>
-                <option>Nghiêm trọng</option>
               </select>
             </div>
           </Col>
@@ -59,3 +50,15 @@ const Filter = () => {
 };
 
 export default Filter;
+
+// <Col xs={12} sm={6}>
+//             <div className="group-item-filter">
+//               <div className="title">Mức độ vấn đề </div>
+//               <select className="custom-select">
+//                 <option selected>Tất cả</option>
+//                 <option>Bình thường</option>
+//                 <option>Có vấn đề</option>
+//                 <option>Nghiêm trọng</option>
+//               </select>
+//             </div>
+//           </Col>
