@@ -113,7 +113,8 @@ const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) =
             </div>
           </div>
           <div className="row">
-            <div className="col-12">
+            <div className="col">
+              <div>Đơn vị</div>
               <select
                 className={`input-control ${touched.unit && errors.unit ? 'has-error' : ''}`}
                 onChange={(event) => setFieldValue('unit', event.target.value)}
@@ -126,6 +127,15 @@ const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) =
                 ))}
               </select>
               {touched.unit && errors.unit && <p className="error-text">{errors.unit}</p>}
+            </div>
+            <div className="col">
+              <InformationForm
+                className={`input-control ${touched.militaryCode && errors.militaryCode ? 'has-error' : ''}`}
+                value={values?.militaryCode}
+                label={'Số hiệu quân nhân'}
+                onChange={(event) => setFieldValue('militaryCode', event.target.value)}
+              />
+              {touched.militaryCode && errors.militaryCode && <p className="error-text">{errors.militaryCode}</p>}
             </div>
           </div>
           <div className="row">
