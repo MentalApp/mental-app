@@ -5,7 +5,6 @@ import { Container } from 'react-bootstrap';
 import { useNavigation } from 'react-navi';
 import Filter from './Filter';
 import Wrapper from './Home.styles';
-import dataMock from './mockData.json';
 import { TestCollums } from 'utils/constants';
 
 const Home = () => {
@@ -15,7 +14,7 @@ const Home = () => {
   const { navigate } = useNavigation();
   const { data, loading } = useQuery({
     url: '/officer_tests',
-    params: { ...params, page },
+    params: { ...params },
   });
   const columns = TestCollums;
   console.log(data);
@@ -34,17 +33,17 @@ const Home = () => {
     [params],
   );
   const restructureData = useMemo(() => {
-    if (!dataMock) return [];
+    if (!data) return [];
     return (
-      !!dataMock &&
-      dataMock.success &&
-      dataMock?.data.map((item) => ({
+      !!data &&
+      data.data &&
+      data?.data.map((item) => ({
         ...item,
         predict: `${item.predictShallowFilter}/${item.predictDeepFilter}`,
         onClick: () => navigate(`/home/${item.id}`),
       }))
     );
-  }, [navigate]);
+  }, [navigate, data]);
 
   return (
     <Wrapper>
