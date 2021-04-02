@@ -13,6 +13,7 @@ const Filter = ({ values, onFilter }) => {
               <input
                 type="text"
                 className="form-control"
+                placeholder="Tên/MSQN"
                 value={values?.keyword || ''}
                 onChange={(event) => onFilter({ keyword: event.target.value })}
               />
@@ -55,8 +56,8 @@ const Filter = ({ values, onFilter }) => {
               <div className="title">Mức độ trung thực</div>
               <select
                 className="custom-select"
-                value={values?.predictShallowFilter || ''}
-                onChange={(event) => onFilter({ predictShallowFilter: event.target.value })}
+                value={values?.predictDeepFilter || ''}
+                onChange={(event) => onFilter({ predictDeepFilter: event.target.value })}
               >
                 <option value="" selected>
                   Tất cả
@@ -69,11 +70,16 @@ const Filter = ({ values, onFilter }) => {
           <Col xs={12} sm={6} lg={2}>
             <div className="group-item-filter">
               <div className="title">Mức độ vấn đề </div>
-              <select className="custom-select">
-                <option selected>Tất cả</option>
+              <select
+                className="custom-select"
+                value={values?.predictShallowFilter || ''}
+                onChange={(event) => onFilter({ predictShallowFilter: event.target.value })}
+              >
+                <option value="" selected>
+                  Tất cả
+                </option>
                 <option>Bình thường</option>
-                <option>Có vấn đề</option>
-                <option>Nghiêm trọng</option>
+                <option>Có bệnh</option>
               </select>
             </div>
           </Col>
