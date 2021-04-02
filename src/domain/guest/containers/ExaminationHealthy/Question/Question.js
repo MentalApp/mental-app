@@ -56,7 +56,7 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
         navigate('/thanks');
       })
       .catch((err) => {
-        if (err.response.status === 404) {
+        if (err.response?.status === 404) {
           setError(ErrorMessage.POST_TEST_IS_NOT_FOUND);
           setTimeout(() => {
             setError(null);
@@ -65,7 +65,7 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
           }, 5000);
           return;
         }
-        if (err.response.status === 500) {
+        if (err.response?.status === 500) {
           setError(ErrorMessage.INTERNAL_SERVER_ERROR);
           setTimeout(() => {
             setError(null);

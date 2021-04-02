@@ -26,8 +26,9 @@ const JoinInPage = () => {
         navigate('/examination');
       })
       .catch((err) => {
-        if (err.response.status === 500) {
+        if (err.response?.status === 500) {
           setError(ErrorMessage.INTERNAL_SERVER_ERROR);
+          return;
         }
         setError(ErrorMessage.VALIDATE_CODE_INVALID);
       });

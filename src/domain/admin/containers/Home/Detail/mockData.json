@@ -1,114 +1,117 @@
 {
-  "id": 1,
-  "name": "Nguyen Van A",
-  "dateOfBirth": "1990/01/01",
-  "nation": "Kinh",
-  "gender": 1,
-  "joinArmy": "2010/01/01",
-  "unit": "b2c4d1",
-  "rank": "b1",
-  "position": "Chien si",
-  "answer": [
-    {
-      "test_pool_id": 1,
-      "answer": "Co"
-    },
-    {
-      "test_pool_id": 2,
-      "answer": "Khong"
-    },
-    {
-      "test_pool_id": 3,
-      "answer": "Khong"
-    },
-    {
-      "test_pool_id": 4,
-      "answer": "Co"
-    },
-    {
-      "test_pool_id": 5,
-      "answer": "Co"
-    },
-    {
-      "test_pool_id": 6,
-      "answer": "Khong"
-    },
-    {
-      "test_pool_id": 7,
-      "answer": "Khong"
-    },
-    {
-      "test_pool_id": 8,
-      "answer": "Khong"
-    },
-    {
-      "test_pool_id": 9,
-      "answer": "Co"
-    },
-    {
-      "test_pool_id": 10,
-      "answer": "Khong"
-    },
-    {
-      "test_pool_id": 11,
-      "answer": "Co"
-    },
-    {
-      "test_pool_id": 12,
-      "answer": "Khong"
-    }
-  ],
-  "question": [
-    {
-      "test_pool_id": 1,
-      "question": "Mất ngủ không?"
-    },
-    {
-      "test_pool_id": 2,
-      "question": "Buổi sáng ngủ dậy có mệt mỏi không?"
-    },
-    {
-      "test_pool_id": 3,
-      "question": "Hay buồn vô cớ không?"
-    },
-    {
-      "test_pool_id": 4,
-      "question": "Nghe có tiếng người nói chuyện trong đầu?"
-    },
-    {
-      "test_pool_id": 5,
-      "question": "Cho rằng có người theo dõi, làm hại mình?"
-    },
-    {
-      "test_pool_id": 6,
-      "question": "Ngủ quá ít không?"
-    },
-    {
-      "test_pool_id": 7,
-      "question": "Thấy người rất khỏe mạnh không?"
-    },
-    {
-      "test_pool_id": 8,
-      "question": "Rất vui vẻ không?"
-    },
-    {
-      "test_pool_id": 9,
-      "question": "Hoạt động quá nhiều không?"
-    },
-    {
-      "test_pool_id": 10,
-      "question": "Dễ nổi cáu không?"
-    },
-    {
-      "test_pool_id": 11,
-      "question": "Khó vào giấc ngủ không?"
-    },
-    {
-      "test_pool_id": 12,
-      "question": "Hay đánh trống ngực không?"
-    }
-  ],
-  "testVersion": "2021/02",
-  "otherSymptom": "Đau đầu nhức mỏi, tê bì chân tay",
-  "otherPeople": "Đồng chí Nguyễn Ngọc Nghĩa"
+  "success": true,
+  "data": {
+    "id": 1,
+    "name": "Nguyen Van A",
+    "dateOfBirth": "1990/01/01",
+    "nation": "Kinh",
+    "gender": 1,
+    "joinArmy": "2010/01/01",
+    "unit": "b2c4d1",
+    "rank": "b1",
+    "position": "Chien si",
+    "answer": [{
+        "test_pool_id": 1,
+        "answer": "Co"
+      },
+      {
+        "test_pool_id": 2,
+        "answer": "Khong"
+      },
+      {
+        "test_pool_id": 3,
+        "answer": "Khong"
+      },
+      {
+        "test_pool_id": 4,
+        "answer": "Co"
+      },
+      {
+        "test_pool_id": 5,
+        "answer": "Co"
+      },
+      {
+        "test_pool_id": 6,
+        "answer": "Khong"
+      },
+      {
+        "test_pool_id": 7,
+        "answer": "Khong"
+      },
+      {
+        "test_pool_id": 8,
+        "answer": "Khong"
+      },
+      {
+        "test_pool_id": 9,
+        "answer": "Co"
+      },
+      {
+        "test_pool_id": 10,
+        "answer": "Khong"
+      },
+      {
+        "test_pool_id": 11,
+        "answer": "Co"
+      },
+      {
+        "test_pool_id": 12,
+        "answer": "Khong"
+      }
+    ],
+    "question": [{
+        "test_pool_id": 1,
+        "question": "Mất ngủ không?"
+      },
+      {
+        "test_pool_id": 2,
+        "question": "Buổi sáng ngủ dậy có mệt mỏi không?"
+      },
+      {
+        "test_pool_id": 3,
+        "question": "Hay buồn vô cớ không?"
+      },
+      {
+        "test_pool_id": 4,
+        "question": "Nghe có tiếng người nói chuyện trong đầu?"
+      },
+      {
+        "test_pool_id": 5,
+        "question": "Cho rằng có người theo dõi, làm hại mình?"
+      },
+      {
+        "test_pool_id": 6,
+        "question": "Ngủ quá ít không?"
+      },
+      {
+        "test_pool_id": 7,
+        "question": "Thấy người rất khỏe mạnh không?"
+      },
+      {
+        "test_pool_id": 8,
+        "question": "Rất vui vẻ không?"
+      },
+      {
+        "test_pool_id": 9,
+        "question": "Hoạt động quá nhiều không?"
+      },
+      {
+        "test_pool_id": 10,
+        "question": "Dễ nổi cáu không?"
+      },
+      {
+        "test_pool_id": 11,
+        "question": "Khó vào giấc ngủ không?"
+      },
+      {
+        "test_pool_id": 12,
+        "question": "Hay đánh trống ngực không?"
+      }
+    ],
+    "testVersion": "2021/02",
+    "otherSymptom": "Đau đầu nhức mỏi, tê bì chân tay",
+    "otherPeople": "Đồng chí Nguyễn Ngọc Nghĩa",
+    "predictShallowFilter": 0,
+    "predictDeepFilter": 0
+  }
 }
