@@ -1,6 +1,7 @@
 {
   "success": true,
-  "data": [{
+  "data": [
+    {
       "id": 1,
       "name": "Nguyen Ngoc Nghia",
       "dateOfBirth": "27/02/2002",
@@ -10,7 +11,8 @@
       "unit": 1,
       "rank": "binh 1",
       "position": "Chien binh",
-      "answer": [{
+      "answer": [
+        {
           "test_pool_id": 1,
           "answer": "Co"
         },
@@ -21,7 +23,9 @@
       ],
       "testVersion": "Some version",
       "otherSymptom": "buon ngu",
-      "otherPeople": "dong chi A"
+      "otherPeople": "dong chi A",
+      "predictShallowFilter": 1,
+      "predictDeepFilter": 0
     },
     {
       "id": 2,
@@ -33,7 +37,8 @@
       "unit": 1,
       "rank": "binh 1",
       "position": "Chien binh",
-      "answer": [{
+      "answer": [
+        {
           "test_pool_id": 1,
           "answer": "Co"
         },
@@ -44,7 +49,9 @@
       ],
       "testVersion": "Some version",
       "otherSymptom": "buon ngu",
-      "otherPeople": "dong chi A"
+      "otherPeople": "dong chi A",
+      "predictShallowFilter": 1,
+      "predictDeepFilter": 1
     },
     {
       "id": 3,
@@ -56,7 +63,8 @@
       "unit": 2,
       "rank": "binh 1",
       "position": "Chien binh",
-      "answer": [{
+      "answer": [
+        {
           "test_pool_id": 1,
           "answer": "Co"
         },
@@ -67,7 +75,9 @@
       ],
       "testVersion": "Some version",
       "otherSymptom": "buon ngu",
-      "otherPeople": "dong chi A"
+      "otherPeople": "dong chi A",
+      "predictShallowFilter": 0,
+      "predictDeepFilter": 0
     }
   ]
 }

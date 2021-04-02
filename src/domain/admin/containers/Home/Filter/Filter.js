@@ -78,8 +78,8 @@ const Filter = ({ values, onFilter }) => {
                 <option value="" selected>
                   Tất cả
                 </option>
-                <option>Bình thường</option>
-                <option>Có bệnh</option>
+                <option value={0}>Bình thường</option>
+                <option value={1}>Có bệnh</option>
               </select>
             </div>
           </Col>

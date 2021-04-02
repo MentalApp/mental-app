@@ -40,6 +40,7 @@ const Home = () => {
       dataMock.success &&
       dataMock?.data.map((item) => ({
         ...item,
+        predict: `${item.predictShallowFilter}/${item.predictDeepFilter}`,
         onClick: () => navigate(`/home/${item.id}`),
       }))
     );

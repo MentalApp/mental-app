@@ -53,6 +53,6 @@ export const TestCollums = [
 
   {
     name: 'Nghi ngờ',
-    field: 'predictShallowFilter' / 'predictDeepFilter',
+    field: 'predict',
   },
 ];

@@ -110,5 +110,7 @@
   ],
   "testVersion": "2021/02",
   "otherSymptom": "Đau đầu nhức mỏi, tê bì chân tay",
-  "otherPeople": "Đồng chí Nguyễn Ngọc Nghĩa"
+  "otherPeople": "Đồng chí Nguyễn Ngọc Nghĩa",
+  "predictShallowFilter": 0,
+  "predictDeepFilter": 0
 }
