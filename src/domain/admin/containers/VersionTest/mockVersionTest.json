@@ -1,37 +1,45 @@
-[{
+{"data": [{
         "id": 1,
         "name": "dot 1",
-        "authen": "123",
+        "code": "123",
         "index": 1,
+        "timer": "90",
         "startAt": "2010/01/01",
         "expireAt": "2010/01/01",
-        "createdAt": "2010/01/01"
+        "createdAt": "2010/01/01",
+        "isClose": true
     },
     {
         "id": 2,
         "name": "dot 2",
-        "authen": "234",
+        "code": "234",
         "index": 2,
+        "timer": "90",
         "startAt": "2010/01/01",
         "expireAt": "2010/01/01",
-        "createdAt": "2010/01/01"
+        "createdAt": "2010/01/01",
+        "isClose": false
     },
     {
         "id": 3,
         "name": "dot 3",
-        "authen": "345",
+        "code": "345",
         "index": 3,
+        "timer": "90",
         "startAt": "2010/01/01",
         "expireAt": "2010/01/01",
-        "createdAt": "2010/01/01"
+        "createdAt": "2010/01/01",
+        "isClose": false
     },
     {
         "id": 4,
         "name": "dot 4",
-        "authen": "456",
+        "code": "456",
         "index": 4,
+        "timer": "90",
         "startAt": "2010/01/01",
         "expireAt": "2010/01/01",
-        "createdAt": "2010/01/01"
+        "createdAt": "2010/01/01",
+        "isClose": false
     }
-]
+]}
