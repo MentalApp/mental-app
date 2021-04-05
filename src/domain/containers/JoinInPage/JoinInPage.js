@@ -10,7 +10,7 @@ const JoinInPage = () => {
   const [code, setCode] = useState('');
   const [error, setError] = useState(null);
 
-  const [joinin] = useMutation({ url: '/joinin' });
+  const [joinin] = useMutation({ url: '/guest/joinin' });
 
   const handleSetCode = useCallback((event) => setCode(event.target.value), []);
 

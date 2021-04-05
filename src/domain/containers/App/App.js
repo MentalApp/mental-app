@@ -1,8 +1,7 @@
 import React from 'react';
 
 import BaseApp from 'containers/BaseApp';
-
-import routes from '../../routes';
+import routes from 'domain/routes';
 
 const App = () => {
   return <BaseApp routes={routes} />;

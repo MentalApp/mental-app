@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import TablePaginationData from 'components/TablePagination';
-import QuestionHeader from 'domain/guest/components/QuestionHeader/QuestionHeader';
+import QuestionHeader from 'domain/components/QuestionHeader/QuestionHeader';
 import Wrapper from './PreviewPage.styles';
 import { Alert, Button, Container } from 'react-bootstrap';
 

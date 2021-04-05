@@ -1,7 +1,7 @@
 import React, { useCallback, useState, useMemo } from 'react';
 import { useMutation, useQuery } from 'hooks/axios.hooks';
 import Loading from 'components/Loading';
-import QuestionForm from 'domain/guest/components/QuestionForm/QuestionForm';
+import QuestionForm from 'domain/components/QuestionForm/QuestionForm';
 import { Button } from 'react-bootstrap';
 import Wrapper from './Question.styles';
 import PreviewPage from '../PreviewPage';
@@ -18,7 +18,7 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
   const { data, loading } = useQuery({ url: '/tests', params: { code: JSON.parse(code) } });
   const questions = useMemo(() => !!data && !!data.data && data.data?.questions, [data]);
 
-  const [submit] = useMutation({ url: '/officer_tests', method: 'POST' });
+  const [submit] = useMutation({ url: '/guest/officer_tests', method: 'POST' });
 
   const handleEvent = useCallback(
     (action) => {

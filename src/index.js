@@ -4,24 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import '../src/common/style/mainStyle.scss';
 
-const domain = (() => {
-  const currentDomain = window.location.hostname;
-
-  const { REACT_APP_MASTER_DOMAIN, REACT_APP_ADMIN_DOMAIN, REACT_APP_GUEST_DOMAIN } = process.env;
-
-  switch (currentDomain) {
-    case REACT_APP_MASTER_DOMAIN:
-      return 'master';
-    case REACT_APP_ADMIN_DOMAIN:
-      return 'admin';
-    case REACT_APP_GUEST_DOMAIN:
-      return 'guest';
-    default:
-      return 'guest';
-  }
-})();
-
-const App = lazy(() => import(`domain/${domain}/containers/App`));
+const App = lazy(() => import(`domain/containers/App`));
 
 ReactDOM.render(
   <Suspense fallback={null}>
