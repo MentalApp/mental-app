@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Container, Button, Modal, Form } from 'react-bootstrap';
+import { Container, Button, Modal, Form, Badge } from 'react-bootstrap';
 import { useNavigation } from 'react-navi';
 import Wrapper from './VersionTest.styles';
 import data from './mockVersionTest.json';
@@ -16,6 +16,8 @@ registerLocale('vi', vi);
 const VersionTest = () => {
   const { navigate } = useNavigation();
   const [show, setShow] = useState(false);
+  const [check, setCheck] = useState(false);
+
   const [error, setError] = useState(null);
 
   const [createTestVersion] = useMutation({ url: '/tests' });
@@ -49,12 +51,20 @@ const VersionTest = () => {
       data.data?.map((item) => ({
         ...item,
         isClose: (
-          <label className="switch">
-            <input type="checkbox" checked />
-            <span className="slider round"></span>
-          </label>
+          <Badge onClick={() => console.log(item.id)} variant={!item.isClose ? 'danger' : 'success'}>
+            {item.isClose ? 'Bắt đầu' : 'Kết thúc'}
+          </Badge>
         ),
-        // onClick: () => navigate(`/version/${item.id}`),
+        // isClose(
+        //   <Form.Check
+        //     key={item.id}
+        //     type="switch"
+        //     id="custom-switch"
+        //     checked={item.isClose}
+        //     onChange={(event) => console.log(item.id, event.target.checked)}
+        //   />
+        // ),
+        onClick: () => navigate(`/version/${item.id}`),
       }))
     );
   }, [navigate]);
@@ -113,7 +123,6 @@ const VersionTest = () => {
                 </Modal.Header>
                 <Form onSubmit={props.handleSubmit}>
                   <Modal.Body>
-                    {console.log(props.errors, props.values)}
                     <Form.Group controlId="nameVersion">
                       <Form.Label>Tên đợt khảo sát.</Form.Label>
                       <Form.Control
