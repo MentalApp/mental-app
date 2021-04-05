@@ -1,3 +1,4 @@
+import { Modal } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -12,68 +13,80 @@ const Wrapper = styled.div`
     margin: 0px 15px 0px 15px;
   }
 
-  /* The switch - the box around the slider */
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
+  table {
+    thead {
+      border-top: 1px solid #707070;
+      border-bottom: 1px solid #707070;
+    }
+    p {
+      margin-bottom: 0;
+      max-width: 175px;
+      width: auto !important;
+      @media (max-width: 1919px) {
+        max-width: 96px;
+      }
+    }
+
+    th {
+      text-align: center;
+      padding: 20px;
+      font-size: 16px;
+      color: #464646;
+      font-weight: 500;
+    }
+
+    td {
+      text-align: center;
+      font-size: 15px;
+      vertical-align: middle;
+      border-bottom: 1px dashed #dbdbdb;
+      padding: 20px;
+
+      &:last-child {
+        border-right: 0;
+      }
+    }
+
+    tr {
+      &:hover {
+        background: #e5f1f1;
+        cursor: pointer;
+      }
+
+      td {
+        font-size: 15px !important;
+
+        button {
+          margin: auto;
+          font-size: 15px !important;
+          display: unset;
+          color: #fff;
+          font-weight: 500;
+        }
+      }
+    }
   }
 
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
+  .three-up {
+    width: 100%;
+    padding: 0 30px;
 
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-  }
-
-  .slider:before {
-    position: absolute;
-    content: '';
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: 0.4s;
-    transition: 0.4s;
-  }
-
-  input:checked + .slider {
-    background-color: #2196f3;
-  }
-
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196f3;
-  }
-
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-
-  .slider.round:before {
-    border-radius: 50%;
+    .notice-table {
+      width: 100%;
+      border-bottom: 1px solid #707070;
+    }
   }
 `;
 
 export default Wrapper;
 
-// float: right;
+export const ModalWrapper = styled(Modal)`
+  .error-text {
+    margin: 0;
+    color: red;
+  }
+
+  .has-error {
+    border-color: red !important;
+  }
+`;
