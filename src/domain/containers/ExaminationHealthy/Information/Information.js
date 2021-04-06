@@ -4,7 +4,7 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Information.scss';
 import vi from 'date-fns/locale/vi';
-import InformationForm from 'domain/guest/components/InformationForm/InformationForm';
+import InformationForm from 'domain/components/InformationForm/InformationForm';
 import { format } from 'date-fns';
 import { Form, Button } from 'react-bootstrap';
 import { LIST_UNIT } from 'utils/constants';

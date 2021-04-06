@@ -13,7 +13,7 @@ const Home = () => {
 
   const { navigate } = useNavigation();
   const { data, loading } = useQuery({
-    url: '/officer_tests',
+    url: '/admin/officer_tests',
     params: { ...params },
   });
   const columns = TestCollums;

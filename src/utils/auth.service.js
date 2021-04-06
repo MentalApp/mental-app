@@ -1,4 +1,4 @@
-import { CURRENT_USER, TOKEN } from './constants';
+import { CURRENT_USER, TOKEN, ENTRYCODE_TOKEN } from './constants';
 
 export const authService = {
   init() {
@@ -31,7 +31,6 @@ export const authService = {
     const token = window.localStorage.getItem(TOKEN);
     // token not exists
     if (!token) {
-      this.clearStorage();
       return undefined;
     }
 
@@ -41,6 +40,13 @@ export const authService = {
     // token expired
     if (current_time > tokenDecode.expiry) {
       this.clearStorage();
+      return undefined;
+    }
+    return token;
+  },
+  getEntryCodeToken() {
+    const token = window.localStorage.getItem(ENTRYCODE_TOKEN);
+    if (!token) {
       return undefined;
     }
     return token;
