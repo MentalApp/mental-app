@@ -2,7 +2,7 @@ import Checkbox from 'components/Checkbox';
 import { useMutation } from 'hooks/axios.hooks';
 import React, { useCallback, useState } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
-import { User } from 'react-feather';
+import { ArrowRight, User } from 'react-feather';
 import { useNavigation } from 'react-navi';
 import Wrapper from './SignIn.styles';
 import { TOKEN, ErrorMessage } from 'utils/constants';
@@ -55,6 +55,16 @@ const SignIn = () => {
           <User size="30px" color="#fff" />
         </div>
         <div className="title">Đăng nhập</div>
+
+        <div className="user" onClick={() => navigate('/')}>
+          <div className="text-user">Tham gia bằng mã khảo sát.</div>
+          <ArrowRight color="#26df" />
+        </div>
+
+        <div className="or">
+          <span>Hoặc</span>
+        </div>
+
         {error && <Alert variant="danger">{error}</Alert>}
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleLogin}>
           {(props) => (

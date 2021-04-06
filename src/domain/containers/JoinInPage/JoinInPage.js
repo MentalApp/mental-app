@@ -6,6 +6,7 @@ import { useMutation } from 'hooks/axios.hooks';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { CODE, ErrorMessage, ENTRYCODE_TOKEN } from 'utils/constants';
+import { LogIn } from 'react-feather';
 
 const JoinInPage = () => {
   const { navigate } = useNavigation();
@@ -78,6 +79,11 @@ const JoinInPage = () => {
                   </form>
                 )}
               </Formik>
+
+              <div className="admin" onClick={() => navigate('/login')}>
+                <div className="text-admin">Đăng nhập cho quản trị viên</div>
+                <LogIn color="#26df" />
+              </div>
             </div>
           </Col>
         </Row>
