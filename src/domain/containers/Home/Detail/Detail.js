@@ -23,7 +23,7 @@ const Detail = ({ id }) => {
   return (
     <Wrapper>
       {loading && <Loading />}
-      {!loading && (
+      {!loading && data && (
         <Container>
           <div className="information">
             <div className="row">

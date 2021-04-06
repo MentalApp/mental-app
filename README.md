@@ -27,19 +27,6 @@ Follow these instructions to set up this project on local machine.
 
 ### Installing
 
-- Edit `host` file
-  ```
-  sudo vim /etc/hosts
-  ```
-  paste it
-  ```
-  ...
-  127.0.0.1	master.local
-  127.0.0.1	admin.local
-  127.0.0.1	guest.local
-  ...
-  ```
-  save.
 - Clone project
   ```
   git clone https://github.com/NamNguyen99/mental-app.git && cd mental-app
@@ -59,7 +46,9 @@ Follow these instructions to set up this project on local machine.
   yarn start
   ```
 - Open browser and test `http://master.local:3001`
+
 ### Test with json-server
+
 - Install json-server
   ```
   npm install -g json-server

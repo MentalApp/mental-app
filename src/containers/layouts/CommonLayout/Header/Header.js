@@ -57,34 +57,10 @@ const Header = () => {
                 elemBefore: () => <Home />,
               },
               {
-                title: 'Câu hỏi khảo sát',
-                itemId: '/question',
-                elemBefore: () => <Server name="user" />,
-                // subNav: [
-                //   {
-                //     title: 'Bộ câu hỏi',
-                //     itemId: '/question',
-                //   },
-                //   {
-                //     title: 'Kỳ khảo sát',
-                //     itemId: '/about/members',
-                //   },
-                // ],
-              },
-              {
                 title: 'Quản lý đợt khảo sát',
                 itemId: '/version',
                 elemBefore: () => <Layers />,
               },
-              // {
-              //   title: 'Chức năng khác',
-              //   subNav: [
-              //     {
-              //       title: 'Teams',
-              //       itemId: '/another/teams',
-              //     },
-              //   ],
-              // },
             ]}
           />
 
