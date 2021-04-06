@@ -23,7 +23,7 @@ const SignIn = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string().trim().email('*Tài khoản phải là email').required('*Yêu cầu nhập tài khoản'),
-    password: Yup.string().required('*Yêu cầu nhập mật khẩu').min(6, '*Mật khẩu tối thiểu 8 ký tự'),
+    password: Yup.string().required('*Yêu cầu nhập mật khẩu').min(6, '*Mật khẩu tối thiểu 6 ký tự'),
   });
 
   const handleLogin = useCallback(
