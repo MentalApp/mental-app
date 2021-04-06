@@ -17,7 +17,7 @@ const JoinInPage = () => {
     code: '',
   };
   const validationSchema = Yup.object({
-    code: Yup.string().required('*Bắt buộc').trim().min(4, '*Mã tham gia quá ngắn'),
+    // code: Yup.string().required('*Bắt buộc').trim().min(4, '*Mã tham gia quá ngắn'),
   });
 
   const handleSubmit = useCallback(

@@ -10,7 +10,7 @@ import Filter from './FilterVersion';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useMutation, useQuery } from 'hooks/axios.hooks';
-import InformationForm from 'domain/guest/components/InformationForm/InformationForm';
+import InformationForm from 'domain/components/InformationForm/InformationForm';
 
 // registerLocale('vi', vi);
 
@@ -21,12 +21,12 @@ const VersionTest = () => {
 
   const [error, setError] = useState(null);
 
-  const [createTestVersion] = useMutation({ url: '/tests' });
-  const [startVersion] = useMutation({ url: '/tests/start' });
+  const [createTestVersion] = useMutation({ url: '/admin/tests' });
+  const [startVersion] = useMutation({ url: '/admin/tests/start' });
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { data, loading, force } = useQuery({ url: '/tests' });
+  const { data, loading, force } = useQuery({ url: '/admin/tests' });
 
   const collums = [
     {
