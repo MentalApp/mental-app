@@ -94,7 +94,7 @@ const Header = () => {
               items={[
                 {
                   title: 'Đăng xuất',
-                  itemId: '/',
+                  itemId: '/login',
                   elemBefore: () => <Power name="activity" />,
                 },
               ]}

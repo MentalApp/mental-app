@@ -6,7 +6,7 @@ import { Button } from 'react-bootstrap';
 import Wrapper from './Question.styles';
 import PreviewPage from '../PreviewPage';
 import { useNavigation } from 'react-navi';
-import { CODE, ErrorMessage } from 'utils/constants';
+import { CODE, ENTRYCODE_TOKEN, ErrorMessage } from 'utils/constants';
 
 const Question = ({ information, setToExamTest, resultTest, setResultTest }) => {
   const [count, setCount] = useState(0);
@@ -15,7 +15,7 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
   const { navigate } = useNavigation();
   const code = window.localStorage.getItem(CODE);
 
-  const { data, loading } = useQuery({ url: '/tests', params: { code: JSON.parse(code) } });
+  const { data, loading } = useQuery({ url: '/guest/tests', params: { code: JSON.parse(code) } });
   const questions = useMemo(() => !!data && !!data.data && data.data?.questions, [data]);
 
   const [submit] = useMutation({ url: '/guest/officer_tests', method: 'POST' });
@@ -60,7 +60,8 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
           setError(ErrorMessage.POST_TEST_IS_NOT_FOUND);
           setTimeout(() => {
             setError(null);
-            localStorage.clear();
+            localStorage.removeItem(ENTRYCODE_TOKEN);
+            localStorage.removeItem(CODE);
             navigate('/');
           }, 5000);
           return;

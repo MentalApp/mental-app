@@ -3,7 +3,7 @@ import { Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import JoinInPageWrapper from './JoinInPage.styles';
 import { useNavigation } from 'react-navi';
 import { useMutation } from 'hooks/axios.hooks';
-import { CODE, TOKEN, ErrorMessage } from 'utils/constants';
+import { CODE, ErrorMessage, ENTRYCODE_TOKEN } from 'utils/constants';
 
 const JoinInPage = () => {
   const { navigate } = useNavigation();
@@ -20,7 +20,7 @@ const JoinInPage = () => {
         if (!response.data.success) {
           setError(ErrorMessage.VALIDATE_CODE_INVALID);
         }
-        window.localStorage.setItem(TOKEN, JSON.stringify(response.data.token));
+        window.localStorage.setItem(ENTRYCODE_TOKEN, JSON.stringify(response.data.token));
         window.localStorage.setItem(CODE, JSON.stringify(code));
 
         navigate('/examination');
