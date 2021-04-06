@@ -1,10 +1,10 @@
 import { useQuery } from 'hooks/axios.hooks';
 import React from 'react';
-import { Button, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import Wrapper from './VersionDetail.style';
-import questionsMock from '../../Home/Detail/questionsMock.json';
+// import questionsMock from '../../Home/Detail/questionsMock.json';
 import Loading from 'components/Loading';
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
 
 const VersionDetail = ({ id }) => {
   const { data, loading } = useQuery({ url: `/admin/tests/${id}` });

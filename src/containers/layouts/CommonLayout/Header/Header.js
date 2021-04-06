@@ -3,7 +3,7 @@ import { useCurrentRoute, useNavigation } from 'react-navi';
 import Wrapper from './Header.styles';
 import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
-import { AlignLeft, Home, Power, Server, Layers } from 'react-feather';
+import { AlignLeft, Home, Power, Layers } from 'react-feather';
 import { authService } from 'utils/auth.service';
 
 const Header = () => {
