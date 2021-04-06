@@ -16,6 +16,30 @@ const Wrapper = styled.div`
     -moz-box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
     box-shadow: 0px 10px 34px -15px rgb(0 0 0 / 24%);
 
+    .user {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      .text-user {
+        color: #26df;
+      }
+    }
+
+    .or {
+      width: 100%;
+      text-align: center;
+      border-bottom: 1px solid #707070;
+      line-height: 0.1em;
+      margin: 30px 0;
+
+      span {
+        background: #fff;
+        padding: 0 10px;
+      }
+    }
+
     .icon-user {
       margin: auto;
       width: 80px;

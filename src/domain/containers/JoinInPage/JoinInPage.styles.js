@@ -12,6 +12,20 @@ export default styled.div`
     margin: 0 auto;
     color: #dd4b39;
     justify-content: center;
+    position: relative;
+
+    .admin {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      bottom: 5px;
+      right: 5px;
+      cursor: pointer;
+
+      .text-admin {
+        color: #26df;
+      }
+    }
 
     input.form-control {
       height: 40px;
