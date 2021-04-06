@@ -2,23 +2,30 @@ import axios from 'axios';
 import get from 'lodash/get';
 
 import { authService } from 'utils/auth.service';
-import { getCurrentEndpoint } from 'utils/endpoint';
 
 const TIMEOUT = 65 * 1000;
 
 const request = axios.create({
-  baseURL: process.env.REACT_APP_API_URL + getCurrentEndpoint(),
+  baseURL: process.env.REACT_APP_API_URL,
   timeout: TIMEOUT,
 });
 
 const pending = {};
 const CancelToken = axios.CancelToken;
+const endpointGuest = ['/examination', '/thanks'];
 
 request.interceptors.request.use(function (config) {
   const token = authService.getToken();
+  const getEntryCodeToken = authService.getEntryCodeToken();
   if (!!token) {
     /* istanbul ignore next */
     const commonHeaders = token ? JSON.parse(token) : '';
+    config.headers.accessToken = commonHeaders;
+  }
+
+  if (getEntryCodeToken && endpointGuest.includes(window.location.pathname)) {
+    /* istanbul ignore next */
+    const commonHeaders = getEntryCodeToken ? JSON.parse(getEntryCodeToken) : '';
     config.headers.accessToken = commonHeaders;
   }
 
@@ -53,7 +60,7 @@ request.interceptors.response.use(
     const token = authService.getToken();
     if (token && get(error, 'response.status') === 401) {
       authService.clearStorage();
-      window.location.href = '/sign_in';
+      window.location.href = '/login';
       return;
     }
     return Promise.reject(error);

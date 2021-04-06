@@ -2,11 +2,15 @@ import React, { useEffect } from 'react';
 import { Button, Col, Container, Row } from 'react-bootstrap';
 import Wrapper from './ThanksForSurvey.styles';
 import { useNavigation } from 'react-navi';
+import { CODE, ENTRYCODE_TOKEN } from 'utils/constants';
 
 const ThanksForSurvey = () => {
   const { navigate } = useNavigation();
 
-  useEffect(() => localStorage.clear(), []);
+  useEffect(() => {
+    localStorage.removeItem(CODE);
+    localStorage.removeItem(ENTRYCODE_TOKEN);
+  }, []);
 
   const handleback = () => {
     navigate('/');

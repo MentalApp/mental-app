@@ -12,9 +12,18 @@ import VersionDetail from '../containers/VersionTest/VersionDetail';
 import { View } from 'react-navi';
 import Detail from '../containers/Home/Detail';
 import withAuth from 'routes/withAuth';
+import withAuthEntryCode from 'routes/withAuthEntryCode';
+import JoinInPage from '../containers/JoinInPage/JoinInPage';
+
+import ExaminationHealth from '../containers/ExaminationHealthy';
+import ThanksForSurvey from '../containers/ThanksForSurvey';
+// const isValidCode = localStorage.getItem('validCode');
 
 export const routes = {
-  '/': withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <SignIn /> })),
+  '/': withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <JoinInPage /> })),
+  '/thanks': withAuthEntryCode(route({ title: 'guest.routes.resource.sign_in', view: <ThanksForSurvey /> })),
+  '/examination': withAuthEntryCode(route({ title: 'guest.routes.resource.question', view: <ExaminationHealth /> })),
+  '/login': withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <SignIn /> })),
   '/home': withView(
     <CommonLayout>
       <View />

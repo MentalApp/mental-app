@@ -14,7 +14,7 @@ const SignIn = () => {
   const { navigate } = useNavigation();
   const [error, setError] = useState(null);
 
-  const [signin] = useMutation({ url: '/login' });
+  const [signin] = useMutation({ url: '/admin/login' });
 
   const initialValues = {
     email: '',

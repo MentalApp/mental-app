@@ -3,15 +3,15 @@ import { Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import JoinInPageWrapper from './JoinInPage.styles';
 import { useNavigation } from 'react-navi';
 import { useMutation } from 'hooks/axios.hooks';
-import { CODE, TOKEN, ErrorMessage } from 'utils/constants';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import { CODE, ErrorMessage, ENTRYCODE_TOKEN } from 'utils/constants';
 
 const JoinInPage = () => {
   const { navigate } = useNavigation();
   const [error, setError] = useState(null);
 
-  const [joinin] = useMutation({ url: '/joinin' });
+  const [joinin] = useMutation({ url: '/guest/joinin' });
 
   const initialValues = {
     code: '',
@@ -29,9 +29,8 @@ const JoinInPage = () => {
           if (!response.data.success) {
             setError(ErrorMessage.VALIDATE_CODE_INVALID);
           }
-          window.localStorage.setItem(TOKEN, JSON.stringify(response.data.token));
+          window.localStorage.setItem(ENTRYCODE_TOKEN, JSON.stringify(response.data.token));
           window.localStorage.setItem(CODE, JSON.stringify(valuesCloned.code));
-
           navigate('/examination');
         })
         .catch((err) => {

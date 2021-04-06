@@ -8,7 +8,7 @@ import Loading from 'components/Loading';
 import { format } from 'date-fns';
 
 const Detail = ({ id }) => {
-  const { data, loading } = useQuery({ url: `/officer_tests/${id}` });
+  const { data, loading } = useQuery({ url: `/admin/officer_tests/${id}` });
   console.log(data);
 
   const restructureData = useMemo(() => {
