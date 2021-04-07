@@ -89,7 +89,6 @@ const SignIn = () => {
                   checked={remember}
                   onChange={() => setRemember(!remember)}
                 />
-                <p>Quên mật khẩu?</p>
               </div>
               <Button type="submit" disabled={props.isSubmitting}>
                 Đăng nhập

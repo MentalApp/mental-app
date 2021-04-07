@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Button, Container, Row, Col, Alert } from 'react-bootstrap';
+import { Button, Container, Row, Col, Alert, Card } from 'react-bootstrap';
 import JoinInPageWrapper from './JoinInPage.styles';
 import { useNavigation } from 'react-navi';
 import { useMutation } from 'hooks/axios.hooks';
@@ -54,31 +54,33 @@ const JoinInPage = () => {
       <Container>
         <Row className="justify-content-center">
           <Col sm={10} md={6} lg={5}>
-            <div className="login-form">
-              <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-                {(props) => (
-                  <form className="form-join" onSubmit={props.handleSubmit}>
-                    <input
-                      className={`form-control ${props.errors?.code && props.touched?.code ? 'has-error' : ''}`}
-                      placeholder="Nhập mã kiểm tra"
-                      type="text"
-                      value={props.values.code}
-                      onChange={(event) => props.setFieldValue('code', event.target.value)}
-                    />
-                    {props.errors?.code && props.touched?.code && (
-                      <span className="help-block">{props.errors?.code}</span>
-                    )}
-                    {error && <Alert variant="danger">{error}</Alert>}
+            <Card className="card-stats">
+              <div className="login-form">
+                <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+                  {(props) => (
+                    <form className="form-join" onSubmit={props.handleSubmit}>
+                      <input
+                        className={`form-control ${props.errors?.code && props.touched?.code ? 'has-error' : ''}`}
+                        placeholder="Nhập mã kiểm tra"
+                        type="text"
+                        value={props.values.code}
+                        onChange={(event) => props.setFieldValue('code', event.target.value)}
+                      />
+                      {props.errors?.code && props.touched?.code && (
+                        <span className="help-block">{props.errors?.code}</span>
+                      )}
+                      {error && <Alert variant="danger">{error}</Alert>}
 
-                    <div className="wrapper">
-                      <Button variant="outline-success" className="justify-content-center buttonTest" type="submit">
-                        Kiểm tra
-                      </Button>
-                    </div>
-                  </form>
-                )}
-              </Formik>
-            </div>
+                      <div className="align--button">
+                        <Button variant="outline-success" className="justify-content-center buttonTest" type="submit">
+                          Kiểm tra
+                        </Button>
+                      </div>
+                    </form>
+                  )}
+                </Formik>
+              </div>
+            </Card>
           </Col>
         </Row>
       </Container>

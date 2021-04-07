@@ -6,7 +6,7 @@ export default styled.div`
   height: 100vh;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+  margin: auto;
 
   .login-form {
     margin: 0 auto;
@@ -20,22 +20,10 @@ export default styled.div`
       text-align: center;
       border: 1px solid #c3b9b9;
     }
-    .has-error {
-      input {
-        border-color: #dd4b39 !important;
-        border-width: 2px;
-      }
-      .help-block {
-        color: #dd4b39;
-        font-size: 16px;
-      }
-    }
   }
   .form-join {
     background-color: #fff;
     padding: 50px;
-    box-shadow: 0px 10px 34px -15px rgba(0, 0, 0, 0.24);
-    border: 1px solid #c3b9b9;
   }
   .title {
     padding: 10px;
@@ -46,7 +34,7 @@ export default styled.div`
     margin: 10px 0px;
   }
 
-  .wrapper {
+  .align--button {
     padding: 10px;
     text-align: center;
   }

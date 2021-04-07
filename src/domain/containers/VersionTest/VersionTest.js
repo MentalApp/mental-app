@@ -42,7 +42,7 @@ const VersionTest = () => {
       field: 'timer',
     },
     {
-      name: '',
+      name: 'Trạng thái',
       field: 'isClose',
     },
   ];
@@ -54,10 +54,12 @@ const VersionTest = () => {
       data.data?.map((item) => ({
         ...item,
         name: <div onClick={() => navigate(`/version/${item.id}`)}>{item.name}</div>,
-        isClose: item.isClose && (
+        isClose: item.isClose ? (
           <Badge onClick={() => setIDTest(item.id)} variant="success">
-            Bắt đầu
+            Đang bật
           </Badge>
+        ) : (
+          <Badge variant="secondary">Đang tắt</Badge>
         ),
       }))
     );

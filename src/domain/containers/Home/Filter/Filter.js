@@ -7,7 +7,7 @@ const Filter = ({ values, onFilter }) => {
     <Wrapper>
       <Container fluid>
         <Row>
-          <Col xs={12} sm={6} lg={2}>
+          <Col xs={12} sm={6} md={4}>
             <div className="group-item-filter">
               <div className="title">Tên hoặc mã quân nhân</div>
               <input
@@ -19,7 +19,7 @@ const Filter = ({ values, onFilter }) => {
               />
             </div>
           </Col>
-          <Col xs={12} sm={6} lg={2}>
+          <Col xs={12} sm={6} md={4}>
             <div className="group-item-filter">
               <div className="title">Đơn vị</div>
               <select
@@ -35,7 +35,9 @@ const Filter = ({ values, onFilter }) => {
               </select>
             </div>
           </Col>
-          <Col xs={12} sm={6} lg={2}>
+        </Row>
+        <Row>
+          <Col xs={12} sm={6} md={4}>
             <div className="group-item-filter">
               <div className="title">Đợt kiểm tra</div>
               <select
@@ -51,7 +53,7 @@ const Filter = ({ values, onFilter }) => {
               </select>
             </div>
           </Col>
-          <Col xs={12} sm={6} lg={2}>
+          <Col xs={12} sm={6} md={4}>
             <div className="group-item-filter">
               <div className="title">Mức độ trung thực</div>
               <select
@@ -67,7 +69,7 @@ const Filter = ({ values, onFilter }) => {
               </select>
             </div>
           </Col>
-          <Col xs={12} sm={6} lg={2}>
+          <Col xs={12} sm={6} md={4}>
             <div className="group-item-filter">
               <div className="title">Mức độ vấn đề </div>
               <select
