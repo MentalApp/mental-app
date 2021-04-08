@@ -6,10 +6,10 @@ import Wrapper from './Detail.styles';
 import questionsMock from './questionsMock.json';
 import Loading from 'components/Loading';
 import { format } from 'date-fns';
+import { handleUnit } from 'utils/utils';
 
 const Detail = ({ id }) => {
   const { data, loading } = useQuery({ url: `/admin/officer_tests/${id}` });
-  console.log(data);
 
   const restructureData = useMemo(() => {
     if (!data) return;
@@ -18,7 +18,6 @@ const Detail = ({ id }) => {
       answer: !!data && data.data?.answer.find((val) => val.test_pool_id === item.test_pool_id).answer,
     }));
   }, [data]);
-  console.log(restructureData);
 
   return (
     <Wrapper>
@@ -27,25 +26,18 @@ const Detail = ({ id }) => {
         <Container>
           <div className="information">
             <div className="row">
-              <p className="col"> Họ và tên: {data.data?.name || '-'} </p>
-              <p className="col">Đợt kiểm tra: {data.data?.testVersion || '-'}</p>
-            </div>
-            <div className="row">
-              <p className="col">Năm sinh: {format(new Date(data.data?.dateOfBirth), 'dd/MM/yyyy') || '-'} </p>
-              <p className="col"> Giới tính: {data.data?.gender === 0 ? 'Nam' : 'Nữ' || '-'} </p>
-            </div>
-            <div className="row">
-              <p className="col"> Dân tộc: {data.data?.nation || '-'} </p>
-              <p className="col">Nhập ngũ: {data.data?.joinArmy || '-'} </p>
-            </div>
-            <div className="row">
-              <p className="col"> Đơn vị: {data.data?.unit || '-'} </p>
-              <p className="col">Số hiệu quân nhân: {data.data?.militaryCode || '-'} </p>
-            </div>
-            <p> </p>
-            <div className="row">
-              <p className="col"> Cấp bậc: {data.data?.rank || '-'} </p>
-              <p className="col"> Chức vụ: {data.data?.position || '-'} </p>
+              <p className="col-sm-12 col-md-6"> Họ và tên: {data.data?.name || '-'} </p>
+              <p className="col-sm-12 col-md-6">Đợt kiểm tra: {data.data?.testVersion || '-'}</p>
+              <p className="col-sm-12 col-md-6">
+                Năm sinh: {format(new Date(data.data?.dateOfBirth), 'dd/MM/yyyy') || '-'}{' '}
+              </p>
+              <p className="col-sm-12 col-md-6"> Giới tính: {data.data?.gender === 0 ? 'Nam' : 'Nữ' || '-'} </p>
+              <p className="col-sm-12 col-md-6"> Dân tộc: {data.data?.nation || '-'} </p>
+              <p className="col-sm-12 col-md-6">Nhập ngũ: {format(new Date(data.data?.joinArmy), 'MM/yyyy') || '-'} </p>
+              <p className="col-sm-12 col-md-6"> Đơn vị: {data && handleUnit(data.data?.unit)} </p>
+              <p className="col-sm-12 col-md-6">Mã số quân nhân: {data.data?.militaryCode || '-'} </p>
+              <p className="col-sm-12 col-md-6"> Cấp bậc: {data.data?.rank || '-'} </p>
+              <p className="col-sm-12 col-md-6"> Chức vụ: {data.data?.position || '-'} </p>
             </div>
           </div>
           <TablePaginationData
@@ -61,13 +53,20 @@ const Detail = ({ id }) => {
             <p>Các đồng chí trong cùng đơn vị có biểu hiện bất thường hoặc có triệu chứng bệnh như trên (nếu có):</p>
             <p className="note-answer">{data.data?.otherPeople || ''}</p>
           </div>
-          <div className="note-information">
-            <p>Chẩn đoán:</p>
-            <p className="note-answer">{`Lọc nông: ${
-              data.data?.predictShallowFilter === 0 ? 'Không có bệnh' : 'Có bệnh'
+          <div className="note">
+            <p>
+              Dựa trên kết quả trả lời của đối tượng tham gia khảo sát và dựa trên tri thức học từ chuyên gia, hệ thống
+              đưa ra nhận định như sau:
+            </p>
+            <p className="note-answer">{` ${
+              data.data?.predictShallowFilter === 0
+                ? '- Có khả năng không có bệnh tâm thần.'
+                : '- Có khả năng có bệnh tâm thần.'
             }`}</p>
-            <p className="note-answer">{`Lọc sâu: ${
-              data.data?.predictDeepFilter === 1 ? 'Không trung thực' : 'Trung thực'
+            <p className="note-answer">{`${
+              data.data?.predictDeepFilter === 1
+                ? '- Có khả năng không trả lời câu hỏi  trung thực.'
+                : '- Có khả năng không trung thực'
             }`}</p>
           </div>
           <div className="note-by-doctor">

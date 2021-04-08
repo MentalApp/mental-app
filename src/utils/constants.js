@@ -29,30 +29,36 @@ export const TestCollums = [
   {
     name: 'Đợt kiểm tra',
     field: 'testVersion',
+    width: 'w-15',
   },
   {
     name: 'Tên quân nhân',
     field: 'name',
+    width: 'w-15',
   },
   {
-    name: 'Số hiệu quân nhân',
+    name: 'MSQN',
     field: 'militaryCode',
+    width: 'w-10',
   },
   {
     name: 'Đơn vị',
     field: 'unit',
+    width: 'w-15',
   },
   {
     name: 'Cấp bậc',
     field: 'rank',
+    width: 'w-10',
   },
   {
-    name: 'Chức vụ',
-    field: 'position',
+    name: 'Có bệnh',
+    field: 'predictDeepFilter',
+    width: 'w-10',
   },
-
   {
-    name: 'Nghi ngờ',
-    field: 'predict',
+    name: 'Trung thực',
+    field: 'predictShallowFilter',
+    width: 'w-10',
   },
 ];

@@ -61,7 +61,7 @@ const JoinInPage = () => {
                     <form className="form-join" onSubmit={props.handleSubmit}>
                       <input
                         className={`form-control ${props.errors?.code && props.touched?.code ? 'has-error' : ''}`}
-                        placeholder="Nhập mã kiểm tra"
+                        placeholder="Nhập mã đợt khảo sát"
                         type="text"
                         value={props.values.code}
                         onChange={(event) => props.setFieldValue('code', event.target.value)}
@@ -73,7 +73,7 @@ const JoinInPage = () => {
 
                       <div className="align--button">
                         <Button variant="outline-success" className="justify-content-center buttonTest" type="submit">
-                          Kiểm tra
+                          Bắt đầu
                         </Button>
                       </div>
                     </form>

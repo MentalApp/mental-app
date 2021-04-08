@@ -75,12 +75,12 @@ const TablePaginationData = ({
         <Col sm={12}>
           <Wrapper className="no-padding">
             <Card>
-              <Table striped bordered hover responsive>
+              <Table bordered hover responsive>
                 {!hiddenHeader && (
                   <thead className="text-primary">
                     <tr>
-                      {columns.map(({ name, field }, index) => (
-                        <th key={index} className={field} onClick={field === sortBy ? onSort : undefined}>
+                      {columns.map(({ name, field, width }, index) => (
+                        <th key={index} className={(field, width)} onClick={field === sortBy ? onSort : undefined}>
                           {name}
                         </th>
                       ))}

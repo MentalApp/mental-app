@@ -16,7 +16,7 @@ const QuestionHeader = ({ information }) => {
       </div>
       <div className="row">
         <p className="col"> Đơn vị: {(!!information?.unit && information?.unit) || '-'} </p>
-        <p className="col">Số hiệu quân nhân: {(!!information?.militaryCode && information?.militaryCode) || '-'} </p>
+        <p className="col">Mã số quân nhân: {(!!information?.militaryCode && information?.militaryCode) || '-'} </p>
       </div>
 
       <div className="row">

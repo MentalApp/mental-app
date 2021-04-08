@@ -6,6 +6,7 @@ import { useNavigation } from 'react-navi';
 import Filter from './Filter';
 import Wrapper from './Home.styles';
 import { TestCollums } from 'utils/constants';
+import { handleUnit } from 'utils/utils';
 
 const Home = () => {
   const [params, setParams] = useState({});
@@ -32,6 +33,7 @@ const Home = () => {
     },
     [params],
   );
+
   const restructureData = useMemo(() => {
     if (!data) return [];
     return (
@@ -39,7 +41,9 @@ const Home = () => {
       data.data &&
       data?.data.map((item) => ({
         ...item,
-        predict: `${item.predictShallowFilter}/${item.predictDeepFilter}`,
+        predictDeepFilter: item.predictDeepFilter === 1 ? 'Không' : 'Có',
+        predictShallowFilter: item.predictShallowFilter === 1 ? 'Có' : 'Không',
+        unit: handleUnit(item.unit),
         onClick: () => navigate(`/home/${item.id}`),
       }))
     );

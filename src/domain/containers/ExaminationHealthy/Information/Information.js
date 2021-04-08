@@ -21,14 +21,14 @@ const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) =
     <Form onSubmit={handleSubmit}>
       <div className="root-info-form">
         <div className="wrap-form">
-          <p className="text-center text--tiltle">Nhập thông tin cá nhân.</p>
+          <p className="text-center text--tiltle">Nhập thông tin cá nhân</p>
           <hr className="m-0 text-center" />
           <div className="row">
             <div className="col-12">
               <InformationForm
                 className={`input-control ${touched.name && errors.name ? 'has-error' : ''}`}
                 value={values?.name}
-                label={'Họ và tên quân nhân'}
+                label={'Họ và tên'}
                 onChange={(event) => setFieldValue('name', event.target.value)}
               />
               {touched.name && errors.name && <p className="error-text">{errors.name}</p>}
@@ -132,7 +132,7 @@ const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) =
               <InformationForm
                 className={`input-control ${touched.militaryCode && errors.militaryCode ? 'has-error' : ''}`}
                 value={values?.militaryCode}
-                label={'Số hiệu quân nhân'}
+                label={'Mã số quân nhân'}
                 onChange={(event) => setFieldValue('militaryCode', event.target.value)}
               />
               {touched.militaryCode && errors.militaryCode && <p className="error-text">{errors.militaryCode}</p>}
@@ -161,7 +161,7 @@ const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) =
           <div className="row">
             <div className="col-12" style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <Button variant="outline-success" className="justify-content-center buttonTest" type="submit">
-                Vào test
+                Tiếp theo
               </Button>
             </div>
           </div>

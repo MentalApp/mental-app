@@ -101,6 +101,14 @@ const Wrapper = styled.div`
     border-radius: 7px;
   }
 
+  .note {
+    background-color: #a8deec;
+    padding: 30px;
+    margin: 10px 15px;
+    border-bottom: 1px solid #707070;
+    border-radius: 7px;
+  }
+
   .note-answer {
     margin-left: 20px;
     border-bottom: 1px dotted;
