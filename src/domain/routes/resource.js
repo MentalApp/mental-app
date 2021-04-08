@@ -17,13 +17,18 @@ import JoinInPage from '../containers/JoinInPage/JoinInPage';
 
 import ExaminationHealth from '../containers/ExaminationHealthy';
 import ThanksForSurvey from '../containers/ThanksForSurvey';
+import { authService } from 'utils/auth.service';
 // const isValidCode = localStorage.getItem('validCode');
 
 export const routes = {
-  '/': withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <JoinInPage /> })),
+  '/': !authService.getEntryCodeToken()
+    ? withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <JoinInPage /> }))
+    : withAuthEntryCode(route({ title: 'guest.routes.resource.question', view: <ExaminationHealth /> })),
   '/thanks': withAuthEntryCode(route({ title: 'guest.routes.resource.sign_in', view: <ThanksForSurvey /> })),
   '/examination': withAuthEntryCode(route({ title: 'guest.routes.resource.question', view: <ExaminationHealth /> })),
-  '/login': withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <SignIn /> })),
+  '/login': !authService.getToken()
+    ? withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <SignIn /> }))
+    : withAuth(route({ view: <Home /> })),
   '/home': withView(
     <CommonLayout>
       <View />

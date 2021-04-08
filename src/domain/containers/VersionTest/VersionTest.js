@@ -5,14 +5,15 @@ import Wrapper, { ModalWrapper } from './VersionTest.styles';
 // import data from './mockVersionTest.json';
 import TablePaginationData from 'components/TablePagination';
 import Filter from './FilterVersion';
-// import vi from 'date-fns/locale/vi';
-// import ReactDatePicker, { registerLocale } from 'react-datepicker';
+import vi from 'date-fns/locale/vi';
+import ReactDatePicker, { registerLocale } from 'react-datepicker';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useMutation, useQuery } from 'hooks/axios.hooks';
 import InformationForm from 'domain/components/InformationForm/InformationForm';
+import { format } from 'date-fns';
 
-// registerLocale('vi', vi);
+registerLocale('vi', vi);
 
 const VersionTest = () => {
   const { navigate } = useNavigation();
@@ -192,19 +193,21 @@ const VersionTest = () => {
                         <p className="error-text">{props.errors.description}</p>
                       )}
                     </Form.Group>
-                    {/* <Form.Group controlId="timeTestVersion">
+                    <Form.Group controlId="timeTestVersion">
                       <Form.Label>Thời gian khảo sát.</Form.Label>
                       <ReactDatePicker
-                        className={touched.yearOfBirth && errors.yearOfBirth ? 'has-error' : ''}
-                        value={(!!values?.yearOfBirth && values?.yearOfBirth) || null}
-                        onChange={(date) => setFieldValue('yearOfBirth', format(date, 'dd/MM/yyyy'))}
+                        className={props.touched.timer && props.errors.timer ? 'has-error' : ''}
+                        value={(!!props.values?.timer && props.values?.timer) || null}
+                        onChange={(date) => props.setFieldValue('timer', format(date, 'dd/MM/yyyy'))}
                         dataFormat="dd/MM/yyyy"
                         showMonthDropdown
                         showYearDropdown
                         dropdownMode="select"
                         locale="vi"
+                        placeholderText="Nhập ngày khảo sát"
                       />
-                    </Form.Group> */}
+                      {props.touched.timer && props.errors.timer && <p className="error-text">{props.errors.timer}</p>}
+                    </Form.Group>
 
                     <Form.Group controlId="authenVersion">
                       <Form.Label>Mã đợt khảo sát.</Form.Label>
@@ -217,7 +220,7 @@ const VersionTest = () => {
                       />
                       {props.touched.code && props.errors.code && <p className="error-text">{props.errors.code}</p>}
                     </Form.Group>
-                    <Form.Group controlId="timerTestVersion">
+                    {/* <Form.Group controlId="timerTestVersion">
                       <Form.Label>Thời gian khảo sát (phút).</Form.Label>
                       <Form.Control
                         className={`input-control ${props.touched.timer && props.errors.timer ? 'has-error' : ''}`}
@@ -226,7 +229,7 @@ const VersionTest = () => {
                         onChange={(event) => props.setFieldValue('timer', event.target.value)}
                       />
                       {props.touched.timer && props.errors.timer && <p className="error-text">{props.errors.timer}</p>}
-                    </Form.Group>
+                    </Form.Group> */}
                     {/* <Form.Group controlId="formBasicCheckbox">
                       <Form.Check
                         type="checkbox"

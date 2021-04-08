@@ -8,6 +8,15 @@ const Wrapper = styled.div`
     border-radius: 7px;
   }
 
+  .backgroud-red {
+    background-color: red;
+    color: #fff;
+  }
+
+  .backgroud-yellow {
+    background-color: yellow;
+  }
+
   table {
     thead {
       border-top: 1px solid #707070;

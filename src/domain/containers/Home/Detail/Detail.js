@@ -65,8 +65,8 @@ const Detail = ({ id }) => {
             }`}</p>
             <p className="note-answer">{`${
               data.data?.predictDeepFilter === 1
-                ? '- Có khả năng không trả lời câu hỏi  trung thực.'
-                : '- Có khả năng không trung thực'
+                ? '- Có khả năng không trả lời câu hỏi trung thực.'
+                : '- Có khả năng trung thực'
             }`}</p>
           </div>
           <div className="note-by-doctor">
