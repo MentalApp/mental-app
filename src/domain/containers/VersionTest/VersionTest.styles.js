@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   }
 
   .create--button {
-    margin: 0px 15px 0px 15px;
+    margin: 5px 15px 0px 15px;
   }
 
   table {

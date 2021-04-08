@@ -31,14 +31,12 @@ const Header = () => {
   return (
     <Wrapper>
       <div>
-        <button className="btn-menu" onClick={handleOpenSidebar} type="button">
-          <AlignLeft name="burger" className="w-6 h-6" />
-        </button>
+        <AlignLeft name="burger" cursor="pointer" onClick={handleOpenSidebar} className="w-6 h-6" />
       </div>
 
       {/* Sidebar */}
       {isSidebarOpen && (
-        <div className="side-bar-menu">
+        <div className="side-bar-menu" id="sidebar">
           <div className="title">
             <span>Ứng dụng khảo sát</span>
             {/* <X className="button-close" onClick={handleCloseSidebar} /> */}

@@ -56,10 +56,10 @@ const VersionTest = () => {
         name: <div onClick={() => navigate(`/version/${item.id}`)}>{item.name}</div>,
         isClose: item.isClose ? (
           <Badge onClick={() => setIDTest(item.id)} variant="success">
-            Đang bật
+            Đang mở
           </Badge>
         ) : (
-          <Badge variant="secondary">Đang tắt</Badge>
+          <Badge variant="secondary">Đang đóng</Badge>
         ),
       }))
     );
