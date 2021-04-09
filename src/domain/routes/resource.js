@@ -21,7 +21,7 @@ import ThanksForSurvey from '../containers/ThanksForSurvey';
 
 export const routes = {
   '/': withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <JoinInPage /> })),
-  '/thanks': withAuthEntryCode(route({ title: 'guest.routes.resource.sign_in', view: <ThanksForSurvey /> })),
+  '/thanks': withNotAuth(route({ title: 'guest.routes.resource.sign_in', view: <ThanksForSurvey /> })),
   '/examination': withAuthEntryCode(route({ title: 'guest.routes.resource.question', view: <ExaminationHealth /> })),
   '/login': withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <SignIn /> })),
   '/home': withView(

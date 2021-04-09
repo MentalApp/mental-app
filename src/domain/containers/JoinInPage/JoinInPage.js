@@ -28,6 +28,7 @@ const JoinInPage = () => {
         .then((response) => {
           if (!response.data.success) {
             setError(ErrorMessage.VALIDATE_CODE_INVALID);
+            return;
           }
           window.localStorage.setItem(ENTRYCODE_TOKEN, JSON.stringify(response.data.token));
           window.localStorage.setItem(CODE, JSON.stringify(valuesCloned.code));
@@ -39,6 +40,7 @@ const JoinInPage = () => {
             return;
           }
           setError(ErrorMessage.VALIDATE_CODE_INVALID);
+          return;
         })
         .finally(() => actions.setSubmitting(false));
     },
@@ -47,7 +49,7 @@ const JoinInPage = () => {
 
   setTimeout(() => {
     setError(null);
-  }, 5000);
+  }, 10000);
 
   return (
     <JoinInPageWrapper>
