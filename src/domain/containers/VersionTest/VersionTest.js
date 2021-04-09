@@ -57,10 +57,10 @@ const VersionTest = () => {
         name: <div onClick={() => navigate(`/version/${item.id}`)}>{item.name}</div>,
         isClose: item.isClose ? (
           <Badge onClick={() => setIDTest(item.id)} variant="success">
-            Đang bật
+            Đang mở
           </Badge>
         ) : (
-          <Badge variant="secondary">Đang tắt</Badge>
+          <Badge variant="secondary">Đang đóng</Badge>
         ),
       }))
     );
@@ -92,18 +92,24 @@ const VersionTest = () => {
         .then((response) => {
           if (!response.data.success) {
             setError({ type: 'danger', message: 'Tạo đợt kiểm tra không thành công' });
+            setTimeout(() => {
+              setError(null);
+            }, 10000);
             return;
           }
           setError({ type: 'success', message: 'Tạo đợt kiểm tra thành công' });
+          setTimeout(() => {
+            handleClose();
+            actions.resetForm({ values: { ...initialValues } });
+          }, 3000);
           force();
         })
-        .catch((er) => setError({ type: 'danger', message: 'Tạo đợt kiểm tra không thành công' }))
-        .finally(() => {
-          handleClose();
+        .catch((er) => {
+          setError({ type: 'danger', message: 'Tạo đợt kiểm tra không thành công' });
           setTimeout(() => {
             setError(null);
-          }, 5000);
-          actions.resetForm({ values: { ...initialValues } });
+          }, 10000);
+          return;
         });
     },
     [createTestVersion, force, initialValues, validateSchema],
@@ -148,7 +154,6 @@ const VersionTest = () => {
   return (
     <Wrapper>
       <Container fluid>
-        {!!error && <Alert variant={error?.type}>{error?.message}</Alert>}
         <div style={{ display: 'flex' }}>
           <Button variant="primary" className="create--button" onClick={handleShow} style={{ marginLeft: 'auto' }}>
             Tạo
@@ -238,12 +243,14 @@ const VersionTest = () => {
                         onChange={(event) => props.setFieldValue('isClose', event.target.checked)}
                       />
                     </Form.Group> */}
+                    {!!error && <Alert variant={error?.type}>{error?.message}</Alert>}
                   </Modal.Body>
                   <Modal.Footer>
                     <Button
                       variant="secondary"
                       onClick={() => {
                         handleClose();
+                        setError(null);
                         props.resetForm({ values: { ...initialValues } });
                       }}
                     >

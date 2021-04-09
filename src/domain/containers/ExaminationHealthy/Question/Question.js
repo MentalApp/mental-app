@@ -53,6 +53,8 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
           setError(ErrorMessage.INTERNAL_SERVER_ERROR);
           return;
         }
+        localStorage.removeItem(CODE);
+        localStorage.removeItem(ENTRYCODE_TOKEN);
         navigate('/thanks');
       })
       .catch((err) => {

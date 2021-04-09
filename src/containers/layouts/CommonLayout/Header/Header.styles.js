@@ -12,6 +12,8 @@ const Wrapper = styled.div`
     width: 300px;
     background-color: #e9ecef;
     top: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
     left: 0;
     z-index: 2;
 
