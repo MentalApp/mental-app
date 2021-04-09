@@ -11,5 +11,5 @@ export default (matcher) =>
       return matcher;
     }
 
-    return redirect('/');
+    return redirect('/login');
   });

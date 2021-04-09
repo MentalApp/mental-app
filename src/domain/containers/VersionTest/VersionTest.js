@@ -11,7 +11,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useMutation, useQuery } from 'hooks/axios.hooks';
 import InformationForm from 'domain/components/InformationForm/InformationForm';
-import { format } from 'date-fns';
+import { compareDesc, format } from 'date-fns';
 
 registerLocale('vi', vi);
 
@@ -72,7 +72,8 @@ const VersionTest = () => {
       name: '',
       description: '',
       code: '',
-      timer: '',
+      start_date: '',
+      end_date: '',
     }),
     [],
   );
@@ -81,7 +82,14 @@ const VersionTest = () => {
     name: Yup.string().required('*Bắt buộc').trim().max(255, '*Tên quá dài'),
     description: Yup.string().required('*Bắt buộc').trim().max(600, '*Mô tả quá dài'),
     code: Yup.string().required('*Bắt buộc').trim().min(4, '*Tối thiểu 4 ký tự'),
-    timer: Yup.string().required('*Bắt buộc'),
+    start_date: Yup.string()
+      .required('*Bắt buộc')
+      .test('loi', '*Ngày tạo không được trước ngày kết thúc', function ({ parent }, item) {
+        const compare = compareDesc(new Date(item?.parent?.start_date), new Date(item?.parent?.end_date));
+        if (compare === 1) return true;
+        return false;
+      }),
+    end_date: Yup.string().required('*Bắt buộc'),
   });
 
   const handleSubmit = useCallback(
@@ -198,21 +206,6 @@ const VersionTest = () => {
                         <p className="error-text">{props.errors.description}</p>
                       )}
                     </Form.Group>
-                    <Form.Group controlId="timeTestVersion">
-                      <Form.Label>Thời gian khảo sát.</Form.Label>
-                      <ReactDatePicker
-                        className={props.touched.timer && props.errors.timer ? 'has-error' : ''}
-                        value={(!!props.values?.timer && props.values?.timer) || null}
-                        onChange={(date) => props.setFieldValue('timer', format(date, 'dd/MM/yyyy'))}
-                        dataFormat="dd/MM/yyyy"
-                        showMonthDropdown
-                        showYearDropdown
-                        dropdownMode="select"
-                        locale="vi"
-                        placeholderText="Nhập ngày khảo sát"
-                      />
-                      {props.touched.timer && props.errors.timer && <p className="error-text">{props.errors.timer}</p>}
-                    </Form.Group>
 
                     <Form.Group controlId="authenVersion">
                       <Form.Label>Mã đợt khảo sát.</Form.Label>
@@ -225,24 +218,56 @@ const VersionTest = () => {
                       />
                       {props.touched.code && props.errors.code && <p className="error-text">{props.errors.code}</p>}
                     </Form.Group>
-                    {/* <Form.Group controlId="timerTestVersion">
-                      <Form.Label>Thời gian khảo sát (phút).</Form.Label>
-                      <Form.Control
-                        className={`input-control ${props.touched.timer && props.errors.timer ? 'has-error' : ''}`}
-                        type="number"
-                        value={props.values.timer}
-                        onChange={(event) => props.setFieldValue('timer', event.target.value)}
+                    <Form.Group controlId="timeStartTestVersion">
+                      <Form.Label>Thời gian khảo sát.</Form.Label>
+                      <ReactDatePicker
+                        className={props.touched.start_date && props.errors.start_date ? 'has-error' : ''}
+                        value={
+                          (!!props.values?.start_date && format(props.values?.start_date, 'dd/MM/yyyy HH:mm')) || null
+                        }
+                        onChange={(date) => props.setFieldValue('start_date', date)}
+                        dataFormat="dd/MM/yyyy HH:mm"
+                        showMonthDropdown
+                        showYearDropdown
+                        showTimeSelect
+                        selectsStart
+                        selected={props.values.start_date}
+                        dropdownMode="select"
+                        locale="vi"
+                        placeholderText="Nhập ngày bắt đầu khảo sát"
+                        startDate={props.values.start_date}
+                        endDate={props.values.end_date}
+                        maxDate={props.values.end_date}
+                        minDate={new Date()}
                       />
-                      {props.touched.timer && props.errors.timer && <p className="error-text">{props.errors.timer}</p>}
-                    </Form.Group> */}
-                    {/* <Form.Group controlId="formBasicCheckbox">
-                      <Form.Check
-                        type="checkbox"
-                        label="Bắt đầu đợt kiểm tra lập tức"
-                        checked={props.values.isClose}
-                        onChange={(event) => props.setFieldValue('isClose', event.target.checked)}
+                      {props.touched.start_date && props.errors.start_date && (
+                        <p className="error-text">{props.errors.start_date}</p>
+                      )}
+                    </Form.Group>
+                    <Form.Group controlId="timeEndTestVersion">
+                      <Form.Label>Thời gian kết thúc khảo sát.</Form.Label>
+                      <ReactDatePicker
+                        className={props.touched.end_date && props.errors.end_date ? 'has-error' : ''}
+                        value={(!!props.values?.end_date && format(props.values?.end_date, 'dd/MM/yyyy HH:mm')) || null}
+                        onChange={(date) => props.setFieldValue('end_date', date)}
+                        dataFormat="dd/MM/yyyy HH:mm"
+                        showMonthDropdown
+                        showYearDropdown
+                        showTimeSelect
+                        selected={props.values.end_date}
+                        selectsEnd
+                        dropdownMode="select"
+                        locale="vi"
+                        placeholderText="Nhập ngày kết thúc khảo sát"
+                        startDate={props.values.start_date}
+                        endDate={props.values.end_date}
+                        minDate={props.values.start_date}
                       />
-                    </Form.Group> */}
+                      {props.touched.end_date && props.errors.end_date && (
+                        <p className="error-text">{props.errors.end_date}</p>
+                      )}
+                    </Form.Group>
+
                     {!!error && <Alert variant={error?.type}>{error?.message}</Alert>}
                   </Modal.Body>
                   <Modal.Footer>

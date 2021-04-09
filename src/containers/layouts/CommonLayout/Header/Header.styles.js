@@ -2,7 +2,29 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
-  padding: 10px 30px;
+  padding: 20px 30px;
+  background-color: #fff;
+
+  .header-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .group-left {
+      display: flex;
+      align-items: center;
+
+      .text-title {
+        font-weight: 400;
+        font-size: 20px;
+        margin-left: 8px;
+      }
+    }
+    .user-wrapper {
+      border: 1px solid;
+      border-radius: 50%;
+    }
+  }
   .active {
     color: #29afaf;
   }

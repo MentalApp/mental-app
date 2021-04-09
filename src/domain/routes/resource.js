@@ -24,7 +24,7 @@ export const routes = {
   '/': !authService.getEntryCodeToken()
     ? withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <JoinInPage /> }))
     : withAuthEntryCode(route({ title: 'guest.routes.resource.question', view: <ExaminationHealth /> })),
-  '/thanks': withNotAuth(route({ title: 'guest.routes.resource.sign_in', view: <ThanksForSurvey /> })),
+  '/thanks': withAuthEntryCode(route({ title: 'guest.routes.resource.sign_in', view: <ThanksForSurvey /> })),
   '/examination': withAuthEntryCode(route({ title: 'guest.routes.resource.question', view: <ExaminationHealth /> })),
   '/login': !authService.getToken()
     ? withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <SignIn /> }))
