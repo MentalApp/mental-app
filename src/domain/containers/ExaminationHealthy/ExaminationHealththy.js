@@ -1,15 +1,22 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import Wrapper from './ExaminationHealthy.styles';
 import Information from './Information';
 import Question from './Question';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { useCurrentRoute, useNavigation } from 'react-navi';
 
 const ExaminationHealth = () => {
   const [toExamtest, setToExamTest] = useState(false);
   const [information, setInformation] = useState({});
   const [resultTest, setResultTest] = useState([]);
+  const route = useCurrentRoute().url.pathname;
+  const { _history } = useNavigation();
+
+  useEffect(() => {
+    route !== '/' && _history.replace('/examination');
+  }, [_history, route]);
 
   const initialValues = {
     name: information?.name || '',

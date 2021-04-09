@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { useCurrentRoute, useNavigation } from 'react-navi';
 import Wrapper from './Header.styles';
 import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
-import { AlignLeft, Home, Power, Layers } from 'react-feather';
-import { authService } from 'utils/auth.service';
+import { AlignLeft, Home, Power, Layers, User } from 'react-feather';
+import { TOKEN } from 'utils/constants';
 
 const Header = () => {
   const { navigate } = useNavigation();
@@ -28,10 +28,22 @@ const Header = () => {
     };
   }, []);
 
+  const titleHeader = useMemo(() => {
+    if (activeRoute.match('/home')) return 'Kết quả các bài khảo sát';
+    if (activeRoute.match('/version')) return 'Đợt khảo sát';
+    return '';
+  }, [activeRoute]);
+
   return (
     <Wrapper>
-      <div>
-        <AlignLeft name="burger" cursor="pointer" onClick={handleOpenSidebar} className="w-6 h-6" />
+      <div className="header-wrapper">
+        <div className="group-left">
+          <AlignLeft name="burger" cursor="pointer" onClick={handleOpenSidebar} className="w-6 h-6" />
+          <div className="text-title">{titleHeader}</div>
+        </div>
+        <div className="user-wrapper">
+          <User />
+        </div>
       </div>
 
       {/* Sidebar */}
@@ -74,7 +86,7 @@ const Header = () => {
               ]}
               onSelect={({ itemId }) => {
                 navigate(itemId);
-                authService.logout();
+                localStorage.removeItem(TOKEN);
                 handleCloseSidebar();
               }}
             />

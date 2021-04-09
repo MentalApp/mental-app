@@ -7,6 +7,7 @@ import Wrapper from './Question.styles';
 import PreviewPage from '../PreviewPage';
 import { useNavigation } from 'react-navi';
 import { CODE, ENTRYCODE_TOKEN, ErrorMessage } from 'utils/constants';
+import { toastSuccess } from 'utils/toastify';
 
 const Question = ({ information, setToExamTest, resultTest, setResultTest }) => {
   const [count, setCount] = useState(0);
@@ -53,9 +54,12 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
           setError(ErrorMessage.INTERNAL_SERVER_ERROR);
           return;
         }
+        toastSuccess('Đã hoàn thành khảo sát.');
         localStorage.removeItem(CODE);
         localStorage.removeItem(ENTRYCODE_TOKEN);
-        navigate('/thanks');
+        setTimeout(() => {
+          navigate('/');
+        }, 5000);
       })
       .catch((err) => {
         if (err.response?.status === 404) {

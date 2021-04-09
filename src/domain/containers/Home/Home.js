@@ -1,8 +1,8 @@
 import TablePaginationData from 'components/TablePagination';
 import { useQuery } from 'hooks/axios.hooks';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { useNavigation } from 'react-navi';
+import { useCurrentRoute, useNavigation } from 'react-navi';
 import Filter from './Filter';
 import Wrapper from './Home.styles';
 import { TestCollums } from 'utils/constants';
@@ -11,14 +11,18 @@ import { handleUnit } from 'utils/utils';
 const Home = () => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
+  const route = useCurrentRoute().url.pathname;
 
-  const { navigate } = useNavigation();
+  const { navigate, _history } = useNavigation();
   const { data, loading } = useQuery({
     url: '/admin/officer_tests',
     params: { ...params },
   });
   const columns = TestCollums;
-  console.log(data);
+
+  useEffect(() => {
+    route !== '/home' && _history.replace('/home');
+  }, [_history, route]);
 
   const handleOnFilter = useCallback(
     (queryObject) => {
@@ -34,6 +38,13 @@ const Home = () => {
     [params],
   );
 
+  const backgroudColor = useCallback((item) => {
+    console.log(item);
+    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 1) return 'backgroud-red';
+    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 0) return 'backgroud-yellow';
+    return;
+  }, []);
+
   const restructureData = useMemo(() => {
     if (!data) return [];
     return (
@@ -45,9 +56,10 @@ const Home = () => {
         predictShallowFilter: item.predictShallowFilter === 1 ? 'Có' : 'Không',
         unit: handleUnit(item.unit),
         onClick: () => navigate(`/home/${item.id}`),
+        className: backgroudColor(item),
       }))
     );
-  }, [navigate, data]);
+  }, [data, backgroudColor, navigate]);
 
   return (
     <Wrapper>

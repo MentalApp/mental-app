@@ -7,6 +7,7 @@ const Wrapper = styled.div`
 
   .format--quest {
     padding: 10px 0px 100px 0px;
+    font-size: 28px;
   }
 
   input {
@@ -17,7 +18,16 @@ const Wrapper = styled.div`
   }
 
   .input-no {
-    margin-left: 50px;
+    margin-left: 100px;
+  }
+
+  label {
+    font-size: 20px;
+  }
+
+  .anwer-wrapper {
+    display: flex;
+    justify-content: center;
   }
 `;
 

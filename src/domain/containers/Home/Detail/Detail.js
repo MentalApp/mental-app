@@ -10,7 +10,6 @@ import { handleUnit } from 'utils/utils';
 
 const Detail = ({ id }) => {
   const { data, loading } = useQuery({ url: `/admin/officer_tests/${id}` });
-
   const restructureData = useMemo(() => {
     if (!data) return;
     return questionsMock.data?.questions.map((item, index) => ({
@@ -27,7 +26,7 @@ const Detail = ({ id }) => {
           <div className="information">
             <div className="row">
               <p className="col-sm-12 col-md-6"> Họ và tên: {data.data?.name || '-'} </p>
-              <p className="col-sm-12 col-md-6">Đợt kiểm tra: {data.data?.testVersion || '-'}</p>
+              <p className="col-sm-12 col-md-6">Đợt kiểm tra: {data.data?.testVersion?.name || '-'}</p>
               <p className="col-sm-12 col-md-6">
                 Năm sinh: {format(new Date(data.data?.dateOfBirth), 'dd/MM/yyyy') || '-'}{' '}
               </p>
@@ -65,8 +64,8 @@ const Detail = ({ id }) => {
             }`}</p>
             <p className="note-answer">{`${
               data.data?.predictDeepFilter === 1
-                ? '- Có khả năng không trả lời câu hỏi  trung thực.'
-                : '- Có khả năng không trung thực'
+                ? '- Có khả năng không trả lời câu hỏi trung thực.'
+                : '- Có khả năng trung thực'
             }`}</p>
           </div>
           <div className="note-by-doctor">

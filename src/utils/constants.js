@@ -53,12 +53,12 @@ export const TestCollums = [
   },
   {
     name: 'Có bệnh',
-    field: 'predictDeepFilter',
+    field: 'predictShallowFilter',
     width: 'w-10',
   },
   {
     name: 'Trung thực',
-    field: 'predictShallowFilter',
+    field: 'predictDeepFilter',
     width: 'w-10',
   },
 ];
