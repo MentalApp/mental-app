@@ -8,7 +8,7 @@ const QuestionHeader = ({ information }) => {
       <p> Họ và tên: {(!!information && information.name) || '-'} </p>
       <div className="row">
         <p className="col">Năm sinh: {(!!information?.yearOfBirth && information?.yearOfBirth) || '-'} </p>
-        <p className="col"> Giới tính: {(!!information && information.gender) || '-'} </p>
+        <p className="col"> Giới tính: {(!!information && Number(information.gender) === 0 ? 'Nam' : 'Nữ') || '-'} </p>
       </div>
       <div className="row">
         <p className="col"> Dân tộc: {(!!information && information.nation) || '-'} </p>

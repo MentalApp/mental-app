@@ -84,10 +84,11 @@ const VersionTest = () => {
     code: Yup.string().required('*Bắt buộc').trim().min(4, '*Tối thiểu 4 ký tự'),
     start_date: Yup.string()
       .required('*Bắt buộc')
-      .test('loi', '*Ngày tạo không được trước ngày kết thúc', function ({ parent }, item) {
-        const compare = compareDesc(new Date(item?.parent?.start_date), new Date(item?.parent?.end_date));
-        if (compare === 1) return true;
-        return false;
+      .test('test_start_date', '*Ngày tạo không được sau ngày kết thúc', function (start_date) {
+        if (!!this.parent.end_date) {
+          return compareDesc(new Date(this.parent.end_date), new Date(start_date)) === -1;
+        }
+        return !this.parent.end_date;
       }),
     end_date: Yup.string().required('*Bắt buộc'),
   });
@@ -100,9 +101,6 @@ const VersionTest = () => {
         .then((response) => {
           if (!response.data.success) {
             setError({ type: 'danger', message: 'Tạo đợt kiểm tra không thành công' });
-            setTimeout(() => {
-              setError(null);
-            }, 10000);
             return;
           }
           setError({ type: 'success', message: 'Tạo đợt kiểm tra thành công' });
@@ -118,6 +116,11 @@ const VersionTest = () => {
             setError(null);
           }, 10000);
           return;
+        })
+        .finally(() => {
+          setTimeout(() => {
+            setError(null);
+          }, 10000);
         });
     },
     [createTestVersion, force, initialValues, validateSchema],
