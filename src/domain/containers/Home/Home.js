@@ -18,6 +18,11 @@ const Home = () => {
     url: '/admin/officer_tests',
     params: { ...params },
   });
+
+  const dataTests = useQuery({
+    url: '/admin/tests',
+  });
+
   const columns = TestCollums;
 
   useEffect(() => {
@@ -39,9 +44,8 @@ const Home = () => {
   );
 
   const backgroudColor = useCallback((item) => {
-    console.log(item);
-    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 1) return 'backgroud-red';
-    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 0) return 'backgroud-yellow';
+    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 1) return '#ef5350';
+    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 0) return '#ffeb3b';
     return;
   }, []);
 
@@ -65,7 +69,11 @@ const Home = () => {
     <Wrapper>
       <Container fluid>
         <div className="filter">
-          <Filter values={params} onFilter={handleOnFilter} />
+          <Filter
+            values={params}
+            dataTests={dataTests && dataTests.data ? dataTests.data.data : []}
+            onFilter={handleOnFilter}
+          />
         </div>
         <TablePaginationData
           columns={columns}

@@ -4,7 +4,7 @@ import Wrapper from './Header.styles';
 import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
 import { AlignLeft, Home, Power, Layers, User } from 'react-feather';
-import { TOKEN } from 'utils/constants';
+// import { TOKEN } from 'utils/constants';
 
 const Header = () => {
   const { navigate } = useNavigation();
@@ -29,7 +29,7 @@ const Header = () => {
   }, []);
 
   const titleHeader = useMemo(() => {
-    if (activeRoute.match('/home')) return 'Kết quả các bài khảo sát';
+    if (activeRoute.match('/home')) return 'Kết quả khảo sát';
     if (activeRoute.match('/version')) return 'Đợt khảo sát';
     return '';
   }, [activeRoute]);
@@ -62,7 +62,7 @@ const Header = () => {
             }}
             items={[
               {
-                title: 'Trang chủ',
+                title: 'Kết quả khảo sát',
                 itemId: '/home',
                 elemBefore: () => <Home />,
               },
@@ -86,7 +86,7 @@ const Header = () => {
               ]}
               onSelect={({ itemId }) => {
                 navigate(itemId);
-                localStorage.removeItem(TOKEN);
+                localStorage.clear();
                 handleCloseSidebar();
               }}
             />

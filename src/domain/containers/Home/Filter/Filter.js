@@ -1,8 +1,9 @@
 import React from 'react';
 import Wrapper from './Filter.styles';
 import { Container, Row, Col } from 'react-bootstrap';
+import { LIST_UNIT } from 'utils/constants';
 
-const Filter = ({ values, onFilter }) => {
+const Filter = ({ values, dataTests, onFilter }) => {
   return (
     <Wrapper>
       <Container fluid>
@@ -30,8 +31,12 @@ const Filter = ({ values, onFilter }) => {
                 <option value="" selected>
                   Tất cả
                 </option>
-                <option value={1}>bộ binh 1</option>
-                <option value={2}>thủy binh 1</option>
+                {LIST_UNIT &&
+                  LIST_UNIT.map((item) => (
+                    <option value={item.id} key={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
               </select>
             </div>
           </Col>
@@ -48,8 +53,12 @@ const Filter = ({ values, onFilter }) => {
                 <option value="" selected>
                   Tất cả
                 </option>
-                <option value={1}>Đợt 1 năm 2021</option>
-                <option value={2}>Đợt 2 năm 2021</option>
+                {dataTests &&
+                  dataTests?.map((item) => (
+                    <option value={item.id} key={item.id}>
+                      {item.name}
+                    </option>
+                  ))}
               </select>
             </div>
           </Col>
@@ -64,14 +73,14 @@ const Filter = ({ values, onFilter }) => {
                 <option value="" selected>
                   Tất cả
                 </option>
-                <option value={1}>Trung thực</option>
-                <option value={0}>Chưa trung thực</option>
+                <option value={0}>Trung thực</option>
+                <option value={1}>Chưa trung thực</option>
               </select>
             </div>
           </Col>
           <Col xs={12} sm={6} md={4}>
             <div className="group-item-filter">
-              <div className="title">Mức độ vấn đề </div>
+              <div className="title">Tình trạng bệnh lý</div>
               <select
                 className="custom-select"
                 value={values?.predictShallowFilter || ''}
