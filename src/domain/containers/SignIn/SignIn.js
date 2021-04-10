@@ -8,6 +8,7 @@ import Wrapper from './SignIn.styles';
 import { TOKEN, ErrorMessage } from 'utils/constants';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import Footer from 'components/Footer';
 
 const SignIn = () => {
   const [remember, setRemember] = useState(false);
@@ -98,6 +99,7 @@ const SignIn = () => {
           )}
         </Formik>
       </div>
+      <Footer />
     </Wrapper>
   );
 };

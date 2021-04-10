@@ -3,11 +3,17 @@ import styled from 'styled-components';
 export default styled.div`
   background: #f0ede9;
   display: flex;
+  flex-direction: column;
   height: 100vh;
   justify-content: center;
   align-items: center;
   margin: auto;
 
+  .position-footer {
+    position: fixed;
+    bottom: 0;
+    margin: auto;
+  }
   .login-form {
     margin: 0 auto;
     color: #dd4b39;

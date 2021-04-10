@@ -4,6 +4,10 @@ export default styled.div`
   min-height: 100vh;
   background-color: #f0ede9;
 
+  .children {
+    min-height: calc(100vh - 240px);
+  }
+
   #overlay {
     position: fixed; /* Sit on top of the page content */
     display: none; /* Hidden by default */

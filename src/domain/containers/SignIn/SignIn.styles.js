@@ -4,11 +4,18 @@ const Wrapper = styled.div`
   background: #f0ede9;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
+
+  .position-footer {
+    position: fixed;
+    bottom: 0;
+    margin: auto;
+  }
 
   .form-sign_in {
     padding: 50px;
-    margin: 0 auto;
+    margin: auto;
     position: relative;
     background: #fff;
     border-radius: 10px;

@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import Wrapper from './ExaminationHealthy.styles';
+import Wrapper, { WrapperInfor } from './ExaminationHealthy.styles';
 import Information from './Information';
 import Question from './Question';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useCurrentRoute, useNavigation } from 'react-navi';
+import Footer from 'components/Footer';
 
 const ExaminationHealth = () => {
   const [toExamtest, setToExamTest] = useState(false);
@@ -54,14 +55,17 @@ const ExaminationHealth = () => {
 
   if (!toExamtest) {
     return (
-      <Formik
-        initialValues={initialValues}
-        enableReinitialize
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {(props) => <Information {...props} />}
-      </Formik>
+      <WrapperInfor>
+        <Formik
+          initialValues={initialValues}
+          enableReinitialize
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {(props) => <Information {...props} />}
+        </Formik>
+        <Footer />
+      </WrapperInfor>
     );
   }
   return (

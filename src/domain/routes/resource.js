@@ -51,14 +51,12 @@ export const routes = {
       <View />
     </CommonLayout>,
     mount({
-      '/': withNotAuth(
-        '/',
+      '/': withAuth(
         route({
           view: <VersionTest />,
         }),
       ),
-      '/:id': withNotAuth(
-        '/:id',
+      '/:id': withAuth(
         route((req) => ({
           view: <VersionDetail id={req.params.id} />,
         })),

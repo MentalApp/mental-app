@@ -4,6 +4,7 @@ import Wrapper from './Header.styles';
 import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
 import { AlignLeft, Home, Power, Layers, User } from 'react-feather';
+import { TOKEN } from 'utils/constants';
 // import { TOKEN } from 'utils/constants';
 
 const Header = () => {
@@ -86,7 +87,7 @@ const Header = () => {
               ]}
               onSelect={({ itemId }) => {
                 navigate(itemId);
-                localStorage.clear();
+                localStorage.removeItem(TOKEN);
                 handleCloseSidebar();
               }}
             />

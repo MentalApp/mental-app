@@ -6,6 +6,7 @@ import { useMutation } from 'hooks/axios.hooks';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { CODE, ErrorMessage, ENTRYCODE_TOKEN } from 'utils/constants';
+import Footer from 'components/Footer';
 
 const JoinInPage = () => {
   const { navigate } = useNavigation();
@@ -86,6 +87,7 @@ const JoinInPage = () => {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </JoinInPageWrapper>
   );
 };
