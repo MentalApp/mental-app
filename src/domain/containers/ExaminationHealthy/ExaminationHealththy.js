@@ -82,6 +82,7 @@ const ExaminationHealth = () => {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </Wrapper>
   );
 };
