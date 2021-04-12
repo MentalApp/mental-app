@@ -118,7 +118,6 @@ const TablePaginationData = ({
               </Table>
               {totalPages !== 0 && (
                 <div className="pagination block">
-                  <hr />
                   <Pagination currentPage={page} totalPages={totalPages} onChange={onChangePage} />
                 </div>
               )}

@@ -16,7 +16,7 @@ const Home = () => {
   const { navigate, _history } = useNavigation();
   const { data, loading } = useQuery({
     url: '/admin/officer_tests',
-    params: { ...params },
+    params: { ...params, page },
   });
 
   const dataTests = useQuery({
@@ -80,7 +80,7 @@ const Home = () => {
           data={restructureData}
           isLoading={loading}
           page={page}
-          totalPages={(data && data.total_pages) || 0}
+          totalPages={(data && data.totalPages) || 0}
           onChangePage={(page) => {
             setPage(page);
           }}
