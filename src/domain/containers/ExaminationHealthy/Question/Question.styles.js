@@ -1,3 +1,4 @@
+import { Modal } from 'react-bootstrap';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
@@ -16,7 +17,20 @@ const Wrapper = styled.div`
     padding: 30px;
     display: flex;
     justify-content: space-between;
+
+    .btn:disabled {
+      color: #6bd098 !important;
+    }
   }
 `;
 
 export default Wrapper;
+
+export const WrapperModal = styled(Modal)`
+  .modal-header {
+    font-size: 24px;
+  }
+  button {
+    margin: 0;
+  }
+`;

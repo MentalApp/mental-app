@@ -45,6 +45,10 @@ const Wrapper = styled.div`
       &:last-child {
         border-right: 0;
       }
+
+      .typography {
+        font-weight: 600;
+      }
     }
 
     tr {

@@ -6,10 +6,11 @@ const Wrapper = styled.div`
   .position-footer {
     width: 100%;
     background-color: #333;
-    padding: 30px;
+    padding: 10px;
     color: #fff;
     margin-top: 50px;
     z-index: 1;
+    font-size: small;
   }
 `;
 

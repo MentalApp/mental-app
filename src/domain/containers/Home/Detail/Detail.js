@@ -10,6 +10,7 @@ import { handleUnit } from 'utils/utils';
 
 const Detail = ({ id }) => {
   const { data, loading } = useQuery({ url: `/admin/officer_tests/${id}` });
+
   const restructureData = useMemo(() => {
     if (!data) return;
     return questionsMock.data?.questions.map((item, index) => ({

@@ -11,6 +11,10 @@ const Wrapper = styled.div`
     border-radius: 7px;
   }
 
+  .typography {
+    font-weight: 600;
+  }
+
   table {
     thead {
       border-top: 1px solid #707070;

@@ -12,6 +12,8 @@ const Wrapper = styled.div`
 
   input {
     margin-right: 5px;
+    width: 18px;
+    height: 18px;
   }
   .input-yes {
     margin-left: 15px;

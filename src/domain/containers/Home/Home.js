@@ -44,8 +44,8 @@ const Home = () => {
   );
 
   const backgroudColor = useCallback((item) => {
-    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 1) return '#ef5350';
-    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 0) return '#ffeb3b';
+    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 1) return 'backgroud-red';
+    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 0) return 'backgroud-yellow';
     return;
   }, []);
 

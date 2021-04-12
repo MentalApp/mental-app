@@ -39,8 +39,12 @@ const VersionTest = () => {
       field: 'code',
     },
     {
-      name: 'Thời gian khảo sát',
-      field: 'timer',
+      name: 'Thời gian bắt đầu',
+      field: 'startDate',
+    },
+    {
+      name: 'Thời gian kết thúc',
+      field: 'endDate',
     },
     {
       name: 'Trạng thái',
@@ -54,14 +58,17 @@ const VersionTest = () => {
       !!data &&
       data.data?.map((item) => ({
         ...item,
-        name: <div onClick={() => navigate(`/version/${item.id}`)}>{item.name}</div>,
-        isClose: item.isClose ? (
-          <Badge onClick={() => setIDTest(item.id)} variant="success">
-            Đang mở
-          </Badge>
-        ) : (
-          <Badge variant="secondary">Đang đóng</Badge>
-        ),
+        name: <div className="typography">{item.name}</div>,
+        startDate: <div>{format(new Date(item.startDate), 'dd/MM/yyyy HH:mm')}</div>,
+        endDate: <div>{format(new Date(item.endDate), 'dd/MM/yyyy HH:mm')}</div>,
+        isClose:
+          compareDesc(new Date(item.startDate), new Date()) !== -1 &&
+          compareDesc(new Date(), new Date(item.endDate)) !== -1 ? (
+            <Badge variant="success">Đang mở</Badge>
+          ) : (
+            <Badge variant="secondary">Đang đóng</Badge>
+          ),
+        onClick: () => navigate(`/version/${item.id}`),
       }))
     );
   }, [data, navigate]);
