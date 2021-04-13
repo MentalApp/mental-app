@@ -80,7 +80,7 @@ const TablePaginationData = ({
                   <thead className="text-primary">
                     <tr>
                       {columns.map(({ name, field, width }, index) => (
-                        <th key={index} className={(field, width)} onClick={field === sortBy ? onSort : undefined}>
+                        <th key={index} className={`${field} ${width}`} onClick={field === sortBy ? onSort : undefined}>
                           {name}
                         </th>
                       ))}

@@ -18,6 +18,30 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
 
+    .btn-outline-secondary {
+      background-color: #fff !important;
+      color: #6c757c !important;
+      border-color: #6c757d !important;
+
+      &:hover {
+        color: #fff !important;
+        background-color: #6c757d !important;
+        border-color: #6c757d !important;
+      }
+    }
+
+    .btn-outline-success {
+      background-color: #fff !important;
+      color: #28a745 !important;
+      border-color: #28a745 !important;
+
+      &:hover {
+        color: #fff !important;
+        background-color: #28a745 !important;
+        border-color: #28a745 !important;
+      }
+    }
+
     .btn:disabled {
       color: #6bd098 !important;
     }

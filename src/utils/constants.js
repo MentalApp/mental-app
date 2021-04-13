@@ -57,7 +57,7 @@ export const TestCollums = [
     width: 'w-10',
   },
   {
-    name: 'Trung thực',
+    name: 'Không trung thực',
     field: 'predictDeepFilter',
     width: 'w-10',
   },
