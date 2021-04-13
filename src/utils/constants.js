@@ -26,11 +26,11 @@ export const ErrorMessage = {
 };
 
 export const TestCollums = [
-  // {
-  //   name: 'Đợt kiểm tra',
-  //   field: 'testVersion',
-  //   width: 'w-15',
-  // },
+  {
+    name: 'STT',
+    field: 'stt',
+    width: 'w-5',
+  },
   {
     name: 'Tên quân nhân',
     field: 'name',

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CommonLayoutWrapper from './CommonLayout.styles';
+import Footer from '../../../components/Footer';
 import Header from './Header';
 
 const CommonLayout = ({ children }) => {
@@ -8,7 +9,8 @@ const CommonLayout = ({ children }) => {
     <CommonLayoutWrapper>
       <Header />
       <div id="overlay"></div>
-      {children}
+      <div className="children">{children}</div>
+      <Footer />
     </CommonLayoutWrapper>
   );
 };

@@ -117,10 +117,18 @@ const TablePaginationData = ({
                 </tbody>
               </Table>
               {totalPages !== 0 && (
-                <div className="pagination block">
-                  <hr />
-                  <Pagination currentPage={page} totalPages={totalPages} onChange={onChangePage} />
-                </div>
+                <Container>
+                  <Row>
+                    <Col sm={12} md={6} className="mr-auto">
+                      <div style={{ margin: '7px' }}>Số bản ghi đang hiển thị: 20</div>
+                    </Col>
+                    <Col sm={12} md={6} className="d-flex justify-content-center">
+                      <div className="pagination block">
+                        <Pagination currentPage={page} totalPages={totalPages} onChange={onChangePage} />
+                      </div>
+                    </Col>
+                  </Row>
+                </Container>
               )}
             </Card>
           </Wrapper>

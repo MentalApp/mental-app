@@ -2,17 +2,18 @@ import React, { useCallback, useState, useMemo } from 'react';
 import { useMutation, useQuery } from 'hooks/axios.hooks';
 import Loading from 'components/Loading';
 import QuestionForm from 'domain/components/QuestionForm/QuestionForm';
-import { Button } from 'react-bootstrap';
-import Wrapper from './Question.styles';
+import { Button, Modal } from 'react-bootstrap';
+import Wrapper, { WrapperModal } from './Question.styles';
 import PreviewPage from '../PreviewPage';
 import { useNavigation } from 'react-navi';
 import { CODE, ENTRYCODE_TOKEN, ErrorMessage } from 'utils/constants';
-import { toastSuccess } from 'utils/toastify';
 
 const Question = ({ information, setToExamTest, resultTest, setResultTest }) => {
   const [count, setCount] = useState(0);
   const [error, setError] = useState(null);
   const [note, setNote] = useState({ for_me: '', for_teammate: '' });
+  const [complete, setComplete] = useState(false);
+
   const { navigate } = useNavigation();
   const code = window.localStorage.getItem(CODE);
 
@@ -32,7 +33,6 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
     },
     [count],
   );
-
   const handleSubmit = useCallback(() => {
     submit({
       name: information?.name,
@@ -54,12 +54,7 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
           setError(ErrorMessage.INTERNAL_SERVER_ERROR);
           return;
         }
-        toastSuccess('Đã hoàn thành khảo sát.');
-        localStorage.removeItem(CODE);
-        localStorage.removeItem(ENTRYCODE_TOKEN);
-        setTimeout(() => {
-          navigate('/');
-        }, 5000);
+        setComplete(true);
       })
       .catch((err) => {
         if (err.response?.status === 404) {
@@ -83,18 +78,35 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
       });
   }, [submit, information, resultTest, data, note, navigate]);
 
+  const handleAfterComplete = useCallback(() => {
+    localStorage.removeItem(CODE);
+    localStorage.removeItem(ENTRYCODE_TOKEN);
+    setComplete(false);
+    navigate('/');
+  }, [navigate]);
+
   if (questions.length > 0 && count === questions?.length + 1) {
     return (
-      <PreviewPage
-        information={information}
-        resultTest={resultTest}
-        data={questions}
-        note={note}
-        handlePrevious={() => handleEvent('previous')}
-        handleSubmit={handleSubmit}
-        error={error}
-        setError={setError}
-      />
+      <>
+        <PreviewPage
+          information={information}
+          resultTest={resultTest}
+          data={questions}
+          note={note}
+          handlePrevious={() => handleEvent('previous')}
+          handleSubmit={handleSubmit}
+          error={error}
+          setError={setError}
+        />
+        <WrapperModal show={complete} onHide={handleAfterComplete}>
+          <Modal.Header>Đã hoàn thành khảo sát</Modal.Header>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleAfterComplete}>
+              Trở về
+            </Button>
+          </Modal.Footer>
+        </WrapperModal>
+      </>
     );
   }
 

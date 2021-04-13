@@ -1,23 +1,21 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { Container, Button, Modal, Form, Badge, Alert } from 'react-bootstrap';
+import { Container, Button, Modal, Form, Badge } from 'react-bootstrap';
 import { useNavigation } from 'react-navi';
 import Wrapper, { ModalWrapper } from './VersionTest.styles';
 // import data from './mockVersionTest.json';
 import TablePaginationData from 'components/TablePagination';
 import Filter from './FilterVersion';
-import vi from 'date-fns/locale/vi';
-import ReactDatePicker, { registerLocale } from 'react-datepicker';
-import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { Formik } from 'formik';
 import { useMutation, useQuery } from 'hooks/axios.hooks';
 import InformationForm from 'domain/components/InformationForm/InformationForm';
-import { compareDesc, format } from 'date-fns';
-
-registerLocale('vi', vi);
+import { addHours, compareDesc, format } from 'date-fns';
+import ModalCreateForm from './ModalCreate';
 
 const VersionTest = () => {
   const { navigate } = useNavigation();
   const [show, setShow] = useState(false);
+  const [page, setPage] = useState(1);
   const [idTest, setIDTest] = useState(null);
 
   const [error, setError] = useState(null);
@@ -27,9 +25,13 @@ const VersionTest = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { data, loading, force } = useQuery({ url: '/admin/tests' });
+  const { data, loading, force } = useQuery({ url: '/admin/tests', params: { page } });
 
   const collums = [
+    {
+      name: 'STT',
+      field: 'stt',
+    },
     {
       name: 'Đợt khảo sát',
       field: 'name',
@@ -39,8 +41,12 @@ const VersionTest = () => {
       field: 'code',
     },
     {
-      name: 'Thời gian khảo sát',
-      field: 'timer',
+      name: 'Thời gian bắt đầu',
+      field: 'startDate',
+    },
+    {
+      name: 'Thời gian kết thúc',
+      field: 'endDate',
     },
     {
       name: 'Trạng thái',
@@ -52,16 +58,20 @@ const VersionTest = () => {
     if (!data) return;
     return (
       !!data &&
-      data.data?.map((item) => ({
+      data.data?.map((item, index) => ({
         ...item,
-        name: <div onClick={() => navigate(`/version/${item.id}`)}>{item.name}</div>,
-        isClose: item.isClose ? (
-          <Badge onClick={() => setIDTest(item.id)} variant="success">
-            Đang mở
-          </Badge>
-        ) : (
-          <Badge variant="secondary">Đang đóng</Badge>
-        ),
+        stt: index + 1,
+        name: <div className="typography">{item.name}</div>,
+        startDate: <div>{format(new Date(item.startDate), 'dd/MM/yyyy HH:mm')}</div>,
+        endDate: <div>{format(new Date(item.endDate), 'dd/MM/yyyy HH:mm')}</div>,
+        isClose:
+          compareDesc(new Date(item.startDate), new Date()) !== -1 &&
+          compareDesc(new Date(), new Date(item.endDate)) !== -1 ? (
+            <Badge variant="success">Đang mở</Badge>
+          ) : (
+            <Badge variant="secondary">Đang đóng</Badge>
+          ),
+        onClick: () => navigate(`/version/${item.id}`),
       }))
     );
   }, [data, navigate]);
@@ -72,8 +82,8 @@ const VersionTest = () => {
       name: '',
       description: '',
       code: '',
-      start_date: '',
-      end_date: '',
+      startDate: '',
+      endDate: '',
     }),
     [],
   );
@@ -82,22 +92,28 @@ const VersionTest = () => {
     name: Yup.string().required('*Bắt buộc').trim().max(255, '*Tên quá dài'),
     description: Yup.string().required('*Bắt buộc').trim().max(600, '*Mô tả quá dài'),
     code: Yup.string().required('*Bắt buộc').trim().min(4, '*Tối thiểu 4 ký tự'),
-    start_date: Yup.string()
+    startDate: Yup.string()
       .required('*Bắt buộc')
-      .test('test_start_date', '*Ngày tạo không được sau ngày kết thúc', function (start_date) {
-        if (!!this.parent.end_date) {
-          return compareDesc(new Date(this.parent.end_date), new Date(start_date)) === -1;
+      .test('test_startDate', '*Ngày tạo không được sau ngày kết thúc', function (startDate) {
+        if (!!this.parent.endDate) {
+          return compareDesc(new Date(this.parent.endDate), new Date(startDate)) === -1;
         }
-        return !this.parent.end_date;
+        return !this.parent.endDate;
       }),
-    end_date: Yup.string().required('*Bắt buộc'),
+    endDate: Yup.string().required('*Bắt buộc'),
   });
 
   const handleSubmit = useCallback(
     (values, actions) => {
       const valuesCasted = validateSchema.cast(values);
-      const valuesCloned = { ...valuesCasted };
-      createTestVersion({ ...valuesCloned })
+      const valuesCloned = {
+        ...valuesCasted,
+        startDate: addHours(new Date(valuesCasted.startDate), 7).toISOString(),
+        endDate: addHours(new Date(valuesCasted.endDate), 7).toISOString(),
+      };
+      createTestVersion({
+        ...valuesCloned,
+      })
         .then((response) => {
           if (!response.data.success) {
             setError({ type: 'danger', message: 'Tạo đợt kiểm tra không thành công' });
@@ -169,134 +185,31 @@ const VersionTest = () => {
           <Button variant="primary" className="create--button" onClick={handleShow} style={{ marginLeft: 'auto' }}>
             Tạo
           </Button>
-          <Formik
+
+          <ModalCreateForm
+            title="Tạo đợt khảo sát"
             initialValues={initialValues}
-            validationSchema={validateSchema}
-            enableReinitialize
-            onSubmit={handleSubmit}
-          >
-            {(props) => (
-              <ModalWrapper show={show} onHide={handleClose} backdrop="static" keyboard={false} centered>
-                <Modal.Header className="text-center">
-                  <Modal.Title>Tạo đợt khảo sát</Modal.Title>
-                </Modal.Header>
-                <Form onSubmit={props.handleSubmit}>
-                  <Modal.Body>
-                    <Form.Group controlId="nameVersion">
-                      <Form.Label>Tên đợt khảo sát.</Form.Label>
-                      <Form.Control
-                        className={`input-control ${props.touched.name && props.errors.name ? 'has-error' : ''}`}
-                        type="text"
-                        placeholder="Nhập tên mới"
-                        value={props.values.name}
-                        onChange={(event) => props.setFieldValue('name', event.target.value)}
-                      />
-                      {props.touched.name && props.errors.name && <p className="error-text">{props.errors.name}</p>}
-                    </Form.Group>
-
-                    <Form.Group controlId="descVersion">
-                      <Form.Label>Mô tả đợt khảo sát.</Form.Label>
-                      <Form.Control
-                        type="text"
-                        placeholder="Nhập mô tả mới"
-                        className={`input-control ${
-                          props.touched.description && props.errors.description ? 'has-error' : ''
-                        }`}
-                        value={props.values.description}
-                        onChange={(event) => props.setFieldValue('description', event.target.value)}
-                      />
-                      {props.touched.description && props.errors.description && (
-                        <p className="error-text">{props.errors.description}</p>
-                      )}
-                    </Form.Group>
-
-                    <Form.Group controlId="authenVersion">
-                      <Form.Label>Mã đợt khảo sát.</Form.Label>
-                      <Form.Control
-                        type="text"
-                        className={`input-control ${props.touched.code && props.errors.code ? 'has-error' : ''}`}
-                        placeholder="Nhập mã mới"
-                        value={props.values.code}
-                        onChange={(event) => props.setFieldValue('code', event.target.value)}
-                      />
-                      {props.touched.code && props.errors.code && <p className="error-text">{props.errors.code}</p>}
-                    </Form.Group>
-                    <Form.Group controlId="timeStartTestVersion">
-                      <Form.Label>Thời gian khảo sát.</Form.Label>
-                      <ReactDatePicker
-                        className={props.touched.start_date && props.errors.start_date ? 'has-error' : ''}
-                        value={
-                          (!!props.values?.start_date && format(props.values?.start_date, 'dd/MM/yyyy HH:mm')) || null
-                        }
-                        onChange={(date) => props.setFieldValue('start_date', date)}
-                        dataFormat="dd/MM/yyyy HH:mm"
-                        showMonthDropdown
-                        showYearDropdown
-                        showTimeSelect
-                        selectsStart
-                        selected={props.values.start_date}
-                        dropdownMode="select"
-                        locale="vi"
-                        placeholderText="Nhập ngày bắt đầu khảo sát"
-                        startDate={props.values.start_date}
-                        endDate={props.values.end_date}
-                        maxDate={props.values.end_date}
-                        minDate={new Date()}
-                      />
-                      {props.touched.start_date && props.errors.start_date && (
-                        <p className="error-text">{props.errors.start_date}</p>
-                      )}
-                    </Form.Group>
-                    <Form.Group controlId="timeEndTestVersion">
-                      <Form.Label>Thời gian kết thúc khảo sát.</Form.Label>
-                      <ReactDatePicker
-                        className={props.touched.end_date && props.errors.end_date ? 'has-error' : ''}
-                        value={(!!props.values?.end_date && format(props.values?.end_date, 'dd/MM/yyyy HH:mm')) || null}
-                        onChange={(date) => props.setFieldValue('end_date', date)}
-                        dataFormat="dd/MM/yyyy HH:mm"
-                        showMonthDropdown
-                        showYearDropdown
-                        showTimeSelect
-                        selected={props.values.end_date}
-                        selectsEnd
-                        dropdownMode="select"
-                        locale="vi"
-                        placeholderText="Nhập ngày kết thúc khảo sát"
-                        startDate={props.values.start_date}
-                        endDate={props.values.end_date}
-                        minDate={props.values.start_date}
-                      />
-                      {props.touched.end_date && props.errors.end_date && (
-                        <p className="error-text">{props.errors.end_date}</p>
-                      )}
-                    </Form.Group>
-
-                    {!!error && <Alert variant={error?.type}>{error?.message}</Alert>}
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button
-                      variant="secondary"
-                      onClick={() => {
-                        handleClose();
-                        setError(null);
-                        props.resetForm({ values: { ...initialValues } });
-                      }}
-                    >
-                      Hủy bỏ
-                    </Button>
-                    <Button variant="primary" type="submit">
-                      Khởi tạo
-                    </Button>
-                  </Modal.Footer>
-                </Form>
-              </ModalWrapper>
-            )}
-          </Formik>
+            validateSchema={validateSchema}
+            handleSubmit={handleSubmit}
+            show={show}
+            error={error}
+            setError={setError}
+            handleClose={handleClose}
+          />
         </div>
         <div className="filter">
           <Filter />
         </div>
-        <TablePaginationData columns={collums} isLoading={loading} data={restructureData} />
+        <TablePaginationData
+          columns={collums}
+          isLoading={loading}
+          data={restructureData}
+          page={page}
+          totalPages={(data && data.totalPages) || 0}
+          onChangePage={(page) => {
+            setPage(page);
+          }}
+        />
 
         <ModalWrapper show={!!idTest} onHide={() => setIDTest(null)} centered>
           <Modal.Header>Nhập mã tham gia khảo sát</Modal.Header>

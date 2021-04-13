@@ -11,6 +11,10 @@ const Wrapper = styled.div`
     border-radius: 7px;
   }
 
+  .typography {
+    font-weight: 600;
+  }
+
   table {
     thead {
       border-top: 1px solid #707070;
@@ -102,7 +106,7 @@ const Wrapper = styled.div`
   }
 
   .note {
-    background-color: #a8deec;
+    background-color: #d7f2fb;
     padding: 30px;
     margin: 10px 15px;
     border-bottom: 1px solid #707070;

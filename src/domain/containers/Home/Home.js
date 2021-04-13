@@ -16,7 +16,7 @@ const Home = () => {
   const { navigate, _history } = useNavigation();
   const { data, loading } = useQuery({
     url: '/admin/officer_tests',
-    params: { ...params },
+    params: { ...params, page },
   });
 
   const dataTests = useQuery({
@@ -44,8 +44,8 @@ const Home = () => {
   );
 
   const backgroudColor = useCallback((item) => {
-    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 1) return '#ef5350';
-    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 0) return '#ffeb3b';
+    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 1) return 'backgroud-red';
+    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 0) return 'backgroud-yellow';
     return;
   }, []);
 
@@ -54,8 +54,9 @@ const Home = () => {
     return (
       !!data &&
       data.data &&
-      data?.data.map((item) => ({
+      data?.data.map((item, index) => ({
         ...item,
+        stt: index + 1,
         predictDeepFilter: item.predictDeepFilter === 1 ? 'Không' : 'Có',
         predictShallowFilter: item.predictShallowFilter === 1 ? 'Có' : 'Không',
         unit: handleUnit(item.unit),
@@ -80,7 +81,7 @@ const Home = () => {
           data={restructureData}
           isLoading={loading}
           page={page}
-          totalPages={(data && data.total_pages) || 0}
+          totalPages={(data && data.totalPages) || 0}
           onChangePage={(page) => {
             setPage(page);
           }}

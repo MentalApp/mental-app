@@ -5,6 +5,9 @@ import ReactPaginate from 'react-paginate';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
+  .pagination {
+    align-items: center;
+  }
   a {
     margin: 5px;
     cursor: pointer;
@@ -15,7 +18,7 @@ const Wrapper = styled.div`
   }
 
   .active a {
-    color: ${({ theme }) => theme.color['primary-color']};
+    color: #29afaf;
   }
 `;
 
