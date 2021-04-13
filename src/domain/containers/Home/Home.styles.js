@@ -9,12 +9,11 @@ const Wrapper = styled.div`
   }
 
   .backgroud-red {
-    background-color: #ef5350;
-    color: #fff;
+    background-color: #fed6dd;
   }
 
   .backgroud-yellow {
-    background-color: #ffeb3b;
+    background-color: #fec;
   }
 
   table {

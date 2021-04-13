@@ -29,6 +29,10 @@ const VersionTest = () => {
 
   const collums = [
     {
+      name: 'STT',
+      field: 'stt',
+    },
+    {
       name: 'Đợt khảo sát',
       field: 'name',
     },
@@ -54,8 +58,9 @@ const VersionTest = () => {
     if (!data) return;
     return (
       !!data &&
-      data.data?.map((item) => ({
+      data.data?.map((item, index) => ({
         ...item,
+        stt: index + 1,
         name: <div className="typography">{item.name}</div>,
         startDate: <div>{format(new Date(item.startDate), 'dd/MM/yyyy HH:mm')}</div>,
         endDate: <div>{format(new Date(item.endDate), 'dd/MM/yyyy HH:mm')}</div>,

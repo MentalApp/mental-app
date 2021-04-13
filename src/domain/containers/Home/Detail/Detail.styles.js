@@ -106,7 +106,7 @@ const Wrapper = styled.div`
   }
 
   .note {
-    background-color: #a8deec;
+    background-color: #d7f2fb;
     padding: 30px;
     margin: 10px 15px;
     border-bottom: 1px solid #707070;

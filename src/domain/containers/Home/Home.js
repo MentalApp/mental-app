@@ -54,8 +54,9 @@ const Home = () => {
     return (
       !!data &&
       data.data &&
-      data?.data.map((item) => ({
+      data?.data.map((item, index) => ({
         ...item,
+        stt: index + 1,
         predictDeepFilter: item.predictDeepFilter === 1 ? 'Không' : 'Có',
         predictShallowFilter: item.predictShallowFilter === 1 ? 'Có' : 'Không',
         unit: handleUnit(item.unit),
