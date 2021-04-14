@@ -98,7 +98,7 @@ const Question = ({ information, setToExamTest, resultTest, setResultTest }) => 
           error={error}
           setError={setError}
         />
-        <WrapperModal show={complete} onHide={handleAfterComplete}>
+        <WrapperModal show={complete}>
           <Modal.Header>Đã hoàn thành khảo sát</Modal.Header>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleAfterComplete}>

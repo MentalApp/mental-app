@@ -20,6 +20,11 @@ const Wrapper = styled.div`
     thead {
       border-top: 1px solid #707070;
       border-bottom: 1px solid #707070;
+
+      .predictShallowFilter,
+      .predictDeepFilter {
+        text-align: center;
+      }
     }
     p {
       margin-bottom: 0;
@@ -77,6 +82,11 @@ const Wrapper = styled.div`
           color: #fff;
           font-weight: 500;
         }
+      }
+
+      .td-predictShallowFilter,
+      .td-predictDeepFilter {
+        text-align: center;
       }
     }
   }

@@ -80,7 +80,7 @@ const TablePaginationData = ({
                   <thead className="text-primary">
                     <tr>
                       {columns.map(({ name, field, width }, index) => (
-                        <th key={index} className={(field, width)} onClick={field === sortBy ? onSort : undefined}>
+                        <th key={index} className={`${field} ${width}`} onClick={field === sortBy ? onSort : undefined}>
                           {name}
                         </th>
                       ))}
@@ -117,7 +117,7 @@ const TablePaginationData = ({
                 </tbody>
               </Table>
               {totalPages !== 0 && (
-                <Container>
+                <Container fluid>
                   <Row>
                     <Col sm={12} md={6} className="mr-auto">
                       <div style={{ margin: '7px' }}>Số bản ghi đang hiển thị: 20</div>

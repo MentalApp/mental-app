@@ -7,6 +7,7 @@ import Filter from './Filter';
 import Wrapper from './Home.styles';
 import { TestCollums } from 'utils/constants';
 import { handleUnit } from 'utils/utils';
+import { Check } from 'react-feather';
 
 const Home = () => {
   const [params, setParams] = useState({});
@@ -44,8 +45,7 @@ const Home = () => {
   );
 
   const backgroudColor = useCallback((item) => {
-    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 1) return 'backgroud-red';
-    if (item.predictShallowFilter === 1 && item.predictDeepFilter === 0) return 'backgroud-yellow';
+    if (item.predictShallowFilter === 1 || item.predictDeepFilter === 1) return 'backgroud-red';
     return;
   }, []);
 
@@ -57,8 +57,8 @@ const Home = () => {
       data?.data.map((item, index) => ({
         ...item,
         stt: index + 1,
-        predictDeepFilter: item.predictDeepFilter === 1 ? 'Không' : 'Có',
-        predictShallowFilter: item.predictShallowFilter === 1 ? 'Có' : 'Không',
+        predictDeepFilter: item.predictDeepFilter === 1 && <Check />,
+        predictShallowFilter: item.predictShallowFilter === 1 && <Check />,
         unit: handleUnit(item.unit),
         onClick: () => navigate(`/home/${item.id}`),
         className: backgroudColor(item),

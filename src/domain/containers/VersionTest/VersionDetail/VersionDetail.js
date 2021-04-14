@@ -4,7 +4,7 @@ import { Container, Button, Badge } from 'react-bootstrap';
 import Wrapper from './VersionDetail.style';
 // import questionsMock from '../../Home/Detail/questionsMock.json';
 import Loading from 'components/Loading';
-import { addHours, compareDesc, format } from 'date-fns';
+import { addHours, compareDesc, format, subHours } from 'date-fns';
 import * as Yup from 'yup';
 import ModalCreateForm from '../ModalCreate';
 import { toastSuccess } from 'utils/toastify';
@@ -24,8 +24,8 @@ const VersionDetail = ({ id }) => {
       name: dataDetail?.name || '',
       description: dataDetail?.description || '',
       code: dataDetail?.code || '',
-      startDate: new Date(dataDetail?.startDate) || '',
-      endDate: new Date(dataDetail?.endDate) || '',
+      startDate: subHours(new Date(dataDetail?.startDate), 7) || '',
+      endDate: subHours(new Date(dataDetail?.endDate), 7) || '',
     }),
     [dataDetail],
   );
@@ -116,17 +116,19 @@ const VersionDetail = ({ id }) => {
               </p>
               <p className="row">
                 <p className="col-6">Thời gian bắt đầu đợt khảo sát:</p>
-                <p className="col-6">{format(new Date(data.data?.startDate), 'dd/MM/yyyy HH:mm') || '-'}</p>
+                <p className="col-6">
+                  {format(subHours(new Date(data.data?.startDate), 7), 'dd/MM/yyyy HH:mm') || '-'}
+                </p>
               </p>
               <p className="row">
                 <p className="col-6">Thời gian kết thúc đợt khảo sát:</p>
-                <p className="col-6">{format(new Date(data.data?.endDate), 'dd/MM/yyyy HH:mm') || '-'}</p>
+                <p className="col-6">{format(subHours(new Date(data.data?.endDate), 7), 'dd/MM/yyyy HH:mm') || '-'}</p>
               </p>
               <p className="row">
                 <p className="col-6">Trạng thái đợt khảo sát:</p>
                 <p className="col-6">
-                  {compareDesc(new Date(data.data?.startDate), new Date()) !== -1 &&
-                  compareDesc(new Date(), new Date(data.data?.endDate)) !== -1 ? (
+                  {compareDesc(subHours(new Date(data.data?.startDate), 7), new Date()) !== -1 &&
+                  compareDesc(new Date(), subHours(new Date(data.data?.endDate), 7)) !== -1 ? (
                     <Badge variant="success">Đang mở</Badge>
                   ) : (
                     <Badge variant="secondary">Đang đóng</Badge>
@@ -142,13 +144,3 @@ const VersionDetail = ({ id }) => {
 };
 
 export default VersionDetail;
-
-// code: "khaosatlan1"
-// description: "Đợt khảo sát lần 1"
-// entryCode: ""
-// id: 1
-// isClose: false
-// name: "Khảo sát lần 1"
-// questions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
-// testVersionId: "qwerty"
-// timer: 90

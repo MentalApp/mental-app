@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { useMutation, useQuery } from 'hooks/axios.hooks';
 import InformationForm from 'domain/components/InformationForm/InformationForm';
-import { addHours, compareDesc, format } from 'date-fns';
+import { addHours, compareDesc, format, subHours } from 'date-fns';
 import ModalCreateForm from './ModalCreate';
 
 const VersionTest = () => {
@@ -62,11 +62,11 @@ const VersionTest = () => {
         ...item,
         stt: index + 1,
         name: <div className="typography">{item.name}</div>,
-        startDate: <div>{format(new Date(item.startDate), 'dd/MM/yyyy HH:mm')}</div>,
-        endDate: <div>{format(new Date(item.endDate), 'dd/MM/yyyy HH:mm')}</div>,
+        startDate: <div>{format(subHours(new Date(item.startDate), 7), 'dd/MM/yyyy HH:mm')}</div>,
+        endDate: <div>{format(subHours(new Date(item.endDate), 7), 'dd/MM/yyyy HH:mm')}</div>,
         isClose:
-          compareDesc(new Date(item.startDate), new Date()) !== -1 &&
-          compareDesc(new Date(), new Date(item.endDate)) !== -1 ? (
+          compareDesc(subHours(new Date(item.startDate), 7), new Date()) !== -1 &&
+          compareDesc(new Date(), subHours(new Date(item.endDate), 7)) !== -1 ? (
             <Badge variant="success">Đang mở</Badge>
           ) : (
             <Badge variant="secondary">Đang đóng</Badge>
