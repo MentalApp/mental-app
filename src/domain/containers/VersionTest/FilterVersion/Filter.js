@@ -26,10 +26,3 @@ const Filter = () => {
 };
 
 export default Filter;
-
-// <div className="group-item-filter input-group mb-3">
-//               <label for="searchVersionTest" className="title">
-//                 Tìm kiếm
-//               </label>
-//               <input type="text" id="searchVersionTest" placeholder="Tên đợt test" className="form-control" />
-//             </div>

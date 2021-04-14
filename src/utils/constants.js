@@ -12,10 +12,11 @@ export const regexTel = /^(0([1-9]{1}-?[1-9]\d{3}|[1-9]{2}-?\d{3}|[1-9]{2}\d{1}-
 export const PASSWORD_REGEX = /^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,72}$/;
 export const NUMBER_REGEX = /^-?[0-9]+(?:\.[0-9]+)?$/;
 export const LIST_UNIT = [
-  { id: 1, name: 'Lục quân 1' },
-  { id: 2, name: 'Không quân 1' },
-  { id: 3, name: 'Hải quân 1' },
-  { id: 4, name: 'Biên phòng 1' },
+  { id: 1, name: 'Dữ liệu thử nghiệm' },
+  { id: 2, name: 'Lục quân 1' },
+  { id: 3, name: 'Không quân 1' },
+  { id: 4, name: 'Hải quân 1' },
+  { id: 5, name: 'Biên phòng 1' },
 ];
 
 export const ErrorMessage = {
@@ -34,12 +35,12 @@ export const TestCollums = [
   {
     name: 'Tên quân nhân',
     field: 'name',
-    width: 'w-15',
+    width: 'w-25',
   },
   {
     name: 'MSQN',
     field: 'militaryCode',
-    width: 'w-10',
+    width: 'w-15',
   },
   {
     name: 'Đơn vị',
@@ -49,12 +50,12 @@ export const TestCollums = [
   {
     name: 'Cấp bậc',
     field: 'rank',
-    width: 'w-10',
+    width: 'w-15',
   },
   {
     name: 'Có bệnh',
     field: 'predictShallowFilter',
-    width: 'w-10',
+    width: 'w-15',
   },
   {
     name: 'Không trung thực',

@@ -13,7 +13,7 @@ const Filter = ({ values, dataTests, onFilter }) => {
               <div className="title">Tên hoặc mã quân nhân</div>
               <input
                 type="text"
-                className="form-control"
+                className="form-control width--box"
                 placeholder="Tên/MSQN"
                 value={values?.keyword || ''}
                 onChange={(event) => onFilter({ keyword: event.target.value })}
@@ -24,7 +24,7 @@ const Filter = ({ values, dataTests, onFilter }) => {
             <div className="group-item-filter">
               <div className="title">Đơn vị</div>
               <select
-                className="custom-select"
+                className="custom-select width--box"
                 value={values?.unit || ''}
                 onChange={(event) => onFilter({ unit: event.target.value })}
               >
@@ -46,7 +46,7 @@ const Filter = ({ values, dataTests, onFilter }) => {
             <div className="group-item-filter">
               <div className="title">Đợt kiểm tra</div>
               <select
-                className="custom-select"
+                className="custom-select width--box"
                 value={values?.testVersion || ''}
                 onChange={(event) => onFilter({ testVersion: event.target.value })}
               >
@@ -66,7 +66,7 @@ const Filter = ({ values, dataTests, onFilter }) => {
             <div className="group-item-filter">
               <div className="title">Mức độ trung thực</div>
               <select
-                className="custom-select"
+                className="custom-select width--box"
                 value={values?.predictDeepFilter || ''}
                 onChange={(event) => onFilter({ predictDeepFilter: event.target.value })}
               >
@@ -82,7 +82,7 @@ const Filter = ({ values, dataTests, onFilter }) => {
             <div className="group-item-filter">
               <div className="title">Tình trạng bệnh lý</div>
               <select
-                className="custom-select"
+                className="custom-select width--box"
                 value={values?.predictShallowFilter || ''}
                 onChange={(event) => onFilter({ predictShallowFilter: event.target.value })}
               >
