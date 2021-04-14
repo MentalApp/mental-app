@@ -65,8 +65,8 @@ const VersionTest = () => {
         startDate: <div>{format(subHours(new Date(item.startDate), 7), 'dd/MM/yyyy HH:mm')}</div>,
         endDate: <div>{format(subHours(new Date(item.endDate), 7), 'dd/MM/yyyy HH:mm')}</div>,
         isClose:
-          compareDesc(new Date(item.startDate), new Date()) !== -1 &&
-          compareDesc(new Date(), new Date(item.endDate)) !== -1 ? (
+          compareDesc(subHours(new Date(item.startDate), 7), new Date()) !== -1 &&
+          compareDesc(new Date(), subHours(new Date(item.endDate), 7)) !== -1 ? (
             <Badge variant="success">Đang mở</Badge>
           ) : (
             <Badge variant="secondary">Đang đóng</Badge>
