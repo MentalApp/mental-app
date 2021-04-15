@@ -3,7 +3,7 @@ import Wrapper from './Filter.styles';
 import { Container, Row, Col, FormControl, InputGroup } from 'react-bootstrap';
 // import { Search } from 'react-feather';
 
-const Filter = () => {
+const Filter = ({ values, onFilter }) => {
   return (
     <Wrapper>
       <Container fluid>
@@ -16,6 +16,8 @@ const Filter = () => {
                 aria-label="Recipient's username"
                 aria-describedby="basic-addon2"
                 style={{ border: '1px solid #c3b9b9' }}
+                value={values?.name || ''}
+                onChange={(event) => onFilter({ name: event.target.value })}
               />
             </InputGroup>
           </Col>

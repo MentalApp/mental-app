@@ -60,13 +60,11 @@ const Detail = ({ id }) => {
             </p>
             <p className="note-answer">{` ${
               data.data?.predictShallowFilter === 0
-                ? '- Khả năng cao không có bệnh tâm thần.'
-                : '- Khả năng cao có bệnh tâm thần.'
+                ? '- Có khả năng cao không có bệnh tâm thần.'
+                : '- Có khả năng cao có bệnh tâm thần.'
             }`}</p>
             <p className="note-answer">{`${
-              data.data?.predictDeepFilter === 1
-                ? '- Khả năng cao không trả lời câu hỏi trung thực.'
-                : '- Khả năng cao trung thực'
+              data.data?.predictDeepFilter === 1 ? '- Có mâu thuẫn trong câu trả lời.' : '- Có khả năng cao trung thực'
             }`}</p>
           </div>
           <div className="note-by-doctor">

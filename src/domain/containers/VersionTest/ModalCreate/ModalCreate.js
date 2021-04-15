@@ -28,7 +28,6 @@ const ModalCreateForm = ({
           </Modal.Header>
           <Form onSubmit={props.handleSubmit}>
             <Modal.Body>
-              {console.log(props.values)}
               <Form.Group controlId="nameVersion">
                 <Form.Label>Tên đợt khảo sát.</Form.Label>
                 <Form.Control
@@ -81,13 +80,13 @@ const ModalCreateForm = ({
                   showYearDropdown
                   showTimeSelect
                   selectsStart
-                  selected={new Date(props.values.startDate)}
+                  selected={new Date(props.values?.startDate) || null}
                   dropdownMode="select"
                   locale="vi"
                   placeholderText="Nhập ngày bắt đầu khảo sát"
-                  startDate={new Date(props.values.startDate)}
-                  endDate={new Date(props.values.endDate)}
-                  maxDate={new Date(props.values.endDate)}
+                  startDate={new Date(props.values?.startDate)}
+                  endDate={new Date(props.values?.endDate)}
+                  maxDate={new Date(props.values?.endDate)}
                   minDate={new Date()}
                 />
                 {props.touched.startDate && props.errors.startDate && (
@@ -106,14 +105,14 @@ const ModalCreateForm = ({
                   showMonthDropdown
                   showYearDropdown
                   showTimeSelect
-                  selected={new Date(props.values.endDate)}
+                  selected={new Date(props.values?.endDate) || null}
                   selectsEnd
                   dropdownMode="select"
                   locale="vi"
                   placeholderText="Nhập ngày kết thúc khảo sát"
-                  startDate={new Date(props.values.startDate)}
-                  endDate={new Date(props.values.endDate)}
-                  minDate={new Date(props.values.startDate)}
+                  startDate={new Date(props.values?.startDate)}
+                  endDate={new Date(props.values?.endDate)}
+                  minDate={new Date(props.values?.startDate)}
                 />
                 {props.touched.endDate && props.errors.endDate && <p className="error-text">{props.errors.endDate}</p>}
               </Form.Group>

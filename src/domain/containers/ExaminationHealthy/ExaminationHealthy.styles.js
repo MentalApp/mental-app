@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   padding: 40px 0 0;
 
   .container {
-    min-height: calc(100vh - 164px);
+    min-height: calc(100vh - 148px);
   }
 `;
 export default Wrapper;

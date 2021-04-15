@@ -5,7 +5,7 @@ export default styled.div`
   background-color: #f0ede9;
 
   .children {
-    min-height: calc(100vh - 194px);
+    min-height: calc(100vh - 178px);
   }
 
   #overlay {

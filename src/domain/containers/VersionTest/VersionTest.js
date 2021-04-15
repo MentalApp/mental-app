@@ -9,11 +9,12 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { useMutation, useQuery } from 'hooks/axios.hooks';
 import InformationForm from 'domain/components/InformationForm/InformationForm';
-import { compareDesc, format } from 'date-fns';
+import { addDays, compareDesc, format } from 'date-fns';
 import ModalCreateForm from './ModalCreate';
 import { toastSuccess } from 'utils/toastify';
 
 const VersionTest = () => {
+  const [params, setParams] = useState({});
   const { navigate } = useNavigation();
   const [show, setShow] = useState(false);
   const [page, setPage] = useState(1);
@@ -26,7 +27,7 @@ const VersionTest = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { data, loading, force } = useQuery({ url: '/admin/tests', params: { page } });
+  const { data, loading, force } = useQuery({ url: '/admin/tests', params: { ...params, page } });
 
   const collums = [
     {
@@ -54,6 +55,20 @@ const VersionTest = () => {
       field: 'isClose',
     },
   ];
+
+  const handleOnFilter = useCallback(
+    (queryObject) => {
+      setPage(1);
+      const newQuery = { ...params, ...queryObject };
+      Object.keys(newQuery).forEach((key) => {
+        if (!newQuery[key]) {
+          delete newQuery[key];
+        }
+      });
+      setParams(newQuery);
+    },
+    [params],
+  );
 
   const restructureData = useMemo(() => {
     if (!data) return;
@@ -83,8 +98,8 @@ const VersionTest = () => {
       name: '',
       description: '',
       code: '',
-      startDate: '',
-      endDate: '',
+      startDate: new Date(),
+      endDate: addDays(new Date(), 3),
     }),
     [],
   );
@@ -196,7 +211,7 @@ const VersionTest = () => {
           />
         </div>
         <div className="filter">
-          <Filter />
+          <Filter values={params} onFilter={handleOnFilter} />
         </div>
         <TablePaginationData
           columns={collums}

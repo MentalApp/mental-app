@@ -9,15 +9,17 @@ const Footer = () => {
   return (
     <Wrapper>
       <div className="position-footer">
-        <div className="d-flex">
+        <div className="d-flex justify-content-between">
           <div>
-            <Image src={hmi} height={18} className="mx-1" />
-            <Image src={blife} height={18} />
-            <Image src={hvqy} height={18} className="mx-1" />
+            <Image src={hmi} height={30} className="mx-1" />
+            <Image src={blife} height={30} />
+            <Image src={hvqy} height={30} className="mx-1" />
           </div>
-          <div>Copyright © HMILab 2021</div>
+          <div>
+            <div>Copyright © HMILab 2021</div>
+            <div>Trường Đại học Công nghệ, DHQGHN.</div>
+          </div>
         </div>
-        <p>Trường Đại học Công nghệ, Đại học Quốc gia Hà Nội.</p>
       </div>
     </Wrapper>
   );
