@@ -13,10 +13,11 @@ export const PASSWORD_REGEX = /^(?=.*?[A-Za-z])(?=.*?[0-9]).{8,72}$/;
 export const NUMBER_REGEX = /^-?[0-9]+(?:\.[0-9]+)?$/;
 export const LIST_UNIT = [
   { id: 1, name: 'Dữ liệu thử nghiệm' },
-  { id: 2, name: 'Lục quân 1' },
-  { id: 3, name: 'Không quân 1' },
-  { id: 4, name: 'Hải quân 1' },
-  { id: 5, name: 'Biên phòng 1' },
+  { id: 2, name: 'Hmi lab' },
+  { id: 3, name: 'Lục quân 1' },
+  { id: 4, name: 'Không quân 1' },
+  { id: 5, name: 'Hải quân 1' },
+  { id: 6, name: 'Biên phòng 1' },
 ];
 
 export const ErrorMessage = {
