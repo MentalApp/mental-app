@@ -28,6 +28,7 @@ const ModalCreateForm = ({
           </Modal.Header>
           <Form onSubmit={props.handleSubmit}>
             <Modal.Body>
+              {console.log(props.values)}
               <Form.Group controlId="nameVersion">
                 <Form.Label>Tên đợt khảo sát.</Form.Label>
                 <Form.Control
@@ -71,20 +72,22 @@ const ModalCreateForm = ({
                 <Form.Label>Thời gian khảo sát.</Form.Label>
                 <ReactDatePicker
                   className={props.touched.startDate && props.errors.startDate ? 'has-error' : ''}
-                  value={(!!props.values?.startDate && format(props.values?.startDate, 'dd/MM/yyyy HH:mm')) || null}
-                  onChange={(date) => props.setFieldValue('startDate', date)}
+                  value={
+                    (!!props.values?.startDate && format(new Date(props.values?.startDate), 'dd/MM/yyyy HH:mm')) || null
+                  }
+                  onChange={(date) => props.setFieldValue('startDate', date.toISOString())}
                   dataFormat="dd/MM/yyyy HH:mm"
                   showMonthDropdown
                   showYearDropdown
                   showTimeSelect
                   selectsStart
-                  selected={props.values.startDate}
+                  selected={new Date(props.values.startDate)}
                   dropdownMode="select"
                   locale="vi"
                   placeholderText="Nhập ngày bắt đầu khảo sát"
-                  startDate={props.values.startDate}
-                  endDate={props.values.endDate}
-                  maxDate={props.values.endDate}
+                  startDate={new Date(props.values.startDate)}
+                  endDate={new Date(props.values.endDate)}
+                  maxDate={new Date(props.values.endDate)}
                   minDate={new Date()}
                 />
                 {props.touched.startDate && props.errors.startDate && (
@@ -95,20 +98,22 @@ const ModalCreateForm = ({
                 <Form.Label>Thời gian kết thúc khảo sát.</Form.Label>
                 <ReactDatePicker
                   className={props.touched.endDate && props.errors.endDate ? 'has-error' : ''}
-                  value={(!!props.values?.endDate && format(props.values?.endDate, 'dd/MM/yyyy HH:mm')) || null}
-                  onChange={(date) => props.setFieldValue('endDate', date)}
+                  value={
+                    (!!props.values?.endDate && format(new Date(props.values?.endDate), 'dd/MM/yyyy HH:mm')) || null
+                  }
+                  onChange={(date) => props.setFieldValue('endDate', date.toISOString())}
                   dataFormat="dd/MM/yyyy HH:mm"
                   showMonthDropdown
                   showYearDropdown
                   showTimeSelect
-                  selected={props.values.endDate}
+                  selected={new Date(props.values.endDate)}
                   selectsEnd
                   dropdownMode="select"
                   locale="vi"
                   placeholderText="Nhập ngày kết thúc khảo sát"
-                  startDate={props.values.startDate}
-                  endDate={props.values.endDate}
-                  minDate={props.values.startDate}
+                  startDate={new Date(props.values.startDate)}
+                  endDate={new Date(props.values.endDate)}
+                  minDate={new Date(props.values.startDate)}
                 />
                 {props.touched.endDate && props.errors.endDate && <p className="error-text">{props.errors.endDate}</p>}
               </Form.Group>

@@ -14,7 +14,7 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const route = useCurrentRoute().url.pathname;
 
-  const { navigate, _history } = useNavigation();
+  const { _history } = useNavigation();
   const { data, loading } = useQuery({
     url: '/admin/officer_tests',
     params: { ...params, page },
@@ -57,14 +57,14 @@ const Home = () => {
       data?.data.map((item, index) => ({
         ...item,
         stt: index + 1,
-        predictDeepFilter: item.predictDeepFilter === 1 && <Check />,
-        predictShallowFilter: item.predictShallowFilter === 1 && <Check />,
+        predictDeepFilter: item.predictDeepFilter === 1 && <Check color="#28a745" size={30} />,
+        predictShallowFilter: item.predictShallowFilter === 1 && <Check color="#28a745" size={30} />,
         unit: handleUnit(item.unit),
-        onClick: () => navigate(`/home/${item.id}`),
+        onClick: () => window.open(`/home/${item.id}`),
         className: backgroudColor(item),
       }))
     );
-  }, [data, backgroudColor, navigate]);
+  }, [data, backgroudColor]);
 
   return (
     <Wrapper>

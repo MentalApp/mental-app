@@ -2,9 +2,8 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useMutation, useQuery } from 'hooks/axios.hooks';
 import { Container, Button, Badge } from 'react-bootstrap';
 import Wrapper from './VersionDetail.style';
-// import questionsMock from '../../Home/Detail/questionsMock.json';
 import Loading from 'components/Loading';
-import { addHours, compareDesc, format, subHours } from 'date-fns';
+import { compareDesc, format } from 'date-fns';
 import * as Yup from 'yup';
 import ModalCreateForm from '../ModalCreate';
 import { toastSuccess } from 'utils/toastify';
@@ -24,8 +23,8 @@ const VersionDetail = ({ id }) => {
       name: dataDetail?.name || '',
       description: dataDetail?.description || '',
       code: dataDetail?.code || '',
-      startDate: subHours(new Date(dataDetail?.startDate), 7) || '',
-      endDate: subHours(new Date(dataDetail?.endDate), 7) || '',
+      startDate: dataDetail?.startDate || '',
+      endDate: dataDetail?.endDate || '',
     }),
     [dataDetail],
   );
@@ -50,8 +49,6 @@ const VersionDetail = ({ id }) => {
       const valuesCasted = validateSchema.cast(values);
       const valuesCloned = {
         ...valuesCasted,
-        startDate: addHours(new Date(valuesCasted.startDate), 7).toISOString(),
-        endDate: addHours(new Date(valuesCasted.endDate), 7).toISOString(),
       };
       createTestVersion({
         ...valuesCloned,
@@ -116,19 +113,17 @@ const VersionDetail = ({ id }) => {
               </p>
               <p className="row">
                 <p className="col-6">Thời gian bắt đầu đợt khảo sát:</p>
-                <p className="col-6">
-                  {format(subHours(new Date(data.data?.startDate), 7), 'dd/MM/yyyy HH:mm') || '-'}
-                </p>
+                <p className="col-6">{format(new Date(data.data?.startDate), 'dd/MM/yyyy HH:mm') || '-'}</p>
               </p>
               <p className="row">
                 <p className="col-6">Thời gian kết thúc đợt khảo sát:</p>
-                <p className="col-6">{format(subHours(new Date(data.data?.endDate), 7), 'dd/MM/yyyy HH:mm') || '-'}</p>
+                <p className="col-6">{format(new Date(data.data?.endDate), 'dd/MM/yyyy HH:mm') || '-'}</p>
               </p>
               <p className="row">
                 <p className="col-6">Trạng thái đợt khảo sát:</p>
                 <p className="col-6">
-                  {compareDesc(subHours(new Date(data.data?.startDate), 7), new Date()) !== -1 &&
-                  compareDesc(new Date(), subHours(new Date(data.data?.endDate), 7)) !== -1 ? (
+                  {compareDesc(new Date(data.data?.startDate), new Date()) !== -1 &&
+                  compareDesc(new Date(), new Date(data.data?.endDate)) !== -1 ? (
                     <Badge variant="success">Đang mở</Badge>
                   ) : (
                     <Badge variant="secondary">Đang đóng</Badge>

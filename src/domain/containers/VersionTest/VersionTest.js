@@ -9,8 +9,9 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { useMutation, useQuery } from 'hooks/axios.hooks';
 import InformationForm from 'domain/components/InformationForm/InformationForm';
-import { addHours, compareDesc, format, subHours } from 'date-fns';
+import { compareDesc, format } from 'date-fns';
 import ModalCreateForm from './ModalCreate';
+import { toastSuccess } from 'utils/toastify';
 
 const VersionTest = () => {
   const { navigate } = useNavigation();
@@ -62,11 +63,11 @@ const VersionTest = () => {
         ...item,
         stt: index + 1,
         name: <div className="typography">{item.name}</div>,
-        startDate: <div>{format(subHours(new Date(item.startDate), 7), 'dd/MM/yyyy HH:mm')}</div>,
-        endDate: <div>{format(subHours(new Date(item.endDate), 7), 'dd/MM/yyyy HH:mm')}</div>,
+        startDate: <div>{format(new Date(item.startDate), 'dd/MM/yyyy HH:mm')}</div>,
+        endDate: <div>{format(new Date(item.endDate), 'dd/MM/yyyy HH:mm')}</div>,
         isClose:
-          compareDesc(subHours(new Date(item.startDate), 7), new Date()) !== -1 &&
-          compareDesc(new Date(), subHours(new Date(item.endDate), 7)) !== -1 ? (
+          compareDesc(new Date(item.startDate), new Date()) !== -1 &&
+          compareDesc(new Date(), new Date(item.endDate)) !== -1 ? (
             <Badge variant="success">Đang mở</Badge>
           ) : (
             <Badge variant="secondary">Đang đóng</Badge>
@@ -108,8 +109,6 @@ const VersionTest = () => {
       const valuesCasted = validateSchema.cast(values);
       const valuesCloned = {
         ...valuesCasted,
-        startDate: addHours(new Date(valuesCasted.startDate), 7).toISOString(),
-        endDate: addHours(new Date(valuesCasted.endDate), 7).toISOString(),
       };
       createTestVersion({
         ...valuesCloned,
@@ -120,10 +119,9 @@ const VersionTest = () => {
             return;
           }
           setError({ type: 'success', message: 'Tạo đợt kiểm tra thành công' });
-          setTimeout(() => {
-            handleClose();
-            actions.resetForm({ values: { ...initialValues } });
-          }, 3000);
+          handleClose();
+          actions.resetForm({ values: { ...initialValues } });
+          toastSuccess('Tạo đợt khảo sát thành công.');
           force();
         })
         .catch((er) => {
