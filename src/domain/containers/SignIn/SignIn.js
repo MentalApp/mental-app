@@ -5,7 +5,7 @@ import { Alert, Button, Form } from 'react-bootstrap';
 import { User } from 'react-feather';
 import { useNavigation } from 'react-navi';
 import Wrapper from './SignIn.styles';
-import { TOKEN, ErrorMessage } from 'utils/constants';
+import { TOKEN, ErrorMessage, CURRENT_USER } from 'utils/constants';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import Footer from 'components/Footer';
@@ -37,10 +37,20 @@ const SignIn = () => {
             setError(ErrorMessage.EMAIL_AND_PASSWORD_IS_INVALID);
             return;
           }
-          window.localStorage.setItem(TOKEN, JSON.stringify(response.data.token));
+          window.localStorage.setItem(CURRENT_USER, JSON.stringify(response.data.data));
+          window.localStorage.setItem(TOKEN, JSON.stringify(response.data.data.token));
           navigate('/home');
         })
-        .catch(() => setError(ErrorMessage.EMAIL_AND_PASSWORD_IS_INVALID))
+        .catch((err) => {
+          if (err.response.status === 404 && err.response.data.code === 1001) {
+            setError(ErrorMessage.USER_IS_BLOCKING);
+            return;
+          }
+          if (err.response?.status === 404 && !err.response?.data.code === 1001) {
+            setError(ErrorMessage.EMAIL_AND_PASSWORD_IS_INVALID);
+            return;
+          }
+        })
         .finally(() => actions.setSubmitting(false));
     },
     [navigate, signin, validationSchema],
