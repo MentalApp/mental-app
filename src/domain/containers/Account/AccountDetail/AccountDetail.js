@@ -6,7 +6,7 @@ import { toastSuccess } from 'utils/toastify';
 import { format } from 'date-fns';
 import * as Yup from 'yup';
 import Loading from 'components/Loading';
-import ModalUpdateForm from '../ModelUpdateUser';
+import ModalUpdateForm from '../ModalUpdateUser';
 
 const AccountDetail = ({ id }) => {
   const [show, setShow] = useState(false);

@@ -42,7 +42,6 @@ const SignIn = () => {
           navigate('/home');
         })
         .catch((err) => {
-          console.log(err);
           if (err.response.status === 404 && err.response.data.code === 1001) {
             setError(ErrorMessage.USER_IS_BLOCKING);
             return;

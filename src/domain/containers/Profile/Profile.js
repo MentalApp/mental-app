@@ -111,7 +111,7 @@ const Profile = (userId) => {
             setErrorPass({ type: 'danger', message: 'Cập nhật thông tin không thành công' });
             return;
           }
-          handleClose();
+          handleClosePass();
           actions.resetForm({ values: { ...initialPassValues } });
           force();
           toastSuccess('Cập nhật thông tin thành công.');

@@ -87,4 +87,8 @@ export const AccountCollums = [
     name: 'Thời gian tạo',
     field: 'startDate',
   },
+  {
+    name: 'Xóa',
+    field: 'delete',
+  },
 ];

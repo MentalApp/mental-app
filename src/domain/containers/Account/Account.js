@@ -1,23 +1,39 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import { Button, Badge, Container } from 'react-bootstrap';
-import { useQuery } from 'hooks/axios.hooks';
+import { useQuery, useMutation } from 'hooks/axios.hooks';
 import Loading from 'components/Loading';
 import Wrapper from './Account.styles';
 import { useNavigation } from 'react-navi';
 import TablePaginationData from 'components/TablePagination';
 import { AccountCollums } from 'utils/constants';
 import { uppercaseString } from 'utils/utils';
+import ModalCreateUser from './ModalCreateUser';
 import { format } from 'date-fns';
 import AlertError from 'components/AlertError';
+import * as Yup from 'yup';
+import { toastSuccess } from 'utils/toastify';
+import { Trash2 } from 'react-feather';
 
 const Account = () => {
   const [errorGetData, setErrorGetData] = useState(null);
   const { navigate } = useNavigation();
   const [page, setPage] = useState(1);
-  const [setShow] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [error, setError] = useState(null);
 
-  const { data, loading, errors } = useQuery({
-    url: 'admin/doctors',
+  const { data, loading, errors, force } = useQuery({
+    url: '/admin/doctors',
+  });
+
+  const [createAccount] = useMutation({
+    url: '/admin/users',
+  });
+
+  const [deleteAccount, id] = useMutation({
+    url: `/admin/users/${id}`,
+    method: 'DELETE',
   });
 
   useEffect(() => {
@@ -28,7 +44,6 @@ const Account = () => {
       setErrorGetData(null);
     }
   }, [errors, data]);
-  const handleShow = () => setShow(true);
 
   const restructureData = useMemo(() => {
     if (!data) return;
@@ -46,11 +61,64 @@ const Account = () => {
             <Badge variant="secondary">Đang ngừng hoạt động</Badge>
           ),
         startDate: <div>{format(new Date(item.createdAt), 'HH:mm dd/MM/yyyy')}</div>,
-
+        delete: <Trash2 color="red" onClick={(deleteAccount, item.id)} />,
         onClick: () => navigate(`/account/${item.id}`),
       }))
     );
   }, [data, navigate]);
+
+  const initialValues = useMemo(
+    () => ({
+      fullName: '',
+      email: '',
+      militaryCode: '',
+      password: '',
+      role: 'doctor',
+    }),
+    [],
+  );
+
+  const validateSchema = Yup.object({
+    fullName: Yup.string().required('*Bắt buộc').trim().max(255, '*Tên quá dài').min(5, '*Tên quá ngắn'),
+    email: Yup.string().required('*Bắt buộc').trim().max(255, '*Tên quá dài').min(8, '*Tên quá ngắn'),
+    password: Yup.string().required('*Bắt buộc').trim().max(255, '*Mật khẩu quá dài').min(6, '*Mật khẩu quá ngắn'),
+    militaryCode: Yup.string().trim().max(255, '*Mã số quá dài'),
+  });
+
+  const handleSubmit = useCallback(
+    (values, actions) => {
+      const valuesCasted = validateSchema.cast(values);
+      const valuesCloned = {
+        ...valuesCasted,
+      };
+      createAccount({
+        ...valuesCloned,
+      })
+        .then((response) => {
+          if (!response.data.success) {
+            setError({ type: 'danger', message: 'Tạo tài khoản không thành công' });
+            return;
+          }
+          handleClose();
+          actions.resetForm({ values: { ...initialValues } });
+          force();
+          toastSuccess('Tạo tài khoản thành công.');
+        })
+        .catch((er) => {
+          setError({ type: 'danger', message: 'Tạo tài khoản không thành công' });
+          setTimeout(() => {
+            setError(null);
+          }, 10000);
+          return;
+        })
+        .finally(() => {
+          setTimeout(() => {
+            setError(null);
+          }, 3000);
+        });
+    },
+    [createAccount, force, initialValues, validateSchema],
+  );
 
   return (
     <>
@@ -66,8 +134,18 @@ const Account = () => {
                 onClick={handleShow}
                 style={{ marginLeft: 'auto' }}
               >
-                Tạo
+                Tạo tài khoản
               </Button>
+              <ModalCreateUser
+                title="Tạo tài khoản"
+                initialValues={initialValues}
+                validateSchema={validateSchema}
+                handleSubmit={handleSubmit}
+                show={show}
+                error={error}
+                setError={setError}
+                handleClose={handleClose}
+              />
             </div>
             <TablePaginationData
               columns={AccountCollums}

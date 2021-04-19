@@ -51,7 +51,6 @@ const ModalEditPassword = ({
                   placeholder="Nhập mật khẩu"
                   value={props.values.password}
                   onChange={(event) => {
-                    console.log(event.target.value);
                     props.setFieldValue('password', event.target.value);
                   }}
                 />
