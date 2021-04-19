@@ -150,7 +150,7 @@ const VersionTest = () => {
         .finally(() => {
           setTimeout(() => {
             setError(null);
-          }, 10000);
+          }, 3000);
         });
     },
     [createTestVersion, force, initialValues, validateSchema],
@@ -185,7 +185,7 @@ const VersionTest = () => {
           setIDTest(null);
           setTimeout(() => {
             setError(null);
-          }, 5000);
+          }, 3000);
           actions.resetForm({ values: { ...initialValuesStart } });
         });
     },
@@ -236,7 +236,7 @@ const VersionTest = () => {
             onSubmit={handleStart}
           >
             {(props) => (
-              <Form onSubmit={props.handleSubmit}>
+              <Form onSubmit={props.handleSubmit} autoComplete="off">
                 <Modal.Body>
                   <InformationForm
                     className={`input-control ${props.touched.entryCode && props.errors.entryCode ? 'has-error' : ''}`}

@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { Row, Col, Card, Form, Button, InputGroup, Badge, FormControl, Container } from 'react-bootstrap';
-import { useMutation, useQuery } from 'hooks/axios.hooks';
+import { Button, Badge, Container } from 'react-bootstrap';
+import { useQuery } from 'hooks/axios.hooks';
 import Loading from 'components/Loading';
 import Wrapper from './Account.styles';
 import { useNavigation } from 'react-navi';
@@ -14,9 +14,9 @@ const Account = () => {
   const [errorGetData, setErrorGetData] = useState(null);
   const { navigate } = useNavigation();
   const [page, setPage] = useState(1);
-  const [show, setShow] = useState(false);
+  const [setShow] = useState(false);
 
-  const { data, loading, force, errors } = useQuery({
+  const { data, loading, errors } = useQuery({
     url: 'admin/doctors',
   });
 

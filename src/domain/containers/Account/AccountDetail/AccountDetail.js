@@ -34,7 +34,6 @@ const AccountDetail = ({ id }) => {
 
   const handleSubmit = useCallback(
     (values, actions) => {
-      console.log('yyyy', values);
       const valuesCasted = validateSchema.cast(values);
       const valuesCloned = {
         ...valuesCasted,

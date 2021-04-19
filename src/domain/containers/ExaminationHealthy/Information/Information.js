@@ -18,7 +18,7 @@ const Information = ({ values, setFieldValue, handleSubmit, errors, touched }) =
   }, [setFieldValue, values]);
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} autoComplete="off">
       <div className="root-info-form">
         <div className="wrap-form">
           <p className="text-center text--tiltle">Nhập thông tin cá nhân</p>

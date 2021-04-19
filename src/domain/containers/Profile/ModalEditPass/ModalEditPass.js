@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Modal, Form, Alert } from 'react-bootstrap';
 import { Formik } from 'formik';
 import styled from 'styled-components';
-import { uppercaseString } from 'utils/utils';
 
 const WrapperModal = styled(Modal)`
   .error-text {
@@ -25,7 +24,7 @@ const WrapperModal = styled(Modal)`
     border-color: red !important;
   }
 `;
-const ModalUpdateForm = ({
+const ModalEditPassword = ({
   title,
   initialValues,
   validateSchema,
@@ -35,17 +34,6 @@ const ModalUpdateForm = ({
   show,
   handleClose,
 }) => {
-  const [isSwitchOn, setIsSwitchOn] = useState(initialValues.isBlock === 2 ? true : false);
-  const [labelSwitch, setLabelSwitch] = useState(initialValues.isBlock === 2 ? 'Đang hoạt động' : 'Đang bị khóa');
-
-  const onSwitchAction = () => {
-    setIsSwitchOn(!isSwitchOn);
-  };
-
-  useEffect(() => {
-    isSwitchOn ? setLabelSwitch('Đang hoạt động') : setLabelSwitch('Đang bị khóa');
-  }, [isSwitchOn, labelSwitch]);
-
   return (
     <Formik initialValues={initialValues} validationSchema={validateSchema} enableReinitialize onSubmit={handleSubmit}>
       {(props) => (
@@ -55,34 +43,40 @@ const ModalUpdateForm = ({
           </Modal.Header>
           <Form onSubmit={props.handleSubmit} autoComplete="off">
             <Modal.Body>
-              <Form.Group controlId="fullName">
-                <Form.Label>Họ và tên:</Form.Label>
+              <Form.Group controlId="password">
+                <Form.Label>Nhập mật khẩu hiện tại:</Form.Label>
                 <Form.Control
-                  className={`input-control ${props.touched.fullName && props.errors.fullName ? 'has-error' : ''}`}
-                  type="text"
-                  placeholder="Nhập tên mới"
-                  value={props.values.fullName}
+                  className={`input-control ${props.touched.password && props.errors.password ? 'has-error' : ''}`}
+                  type="password"
+                  placeholder="Nhập mật khẩu"
+                  value={props.values.password}
                   onChange={(event) => {
-                    props.setFieldValue('fullName', uppercaseString(event.target.value));
+                    console.log(event.target.value);
+                    props.setFieldValue('password', event.target.value);
                   }}
                 />
-                {props.touched.fullName && props.errors.fullName && (
-                  <p className="error-text">{props.errors.fullName}</p>
+                {props.touched.password && props.errors.password && (
+                  <p className="error-text">{props.errors.password}</p>
                 )}
               </Form.Group>
-              <Form.Group controlId="isBlock">
-                <Form.Label>Thay đổi trạng thái tài khoản:</Form.Label>
-                <Form.Check
-                  type="switch"
-                  id="custom-switch"
-                  label={labelSwitch}
-                  onChange={() => {
-                    onSwitchAction();
-                    props.setFieldValue('isBlock', isSwitchOn === true ? 1 : 2);
+              <Form.Group controlId="newPassword">
+                <Form.Label>Nhập mật khẩu mới:</Form.Label>
+                <Form.Control
+                  className={`input-control ${
+                    props.touched.newPassword && props.errors.newPassword ? 'has-error' : ''
+                  }`}
+                  type="password"
+                  placeholder="Nhập mật khẩu mới"
+                  value={props.values.newPassword}
+                  onChange={(event) => {
+                    props.setFieldValue('newPassword', event.target.value);
                   }}
-                  checked={isSwitchOn}
                 />
+                {props.touched.newPassword && props.errors.newPassword && (
+                  <p className="error-text">{props.errors.newPassword}</p>
+                )}
               </Form.Group>
+
               {!!error && <Alert variant={error?.type}>{error?.message}</Alert>}
             </Modal.Body>
             <Modal.Footer>
@@ -91,7 +85,6 @@ const ModalUpdateForm = ({
                 onClick={() => {
                   handleClose();
                   setError(null);
-                  setIsSwitchOn(initialValues.isBlock === 2 ? true : false);
                   props.resetForm({ values: { ...initialValues } });
                 }}
               >
@@ -108,4 +101,4 @@ const ModalUpdateForm = ({
   );
 };
 
-export default ModalUpdateForm;
+export default ModalEditPassword;

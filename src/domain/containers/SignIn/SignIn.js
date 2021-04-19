@@ -42,14 +42,14 @@ const SignIn = () => {
           navigate('/home');
         })
         .catch((err) => {
+          console.log(err);
           if (err.response.status === 404 && err.response.data.code === 1001) {
             setError(ErrorMessage.USER_IS_BLOCKING);
             return;
           }
-          if (err.response?.status === 404 && !err.response?.data.code === 1001) {
-            setError(ErrorMessage.EMAIL_AND_PASSWORD_IS_INVALID);
-            return;
-          }
+
+          setError(ErrorMessage.EMAIL_AND_PASSWORD_IS_INVALID);
+          return;
         })
         .finally(() => actions.setSubmitting(false));
     },
@@ -70,7 +70,7 @@ const SignIn = () => {
         {error && <Alert variant="danger">{error}</Alert>}
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleLogin}>
           {(props) => (
-            <Form onSubmit={props.handleSubmit}>
+            <Form onSubmit={props.handleSubmit} autoComplete="off">
               <div className={`form-input ${props.errors?.email && props.touched?.email ? 'has-error' : ''}`}>
                 <Form.Control
                   placeholder="Tài khoản"
