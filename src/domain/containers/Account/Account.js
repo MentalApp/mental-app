@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback, useEffect } from 'react';
-import { Button, Badge, Container } from 'react-bootstrap';
+import { Button, Badge, Container, Modal } from 'react-bootstrap';
 import { useQuery, useMutation } from 'hooks/axios.hooks';
 import Loading from 'components/Loading';
 import Wrapper from './Account.styles';
@@ -11,7 +11,7 @@ import ModalCreateUser from './ModalCreateUser';
 import { format } from 'date-fns';
 import AlertError from 'components/AlertError';
 import * as Yup from 'yup';
-import { toastSuccess } from 'utils/toastify';
+import { toastSuccess, toastError } from 'utils/toastify';
 import { Trash2 } from 'react-feather';
 
 const Account = () => {
@@ -22,6 +22,13 @@ const Account = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [error, setError] = useState(null);
+  const [idDelete, setIdDelete] = useState(null);
+
+  //show modal delete
+  const [showDelete, setShowDelete] = useState(false);
+
+  const handleModalDeleteClose = () => setShowDelete(false);
+  const handleModalDeleteShow = () => setShowDelete(true);
 
   const { data, loading, errors, force } = useQuery({
     url: '/admin/doctors',
@@ -31,8 +38,8 @@ const Account = () => {
     url: '/admin/users',
   });
 
-  const [deleteAccount, id] = useMutation({
-    url: `/admin/users/${id}`,
+  const [deleteAccount] = useMutation({
+    url: `/admin/users/${idDelete}`,
     method: 'DELETE',
   });
 
@@ -45,6 +52,35 @@ const Account = () => {
     }
   }, [errors, data]);
 
+  const setId = (id) => {
+    setIdDelete(id);
+  };
+
+  const handleDelete = useCallback(() => {
+    deleteAccount()
+      .then((response) => {
+        if (!response.data.success) {
+          handleModalDeleteClose();
+          force();
+          toastError('Xóa tài khoản không thành công.');
+        }
+        setId(null);
+        handleModalDeleteClose();
+        force();
+        toastSuccess('Xóa tài khoản thành công.');
+      })
+      .catch((er) => {
+        handleModalDeleteClose();
+        force();
+        toastError('Xóa tài khoản không thành công.');
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setError(null);
+        }, 3000);
+      });
+  }, [deleteAccount, force]);
+
   const restructureData = useMemo(() => {
     if (!data) return;
     return (
@@ -52,7 +88,11 @@ const Account = () => {
       data.data?.map((item, index) => ({
         ...item,
         stt: index + 1,
-        name: <div className="typography">{uppercaseString(item.fullName)}</div>,
+        name: (
+          <div className="typography" onClick={() => navigate(`/account/${item.id}`)}>
+            {uppercaseString(item.fullName)}
+          </div>
+        ),
         militaryCode: <div>{item.militaryCode}</div>,
         status:
           item.isBlock === 2 ? (
@@ -61,11 +101,42 @@ const Account = () => {
             <Badge variant="secondary">Đang ngừng hoạt động</Badge>
           ),
         startDate: <div>{format(new Date(item.createdAt), 'HH:mm dd/MM/yyyy')}</div>,
-        delete: <Trash2 color="red" onClick={(deleteAccount, item.id)} />,
-        onClick: () => navigate(`/account/${item.id}`),
+        delete: (
+          <>
+            <Button
+              variant="infor"
+              onClick={() => {
+                setId(item.id);
+                handleModalDeleteShow();
+              }}
+            >
+              Xóa
+            </Button>
+            <Modal show={showDelete} onHide={handleModalDeleteClose}>
+              <Modal.Header>
+                <Modal.Title>Xóa tài khoản</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Bạn có muốn xóa tài khoản {item.fullName}</Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleModalDeleteClose}>
+                  Đóng
+                </Button>
+                <Button
+                  variant="infor"
+                  onClick={() => {
+                    handleModalDeleteShow();
+                    handleDelete();
+                  }}
+                >
+                  Xóa
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          </>
+        ),
       }))
     );
-  }, [data, navigate]);
+  }, [data, showDelete, navigate, handleDelete]);
 
   const initialValues = useMemo(
     () => ({

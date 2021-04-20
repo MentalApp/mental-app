@@ -64,6 +64,11 @@ export const TestCollums = [
     field: 'predictDeepFilter',
     width: 'w-10',
   },
+  {
+    name: 'Đánh giá',
+    field: 'predict',
+    width: 'w-10',
+  },
 ];
 
 export const AccountCollums = [
