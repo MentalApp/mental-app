@@ -61,6 +61,7 @@ request.interceptors.response.use(
     if (token && get(error, 'response.status') === 401) {
       authService.clearStorage();
       window.location.href = '/login';
+      window.location.reload();
       return;
     }
     return Promise.reject(error);

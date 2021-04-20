@@ -33,7 +33,6 @@ export const authService = {
     if (!token) {
       return undefined;
     }
-
     const tokenDecode = JSON.parse(token);
 
     var current_time = new Date().getTime() / 1000;

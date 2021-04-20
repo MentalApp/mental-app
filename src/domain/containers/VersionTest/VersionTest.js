@@ -12,6 +12,7 @@ import InformationForm from 'domain/components/InformationForm/InformationForm';
 import { addDays, compareDesc, format } from 'date-fns';
 import ModalCreateForm from './ModalCreate';
 import { toastSuccess } from 'utils/toastify';
+import { checkAdminPermission } from 'utils/utils';
 
 const VersionTest = () => {
   const [params, setParams] = useState({});
@@ -19,8 +20,8 @@ const VersionTest = () => {
   const [show, setShow] = useState(false);
   const [page, setPage] = useState(1);
   const [idTest, setIDTest] = useState(null);
-
   const [error, setError] = useState(null);
+  const isAdmin = checkAdminPermission();
 
   const [createTestVersion] = useMutation({ url: '/admin/tests' });
   const [startVersion] = useMutation({ url: '/admin/tests/start' });
@@ -149,7 +150,7 @@ const VersionTest = () => {
         .finally(() => {
           setTimeout(() => {
             setError(null);
-          }, 10000);
+          }, 3000);
         });
     },
     [createTestVersion, force, initialValues, validateSchema],
@@ -184,7 +185,7 @@ const VersionTest = () => {
           setIDTest(null);
           setTimeout(() => {
             setError(null);
-          }, 5000);
+          }, 3000);
           actions.resetForm({ values: { ...initialValuesStart } });
         });
     },
@@ -195,9 +196,11 @@ const VersionTest = () => {
     <Wrapper>
       <Container fluid>
         <div style={{ display: 'flex' }}>
-          <Button variant="primary" className="create--button" onClick={handleShow} style={{ marginLeft: 'auto' }}>
-            Tạo
-          </Button>
+          {isAdmin && (
+            <Button variant="primary" className="create--button" onClick={handleShow} style={{ marginLeft: 'auto' }}>
+              Tạo
+            </Button>
+          )}
 
           <ModalCreateForm
             title="Tạo đợt khảo sát"
@@ -233,7 +236,7 @@ const VersionTest = () => {
             onSubmit={handleStart}
           >
             {(props) => (
-              <Form onSubmit={props.handleSubmit}>
+              <Form onSubmit={props.handleSubmit} autoComplete="off">
                 <Modal.Body>
                   <InformationForm
                     className={`input-control ${props.touched.entryCode && props.errors.entryCode ? 'has-error' : ''}`}

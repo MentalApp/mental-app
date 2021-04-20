@@ -26,7 +26,7 @@ const ModalCreateForm = ({
           <Modal.Header className="text-center">
             <Modal.Title>{title}</Modal.Title>
           </Modal.Header>
-          <Form onSubmit={props.handleSubmit}>
+          <Form onSubmit={props.handleSubmit} autoComplete="off">
             <Modal.Body>
               <Form.Group controlId="nameVersion">
                 <Form.Label>Tên đợt khảo sát.</Form.Label>
