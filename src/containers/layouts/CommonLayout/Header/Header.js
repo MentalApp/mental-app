@@ -3,15 +3,23 @@ import { useCurrentRoute, useNavigation } from 'react-navi';
 import Wrapper from './Header.styles';
 import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
-import { AlignLeft, Home, Power, Layers, User } from 'react-feather';
-import { TOKEN } from 'utils/constants';
+import { AlignLeft, Home, Power, Layers, User, PenTool } from 'react-feather';
+import { TOKEN, CURRENT_USER } from 'utils/constants';
+
 // import { TOKEN } from 'utils/constants';
 
 const Header = () => {
   const { navigate } = useNavigation();
   const activeRoute = useCurrentRoute().url.pathname;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const user = JSON.parse(localStorage.getItem(CURRENT_USER));
 
+  useEffect(() => {
+    if (user && user.role === 'admin') {
+      setIsAdmin(true);
+    }
+  }, [user]);
   const handleOpenSidebar = useCallback(() => {
     document.getElementById('overlay').style.display = 'block';
     setIsSidebarOpen(true);
@@ -32,8 +40,10 @@ const Header = () => {
   const titleHeader = useMemo(() => {
     if (activeRoute.match('/home')) return 'Kết quả khảo sát';
     if (activeRoute.match('/version')) return 'Đợt khảo sát';
+    if (user && activeRoute.match(`/profile/${user.id}`)) return 'Cập nhật tài khoản';
+    if (user && activeRoute.match('/account')) return 'Tạo tài khoản';
     return '';
-  }, [activeRoute]);
+  }, [activeRoute, user]);
 
   return (
     <Wrapper>
@@ -72,6 +82,16 @@ const Header = () => {
                 itemId: '/version',
                 elemBefore: () => <Layers />,
               },
+              {
+                title: 'Cập nhật tài khoản',
+                itemId: `/profile/${user.id}`,
+                elemBefore: () => <PenTool />,
+              },
+              isAdmin && {
+                title: 'Quản lý tài khoản',
+                itemId: '/account',
+                elemBefore: () => <User />,
+              },
             ]}
           />
 
@@ -88,7 +108,9 @@ const Header = () => {
               onSelect={({ itemId }) => {
                 navigate(itemId);
                 localStorage.removeItem(TOKEN);
+                localStorage.removeItem(CURRENT_USER);
                 handleCloseSidebar();
+                window.location.reload();
               }}
             />
           </div>

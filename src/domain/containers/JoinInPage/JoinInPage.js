@@ -61,7 +61,7 @@ const JoinInPage = () => {
               <div className="login-form">
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
                   {(props) => (
-                    <form className="form-join" onSubmit={props.handleSubmit}>
+                    <form className="form-join" onSubmit={props.handleSubmit} autoComplete="off">
                       <input
                         className={`form-control ${props.errors?.code && props.touched?.code ? 'has-error' : ''}`}
                         placeholder="Nhập mã đợt khảo sát"

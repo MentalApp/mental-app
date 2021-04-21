@@ -7,6 +7,7 @@ import { compareDesc, format } from 'date-fns';
 import * as Yup from 'yup';
 import ModalCreateForm from '../ModalCreate';
 import { toastSuccess } from 'utils/toastify';
+import { checkAdminPermission } from 'utils/utils';
 
 const VersionDetail = ({ id }) => {
   const { data, loading, force } = useQuery({ url: `/admin/tests/${id}` });
@@ -14,6 +15,8 @@ const VersionDetail = ({ id }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [error, setError] = useState(null);
+  const isAdmin = checkAdminPermission();
+
   const [createTestVersion] = useMutation({ url: `/admin/tests/${id}`, method: 'PUT' });
 
   const dataDetail = useMemo(() => !loading && !!data && data.data, [data, loading]);
@@ -86,9 +89,11 @@ const VersionDetail = ({ id }) => {
       {!loading && data && (
         <Container>
           <div style={{ display: 'flex' }}>
-            <Button variant="primary" onClick={handleShow} className="create--button" style={{ marginLeft: 'auto' }}>
-              Sửa kì khảo sát
-            </Button>
+            {isAdmin && (
+              <Button variant="primary" onClick={handleShow} style={{ marginLeft: 'auto' }}>
+                Sửa kì khảo sát
+              </Button>
+            )}
             <ModalCreateForm
               title="Chỉnh sửa đợt khảo sát"
               initialValues={initialValues}
