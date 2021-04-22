@@ -1,5 +1,6 @@
 # Mental App
 
+FrontEnd of Mental Application by HMILab - UET
 ## Getting Started
 
 Follow these instructions to set up this project on local machine.
