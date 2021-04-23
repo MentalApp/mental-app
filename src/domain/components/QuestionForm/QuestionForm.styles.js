@@ -15,13 +15,13 @@ const Wrapper = styled.div`
     width: 18px;
     height: 18px;
   }
-  .input-yes {
+  /* .input-yes {
     margin-left: 15px;
   }
 
   .input-no {
     margin-left: 100px;
-  }
+  } */
 
   label {
     font-size: 20px;
@@ -29,7 +29,8 @@ const Wrapper = styled.div`
 
   .anwer-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
   }
 `;
 

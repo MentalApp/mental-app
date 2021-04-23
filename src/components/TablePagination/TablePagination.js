@@ -107,8 +107,8 @@ const TablePaginationData = ({
                   {!isLoading &&
                     data.map((row, index) => (
                       <tr key={index} onClick={row.onClick} className={row.className || ''}>
-                        {columns.map(({ field }, index) => (
-                          <td key={index} className={'td-' + field} colSpan={0}>
+                        {columns.map(({ field, width }, index) => (
+                          <td key={index} className={'td-' + field + ' ' + width} colSpan={0}>
                             <div>{get(row, field, '')}</div>
                           </td>
                         ))}

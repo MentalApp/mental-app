@@ -19,8 +19,8 @@ const PreviewPage = ({ information, resultTest, data, note, handlePrevious, hand
       <hr />
       <TablePaginationData
         columns={[
-          { name: 'Câu hỏi', field: 'question' },
-          { name: 'Trả lời', field: 'answer' },
+          { name: 'Câu hỏi', field: 'question', width: 'w-75' },
+          { name: 'Trả lời', field: 'answer', width: 'w-25' },
         ]}
         data={restructureData}
       />

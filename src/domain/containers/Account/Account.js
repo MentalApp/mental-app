@@ -12,7 +12,6 @@ import { format } from 'date-fns';
 import AlertError from 'components/AlertError';
 import * as Yup from 'yup';
 import { toastSuccess, toastError } from 'utils/toastify';
-import { Trash2 } from 'react-feather';
 
 const Account = () => {
   const [errorGetData, setErrorGetData] = useState(null);
@@ -62,17 +61,17 @@ const Account = () => {
         if (!response.data.success) {
           handleModalDeleteClose();
           force();
-          toastError('Xóa tài khoản không thành công.');
+          toastError('Xóa tài khoản không thành công');
         }
         setId(null);
         handleModalDeleteClose();
         force();
-        toastSuccess('Xóa tài khoản thành công.');
+        toastSuccess('Xóa tài khoản thành công');
       })
       .catch((er) => {
         handleModalDeleteClose();
         force();
-        toastError('Xóa tài khoản không thành công.');
+        toastError('Xóa tài khoản không thành công');
       })
       .finally(() => {
         setTimeout(() => {
@@ -195,7 +194,7 @@ const Account = () => {
     <>
       {loading && <Loading />}
       {errors && <AlertError message={errorGetData} isShow={!!errorGetData} />}
-      {data && data.data.length > 0 && !errorGetData && !loading ? (
+      {data && !errorGetData && !loading && (
         <Wrapper>
           <Container className="mt-4" fluid>
             <div style={{ display: 'flex' }}>
@@ -222,21 +221,6 @@ const Account = () => {
               columns={AccountCollums}
               isLoading={loading}
               data={restructureData}
-              page={page}
-              totalPages={(data && data.totalPages) || 0}
-              onChangePage={(page) => {
-                setPage(page);
-              }}
-            />
-          </Container>
-        </Wrapper>
-      ) : (
-        <Wrapper>
-          <Container className="mt-4" fluid>
-            <TablePaginationData
-              columns={AccountCollums}
-              isLoading={false}
-              data={[]}
               page={page}
               totalPages={(data && data.totalPages) || 0}
               onChangePage={(page) => {

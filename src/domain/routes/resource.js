@@ -3,6 +3,7 @@ import React from 'react';
 import { mount, route, withView } from 'navi';
 
 import withNotAuth from 'middleware/withNotAuth';
+import OldHome from '../containers/OldHome';
 import Home from '../containers/Home';
 import CommonLayout from 'containers/layouts/CommonLayout';
 // import QuestionSurvey from '../containers/QuestionSurvey';
@@ -10,6 +11,7 @@ import SignIn from '../containers/SignIn';
 import VersionTest from '../containers/VersionTest';
 import VersionDetail from '../containers/VersionTest/VersionDetail';
 import { View } from 'react-navi';
+import OldDetail from '../containers/OldHome/Detail';
 import Detail from '../containers/Home/Detail';
 import withAuth from 'middleware/withAuth';
 import withAuthEntryCode from 'middleware/withAuthEntryCode';
@@ -44,6 +46,23 @@ export const routes = {
       '/:id': withAuth(
         route((req) => ({
           view: <Detail id={req.params.id} />,
+        })),
+      ),
+    }),
+  ),
+  '/old_home': withView(
+    <CommonLayout>
+      <View />
+    </CommonLayout>,
+    mount({
+      '/': withAuth(
+        route({
+          view: <OldHome />,
+        }),
+      ),
+      '/:id': withAuth(
+        route((req) => ({
+          view: <OldDetail id={req.params.id} />,
         })),
       ),
     }),
