@@ -1,28 +1,21 @@
 import TablePaginationData from 'components/TablePagination';
 import { useQuery } from 'hooks/axios.hooks';
 import React, { useMemo } from 'react';
-import { Button, Container, Row, Col, Media, Image } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
 import Wrapper from './Detail.styles';
 import questionsMock from './questionsMock.json';
 import Loading from 'components/Loading';
 import { format } from 'date-fns';
 import { handleUnit } from 'utils/utils';
 
-const Detail = ({ id }) => {
-  const { data, loading } = useQuery({ url: `/admin/officer_new_tests/${id}` });
-  const dataPredict = useQuery({ url: `/admin/predicts/${id}` });
-  const answerMap = (arr, id) => {
-    const answer = arr.find((val) => val.test_pool_id === id);
-    if (answer) {
-      return answer.answer;
-    }
-  };
+const OldDetail = ({ id }) => {
+  const { data, loading } = useQuery({ url: `/admin/officer_tests/${id}` });
 
   const restructureData = useMemo(() => {
     if (!data) return;
     return questionsMock.data?.questions.map((item, index) => ({
       question: `${index + 1}. ${item?.question}`,
-      answer: !!data && answerMap(data.data.answer, item.test_pool_id),
+      answer: !!data && data.data?.answer.find((val) => val.test_pool_id === item.test_pool_id).answer,
     }));
   }, [data]);
 
@@ -49,8 +42,8 @@ const Detail = ({ id }) => {
           </div>
           <TablePaginationData
             columns={[
-              { name: 'Câu hỏi', field: 'question', width: 'w-75' },
-              { name: 'Trả lời', field: 'answer', width: 'w-25' },
+              { name: 'Câu hỏi', field: 'question' },
+              { name: 'Trả lời', field: 'answer' },
             ]}
             data={restructureData || []}
           />
@@ -76,50 +69,10 @@ const Detail = ({ id }) => {
                 : '- Có khả năng cao trả lời câu hỏi trung thực'
             }`}</p>
           </div>
-
-          <div className="note-information">
-            <div>
-              <div className="d-inline-flex justify-content-between">
-                <div className="">
-                  <h5>Chuẩn đoán của bác sỹ</h5>
-                </div>
-              </div>
-              <hr />
-              {dataPredict.data &&
-                dataPredict.data?.data.map((item) => {
-                  return (
-                    <Media>
-                      <Image
-                        src="https://react.semantic-ui.com/images/avatar/small/matt.jpg"
-                        height={35}
-                        className="mx-1"
-                      />
-                      <Media.Body className="ml-2">
-                        <div className="d-inline-flex time">
-                          <div className="text--title mt-2">{item?.nameUser || 'Bác sỹ'}</div>
-                          <div className="ml-1 mt-2">
-                            {format(new Date(item?.updatedAt), 'HH:mm dd/MM/yyyy') || '-'}
-                          </div>
-                        </div>
-                        <div classNam="p1 mb-1">
-                          {item?.predict === 1 ? '- Trả lời câu hỏi không trung thực' : '- Trả lời câu hỏi trung thực'}
-                        </div>
-                        <div classNam="p1">{item?.diagnosis === 1 ? '- Có mắc bệnh' : '- Không mắc bệnh'}</div>
-                        <div classNam="p1">lý do: {item?.conflict || '-'}</div>
-                        <div className="actions d-inline-flex">
-                          <p className="ml-4 edit">edit</p>
-                          <p className="ml-2 delete">delete</p>
-                        </div>
-                      </Media.Body>
-                    </Media>
-                  );
-                })}
-
-              <div className="d-flex align-center">
-                <Button variant="primary" className="">
-                  Tạo chuẩn đoán
-                </Button>
-              </div>
+          <div className="note-by-doctor">
+            <textarea rows="4" />
+            <div className="button-wrapper">
+              <Button variant="outline-primary">Lưu</Button>
             </div>
           </div>
         </Container>
@@ -128,4 +81,4 @@ const Detail = ({ id }) => {
   );
 };
 
-export default Detail;
+export default OldDetail;

@@ -97,3 +97,41 @@ export const AccountCollums = [
     field: 'delete',
   },
 ];
+
+export const TestOldCollums = [
+  {
+    name: 'STT',
+    field: 'stt',
+    width: 'w-5',
+  },
+  {
+    name: 'Tên quân nhân',
+    field: 'name',
+    width: 'w-25',
+  },
+  {
+    name: 'MSQN',
+    field: 'militaryCode',
+    width: 'w-15',
+  },
+  {
+    name: 'Đơn vị',
+    field: 'unit',
+    width: 'w-15',
+  },
+  {
+    name: 'Cấp bậc',
+    field: 'rank',
+    width: 'w-15',
+  },
+  {
+    name: 'Có bệnh',
+    field: 'predictShallowFilter',
+    width: 'w-15',
+  },
+  {
+    name: 'Trả lời mâu thuẫn',
+    field: 'predictDeepFilter',
+    width: 'w-10',
+  },
+];

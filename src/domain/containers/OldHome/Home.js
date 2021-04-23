@@ -5,18 +5,18 @@ import { Container } from 'react-bootstrap';
 import { useCurrentRoute, useNavigation } from 'react-navi';
 import Filter from './Filter';
 import Wrapper from './Home.styles';
-import { TestCollums } from 'utils/constants';
+import { TestOldCollums } from 'utils/constants';
 import { handleUnit } from 'utils/utils';
 import { Check } from 'react-feather';
 
-const Home = () => {
+const OldHome = () => {
   const [params, setParams] = useState({});
   const [page, setPage] = useState(1);
   const route = useCurrentRoute().url.pathname;
 
   const { _history } = useNavigation();
   const { data, loading } = useQuery({
-    url: '/admin/officer_new_tests',
+    url: '/admin/officer_tests',
     params: { ...params, page },
   });
 
@@ -24,10 +24,10 @@ const Home = () => {
     url: '/admin/tests',
   });
 
-  const columns = TestCollums;
+  const columns = TestOldCollums;
 
   useEffect(() => {
-    route !== '/home' && _history.replace('/home');
+    route !== '/old_home' && _history.replace('/old_home');
   }, [_history, route]);
 
   const handleOnFilter = useCallback(
@@ -60,7 +60,7 @@ const Home = () => {
         predictDeepFilter: item.predictDeepFilter === 1 && <Check color="#28a745" size={30} />,
         predictShallowFilter: item.predictShallowFilter === 1 && <Check color="#28a745" size={30} />,
         unit: handleUnit(item.unit),
-        onClick: () => window.open(`/home/${item.id}`),
+        onClick: () => window.open(`/old_home/${item.id}`),
         className: backgroudColor(item),
       }))
     );
@@ -91,4 +91,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default OldHome;

@@ -195,7 +195,7 @@ const Account = () => {
     <>
       {loading && <Loading />}
       {errors && <AlertError message={errorGetData} isShow={!!errorGetData} />}
-      {data && data.data.length > 0 && !errorGetData && !loading ? (
+      {data && !errorGetData && !loading && (
         <Wrapper>
           <Container className="mt-4" fluid>
             <div style={{ display: 'flex' }}>
@@ -222,21 +222,6 @@ const Account = () => {
               columns={AccountCollums}
               isLoading={loading}
               data={restructureData}
-              page={page}
-              totalPages={(data && data.totalPages) || 0}
-              onChangePage={(page) => {
-                setPage(page);
-              }}
-            />
-          </Container>
-        </Wrapper>
-      ) : (
-        <Wrapper>
-          <Container className="mt-4" fluid>
-            <TablePaginationData
-              columns={AccountCollums}
-              isLoading={false}
-              data={[]}
               page={page}
               totalPages={(data && data.totalPages) || 0}
               onChangePage={(page) => {

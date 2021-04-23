@@ -1,108 +1,111 @@
 {
     "data": {
         "questions": [{
-                "test_pool_id": 1,
-                "question": "Mất ngủ không?"
+                "test_pool_id": 27,
+                "question": "Giảm hứng thú hoặc sở thích với hầu hết mọi thứ?"
             },
             {
-                "test_pool_id": 2,
-                "question": "Buổi sáng ngủ dậy có mệt mỏi không?"
+                "test_pool_id": 28,
+                "question": "Mất ngủ hoặc ngủ quá nhiều không?"
             },
             {
-                "test_pool_id": 3,
-                "question": "Hay buồn vô cớ không?"
+                "test_pool_id": 29,
+                "question": "Mệt mỏi hoặc mất năng lượng không?"
             },
             {
-                "test_pool_id": 4,
+                "test_pool_id": 30,
+                "question": "Tự ti, cho rằng mình là người thất bại, là gánh nặng cho gia đình?"
+            },
+            {
+                "test_pool_id": 31,
                 "question": "Chán ăn và sút cân không?"
             },
             {
-                "test_pool_id": 5,
+                "test_pool_id": 32,
                 "question": "Hoạt động nói năng chậm hơn bình thường?"
             },
             {
-                "test_pool_id": 6,
-                "question": "Hay cáu gắt vô cớ?"
+                "test_pool_id": 33,
+                "question": "Cảm thấy chán nản, bi quan hoặc tuyệt vọng?"
             },
             {
-                "test_pool_id": 7,
-                "question": "Bi quan quá mức?"
+                "test_pool_id": 34,
+                "question": "Chú ý và trí nhớ kém,khó tập trung vào mọi việc?"
             },
             {
-                "test_pool_id": 8,
-                "question": "Chú ý và trí nhớ kém"
+                "test_pool_id": 35,
+                "question": "Hay nghĩ đến cái chết hoặc muốn tự sát?"
             },
             {
-                "test_pool_id": 9,
-                "question": "Hay nghĩ đến cái chết?"
+                "test_pool_id": 36,
+                "question": "Nghe có tiếng người nói bên tai khen chê, xui khiến hay ra lệnh không?"
             },
             {
-                "test_pool_id": 10,
-                "question": "Nghe có tiếng người nói chuyện trong đầu?"
+                "test_pool_id": 37,
+                "question": "Cho rằng có người điều khiển, chi phối, theo dõi, làm hại mình?"
             },
             {
-                "test_pool_id": 11,
-                "question": "Cho rằng có người theo dõi, làm hại mình?"
+                "test_pool_id": 38,
+                "question": "Giảm nhu cầu ngủ không?"
             },
             {
-                "test_pool_id": 12,
-                "question": "Ngủ quá ít không?"
-            },
-            {
-                "test_pool_id": 13,
+                "test_pool_id": 39,
                 "question": "Thấy người rất khỏe mạnh không?"
             },
             {
-                "test_pool_id": 14,
-                "question": "Rất vui vẻ không?"
+                "test_pool_id": 40,
+                "question": "Vui vẻ quá mức không?"
             },
             {
-                "test_pool_id": 15,
-                "question": "Nói rất nhiều không?"
+                "test_pool_id": 41,
+                "question": "Nói quá nhiều không?"
             },
             {
-                "test_pool_id": 16,
+                "test_pool_id": 42,
                 "question": "Hoạt động quá nhiều không?"
             },
             {
-                "test_pool_id": 17,
+                "test_pool_id": 43,
                 "question": "Suy nghĩ rất nhanh không?"
             },
             {
-                "test_pool_id": 18,
-                "question": "Cho rằng mình có nhiều tài năng không?"
+                "test_pool_id": 44,
+                "question": "Cho rằng mình có nhiều tài năng hơn người?"
             },
             {
-                "test_pool_id": 19,
+                "test_pool_id": 45,
                 "question": "Tiêu quá nhiều tiền không?"
             },
             {
-                "test_pool_id": 20,
-                "question": "Lo lắng quá mức?"
+                "test_pool_id": 46,
+                "question": "Cảm thấy hồi hộp lo lắng hoặc căng thẳng?"
             },
             {
-                "test_pool_id": 21,
+                "test_pool_id": 47,
+                "question": "Không thể dừng lại hoặc kiểm soát được lo lắng?"
+            },
+            {
+                "test_pool_id": 48,
+                "question": "Lo lắng quá nhiều về những điều khác nhau?"
+            },
+            {
+                "test_pool_id": 49,
                 "question": "Rất khó thư giãn?"
             },
             {
-                "test_pool_id": 22,
-                "question": "Run tay?"
+                "test_pool_id": 50,
+                "question": "Bồn chồn đến mức đứng ngồi không yên?"
             },
             {
-                "test_pool_id": 23,
-                "question": "Khó chú ý?"
+                "test_pool_id": 51,
+                "question": "Dễ cáu gắt hoặc trở nên khó chịu?"
             },
             {
-                "test_pool_id": 24,
-                "question": "Dễ nổi cáu?"
-            },
-            {
-                "test_pool_id": 25,
-                "question": "Khó vào giấc ngủ?"
-            },
-            {
-                "test_pool_id": 26,
-                "question": "Hay đánh trống ngực?"
+                "test_pool_id": 52,
+                "question": "Cảm thấy sợ hãi như thể điều gì đó khủng khiếp sắp xảy ra?"
+            }, {
+                "test_pool_id": 53,
+                "question": "Hay đánh trống ngực, run tay không?"
             }
         ]
     }

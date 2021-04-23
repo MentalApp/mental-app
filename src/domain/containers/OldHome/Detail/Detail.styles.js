@@ -103,35 +103,8 @@ const Wrapper = styled.div`
     margin: 10px 15px;
     border-bottom: 1px solid #707070;
     border-radius: 7px;
-
-    .text--title {
-      font-size: 1em;
-      color: rgba(0, 0, 0, 0.87);
-      font-weight: 700;
-    }
-  }
-  .p1 {
-    font-size: 1em;
-    word-wrap: break-word;
-    color: rgba(0, 0, 0, 0.87);
-    line-height: 1.3;
-  }
-  .actions {
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.4);
   }
 
-  .time {
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.4);
-    font-size: 0.875em;
-  }
-
-  .edit {
-  }
-
-  .delete {
-  }
   .note {
     background-color: #d7f2fb;
     padding: 30px;
