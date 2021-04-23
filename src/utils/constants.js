@@ -20,6 +20,16 @@ export const LIST_UNIT = [
   { id: 6, name: 'Biên phòng 1' },
 ];
 
+export const LIST_PREDICT = [
+  { id: 0, name: 'Trả lời câu hỏi trung thực' },
+  { id: 1, name: 'Trả lời câu hỏi không trung thực' },
+];
+
+export const LIST_DIAGNOSIS = [
+  { id: 0, name: 'Không mắc bệnh' },
+  { id: 1, name: 'Có mắc bệnh' },
+];
+
 export const ErrorMessage = {
   VALIDATE_CODE_INVALID: 'Mã kiểm tra không chính xác',
   INTERNAL_SERVER_ERROR: 'Có lỗi xảy ra trên server',
@@ -37,7 +47,7 @@ export const TestCollums = [
   {
     name: 'Tên quân nhân',
     field: 'name',
-    width: 'w-25',
+    width: 'w-20',
   },
   {
     name: 'MSQN',
@@ -55,18 +65,23 @@ export const TestCollums = [
     width: 'w-15',
   },
   {
-    name: 'Có bệnh',
+    name: 'Có bệnh (Máy)',
     field: 'predictShallowFilter',
     width: 'w-15',
   },
   {
-    name: 'Trả lời mâu thuẫn',
+    name: 'Trả lời mâu thuẫn (Máy)',
     field: 'predictDeepFilter',
     width: 'w-10',
   },
   {
     name: 'Đánh giá',
     field: 'predict',
+    width: 'w-10',
+  },
+  {
+    name: 'Tình trạng',
+    field: 'diagnosis',
     width: 'w-10',
   },
 ];

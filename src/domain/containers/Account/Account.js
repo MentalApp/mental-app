@@ -12,7 +12,6 @@ import { format } from 'date-fns';
 import AlertError from 'components/AlertError';
 import * as Yup from 'yup';
 import { toastSuccess, toastError } from 'utils/toastify';
-import { Trash2 } from 'react-feather';
 
 const Account = () => {
   const [errorGetData, setErrorGetData] = useState(null);
@@ -62,17 +61,17 @@ const Account = () => {
         if (!response.data.success) {
           handleModalDeleteClose();
           force();
-          toastError('Xóa tài khoản không thành công.');
+          toastError('Xóa tài khoản không thành công');
         }
         setId(null);
         handleModalDeleteClose();
         force();
-        toastSuccess('Xóa tài khoản thành công.');
+        toastSuccess('Xóa tài khoản thành công');
       })
       .catch((er) => {
         handleModalDeleteClose();
         force();
-        toastError('Xóa tài khoản không thành công.');
+        toastError('Xóa tài khoản không thành công');
       })
       .finally(() => {
         setTimeout(() => {
