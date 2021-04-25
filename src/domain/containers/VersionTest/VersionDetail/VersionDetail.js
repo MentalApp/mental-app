@@ -116,7 +116,7 @@ const VersionDetail = ({ id }) => {
       {loading && <Loading />}
       {!loading && data && (
         <Container>
-          <div style={{ display: 'flex' }}>
+          <div className="btn-create">
             {isAdmin && (
               <Button variant="primary" onClick={handleShow} style={{ marginLeft: 'auto' }}>
                 Sửa kì khảo sát

@@ -16,7 +16,7 @@ const Home = () => {
 
   const { _history } = useNavigation();
   const { data, loading } = useQuery({
-    url: '/admin/officer_new_tests',
+    url: '/admin/officer_tests',
     params: { ...params, page },
   });
 

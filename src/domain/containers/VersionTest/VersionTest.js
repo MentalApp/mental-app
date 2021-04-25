@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { Container, Button, Modal, Form, Badge } from 'react-bootstrap';
-import { useNavigation } from 'react-navi';
+import { useCurrentRoute, useNavigation } from 'react-navi';
 import Wrapper, { ModalWrapper } from './VersionTest.styles';
 // import data from './mockVersionTest.json';
 import TablePaginationData from 'components/TablePagination';
@@ -17,6 +17,8 @@ import { checkAdminPermission } from 'utils/utils';
 const VersionTest = () => {
   const [params, setParams] = useState({});
   const { navigate } = useNavigation();
+  const pathName = useCurrentRoute().url.pathname;
+  console.log(pathName);
   const [show, setShow] = useState(false);
   const [page, setPage] = useState(1);
   const [idTest, setIDTest] = useState(null);
@@ -88,10 +90,10 @@ const VersionTest = () => {
           ) : (
             <Badge variant="secondary">Đang đóng</Badge>
           ),
-        onClick: () => navigate(`/version/${item.id}`),
+        onClick: () => navigate(`${pathName}/${item.id}`),
       }))
     );
-  }, [data, navigate]);
+  }, [data, navigate, pathName]);
 
   const initialValues = useMemo(
     () => ({

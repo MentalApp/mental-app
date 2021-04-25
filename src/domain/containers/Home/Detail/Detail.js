@@ -13,7 +13,7 @@ import { toastSuccess, toastError } from 'utils/toastify';
 import { CURRENT_USER } from 'utils/constants';
 
 const Detail = ({ id }) => {
-  const { data, loading } = useQuery({ url: `/admin/officer_new_tests/${id}` });
+  const { data, loading } = useQuery({ url: `/admin/officer_tests/${id}` });
   const dataPredict = useQuery({ url: `/admin/predicts/${id}` });
   const [createPredict] = useMutation({ url: '/admin/predicts' });
 

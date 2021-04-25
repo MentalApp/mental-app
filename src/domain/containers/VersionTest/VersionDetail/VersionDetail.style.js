@@ -11,6 +11,11 @@ const Wrapper = styled.div`
     margin: 10px 15px;
     border-radius: 7px;
   }
+
+  .btn-create {
+    display: flex;
+    padding: 15px;
+  }
 `;
 
 export default Wrapper;

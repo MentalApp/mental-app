@@ -38,7 +38,7 @@ const SignIn = () => {
             return;
           }
           window.localStorage.setItem(CURRENT_USER, JSON.stringify(response.data.data));
-          window.localStorage.setItem(TOKEN, JSON.stringify(response.data.data.token));
+          window.localStorage.setItem(TOKEN, JSON.stringify(response.data.token));
           navigate('/home');
         })
         .catch((err) => {

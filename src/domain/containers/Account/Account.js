@@ -12,6 +12,7 @@ import { format } from 'date-fns';
 import AlertError from 'components/AlertError';
 import * as Yup from 'yup';
 import { toastSuccess, toastError } from 'utils/toastify';
+import { Trash2 } from 'react-feather';
 
 const Account = () => {
   const [errorGetData, setErrorGetData] = useState(null);
@@ -30,7 +31,7 @@ const Account = () => {
   const handleModalDeleteShow = () => setShowDelete(true);
 
   const { data, loading, errors, force } = useQuery({
-    url: '/admin/doctors',
+    url: '/admin/users',
   });
 
   const [createAccount] = useMutation({
@@ -92,36 +93,26 @@ const Account = () => {
             {uppercaseString(item.fullName)}
           </div>
         ),
-        militaryCode: <div>{item.militaryCode}</div>,
-        status:
-          item.isBlock === 2 ? (
-            <Badge variant="success">Đang hoạt động</Badge>
-          ) : (
-            <Badge variant="secondary">Đang ngừng hoạt động</Badge>
-          ),
-        startDate: <div>{format(new Date(item.createdAt), 'HH:mm dd/MM/yyyy')}</div>,
+        email: <div onClick={() => navigate(`/account/${item.id}`)}>{item.email}</div>,
+        phone: <div onClick={() => navigate(`/account/${item.id}`)}>{item.phone}</div>,
+        role: <Badge variant={item.role === 'admin' ? 'success' : 'primary'}>{item.role}</Badge>,
         delete: (
           <>
-            <Button
-              variant="infor"
+            <Trash2
+              color="#ff1919"
               onClick={() => {
                 setId(item.id);
                 handleModalDeleteShow();
               }}
-            >
-              Xóa
-            </Button>
+            />
             <Modal show={showDelete} onHide={handleModalDeleteClose}>
-              <Modal.Header>
-                <Modal.Title>Xóa tài khoản</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>Bạn có muốn xóa tài khoản {item.fullName}</Modal.Body>
+              <Modal.Header>Bạn có muốn xóa tài khoản có tên {item.fullName} không?</Modal.Header>
               <Modal.Footer>
-                <Button variant="secondary" onClick={handleModalDeleteClose}>
+                <Button variant="outline-secondary" onClick={handleModalDeleteClose}>
                   Đóng
                 </Button>
                 <Button
-                  variant="infor"
+                  variant="outline-danger"
                   onClick={() => {
                     handleModalDeleteShow();
                     handleDelete();

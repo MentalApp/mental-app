@@ -118,7 +118,7 @@ const AccountDetail = ({ id }) => {
               </p>
               <p className="row">
                 <p className="col-6">Thời gian tạo tài khoản:</p>
-                <p className="col-6">{format(new Date(data.data?.createdAt), 'HH:mm dd/MM/yyyy') || '-'}</p>
+                {/* <p className="col-6">{format(new Date(data.data?.createdAt), 'HH:mm dd/MM/yyyy') || '-'}</p> */}
               </p>
               <p className="row">
                 <p className="col-6">Trạng thái tài khoản:</p>

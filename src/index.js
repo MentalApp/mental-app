@@ -5,7 +5,6 @@ import { createBrowserHistory } from 'history';
 import './index.css';
 import { Router } from 'react-router-dom';
 import '../src/common/style/mainStyle.scss';
-import 'assets/scss/paper-dashboard.scss?v=1.2.0';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
