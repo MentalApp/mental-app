@@ -3,14 +3,12 @@ import React from 'react';
 import { mount, route, withView } from 'navi';
 
 import withNotAuth from 'middleware/withNotAuth';
-import Home from '../containers/Home';
 import CommonLayout from 'containers/layouts/CommonLayout';
 // import QuestionSurvey from '../containers/QuestionSurvey';
 import SignIn from '../containers/SignIn';
 import VersionTest from '../containers/VersionTest';
 import VersionDetail from '../containers/VersionTest/VersionDetail';
 import { View } from 'react-navi';
-import Detail from '../containers/Home/Detail';
 import withAuth from 'middleware/withAuth';
 import withAuthEntryCode from 'middleware/withAuthEntryCode';
 import JoinInPage from '../containers/JoinInPage/JoinInPage';
@@ -18,7 +16,11 @@ import JoinInPage from '../containers/JoinInPage/JoinInPage';
 import ExaminationHealth from '../containers/ExaminationHealthy';
 import ThanksForSurvey from '../containers/ThanksForSurvey';
 import Profile from '../containers/Profile/Profile';
+import Account from '../containers/Account/Account';
+import AccountDetail from '../containers/Account/AccountDetail';
 import { authService } from 'utils/auth.service';
+import Home from 'domain/containers/Home';
+import Detail from 'domain/containers/Home/Detail';
 
 export const routes = {
   '/': !authService.getEntryCodeToken()
@@ -29,7 +31,7 @@ export const routes = {
   '/login': !authService.getToken()
     ? withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <SignIn /> }))
     : withAuth(route({ view: <Home /> })),
-  '/home': withView(
+  '/officer_tests': withView(
     <CommonLayout>
       <View />
     </CommonLayout>,
@@ -46,7 +48,7 @@ export const routes = {
       ),
     }),
   ),
-  '/version': withView(
+  '/version_tests': withView(
     <CommonLayout>
       <View />
     </CommonLayout>,
@@ -71,6 +73,23 @@ export const routes = {
       '/': withAuth(
         route(() => ({
           view: <Profile />,
+        })),
+      ),
+    }),
+  ),
+  '/account': withView(
+    <CommonLayout>
+      <View />
+    </CommonLayout>,
+    mount({
+      '/': withAuth(
+        route({
+          view: <Account />,
+        }),
+      ),
+      '/:id': withAuth(
+        route((req) => ({
+          view: <AccountDetail id={req.params.id} />,
         })),
       ),
     }),

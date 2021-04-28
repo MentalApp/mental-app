@@ -41,15 +41,15 @@ const Header = () => {
   }, []);
 
   const titleHeaderDoctor = useMemo(() => {
-    if (activeRoute.match('/home')) return 'Kết quả khảo sát';
-    if (activeRoute.match('/version')) return 'Đợt khảo sát';
+    if (activeRoute.match('/officer_test')) return 'Kết quả khảo sát';
+    if (activeRoute.match('/version_tests')) return 'Đợt khảo sát';
     if (activeRoute.match('/profile')) return 'Thông tin tài khoản';
     if (activeRoute.match('/account')) return 'Tạo tài khoản';
     return '';
   }, [activeRoute]);
 
   const titleHeaderAdmin = useMemo(() => {
-    if (activeRoute.match('/home')) return 'Đợt khảo sát';
+    if (activeRoute.match('/version_tests')) return 'Đợt khảo sát';
     if (activeRoute.match('/profile')) return 'Thông tin tài khoản';
     if (activeRoute.match('/account')) return 'Quản lý tài khoản';
     return '';
@@ -74,6 +74,7 @@ const Header = () => {
             onClick={() => {
               localStorage.removeItem(TOKEN);
               localStorage.removeItem(CURRENT_USER);
+              navigate('/login');
               window.location.reload();
             }}
           >

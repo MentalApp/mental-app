@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Container, Button, Modal, Form, Badge } from 'react-bootstrap';
 import { useCurrentRoute, useNavigation } from 'react-navi';
 import Wrapper, { ModalWrapper } from './VersionTest.styles';
@@ -18,7 +18,8 @@ const VersionTest = () => {
   const [params, setParams] = useState({});
   const { navigate } = useNavigation();
   const pathName = useCurrentRoute().url.pathname;
-  console.log(pathName);
+
+  const { _history } = useNavigation();
   const [show, setShow] = useState(false);
   const [page, setPage] = useState(1);
   const [idTest, setIDTest] = useState(null);
@@ -31,6 +32,10 @@ const VersionTest = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const { data, loading, force } = useQuery({ url: '/admin/tests', params: { ...params, page } });
+
+  useEffect(() => {
+    pathName !== '/version_tests' && _history.replace('/version_tests');
+  }, [_history, pathName]);
 
   const collums = [
     {

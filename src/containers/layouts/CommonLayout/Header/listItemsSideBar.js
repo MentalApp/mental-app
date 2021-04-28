@@ -3,7 +3,7 @@ import { Home, Layers, User } from 'react-feather';
 export const listItemAdmin = [
   {
     title: 'Quản lý đợt khảo sát',
-    itemId: '/home',
+    itemId: '/version_tests',
     elemBefore: () => <Layers />,
   },
   {
@@ -16,12 +16,12 @@ export const listItemAdmin = [
 export const listItemDoctor = [
   {
     title: 'Kết quả khảo sát',
-    itemId: '/home',
+    itemId: '/officer_tests',
     elemBefore: () => <Home />,
   },
   {
     title: 'Quản lý đợt khảo sát',
-    itemId: '/version',
+    itemId: '/version_tests',
     elemBefore: () => <Layers />,
   },
 ];

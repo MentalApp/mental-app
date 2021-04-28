@@ -39,10 +39,10 @@ const SignIn = () => {
           }
           window.localStorage.setItem(CURRENT_USER, JSON.stringify(response.data.data));
           window.localStorage.setItem(TOKEN, JSON.stringify(response.data.token));
-          navigate('/home');
+          navigate(response?.data?.data?.role === 'admin' ? '/version_tests' : '/officer_tests');
         })
         .catch((err) => {
-          if (err.response.status === 404 && err.response.data.code === 1001) {
+          if (err.response?.status === 404 && err.response.data.code === 1001) {
             setError(ErrorMessage.USER_IS_BLOCKING);
             return;
           }
