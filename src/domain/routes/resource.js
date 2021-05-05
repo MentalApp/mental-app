@@ -21,6 +21,7 @@ import AccountDetail from '../containers/Account/AccountDetail';
 import { authService } from 'utils/auth.service';
 import Home from 'domain/containers/Home';
 import Detail from 'domain/containers/Home/Detail';
+import { checkAdminPermission } from 'utils/utils';
 
 export const routes = {
   '/': !authService.getEntryCodeToken()
@@ -30,7 +31,7 @@ export const routes = {
   '/examination': withAuthEntryCode(route({ title: 'guest.routes.resource.question', view: <ExaminationHealth /> })),
   '/login': !authService.getToken()
     ? withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <SignIn /> }))
-    : withAuth(route({ view: <Home /> })),
+    : withAuth(route({ view: checkAdminPermission ? <VersionTest /> : <Home /> })),
   '/officer_tests': withView(
     <CommonLayout>
       <View />

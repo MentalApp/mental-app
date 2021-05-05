@@ -132,18 +132,33 @@ const Account = () => {
     () => ({
       fullName: '',
       email: '',
+      phone: '',
       militaryCode: '',
       password: '',
-      role: 'doctor',
+      role: '',
+      unit: '',
+      rank: '',
+      position: '',
     }),
     [],
   );
 
   const validateSchema = Yup.object({
-    fullName: Yup.string().required('*Bắt buộc').trim().max(255, '*Tên quá dài').min(5, '*Tên quá ngắn'),
-    email: Yup.string().required('*Bắt buộc').trim().max(255, '*Tên quá dài').min(8, '*Tên quá ngắn'),
+    fullName: Yup.string().required('*Bắt buộc').trim().max(255, '*Tên quá dài'),
+    email: Yup.string()
+      .email('*Vui lòng nhập một địa chỉ email')
+      .required('*Bắt buộc')
+      .trim()
+      .max(255, '*Email quá dài'),
+    phone: Yup.string()
+      .required('*Bắt buộc')
+      .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/, { message: '*Vui lòng nhập số điện thoại.' }),
     password: Yup.string().required('*Bắt buộc').trim().max(255, '*Mật khẩu quá dài').min(6, '*Mật khẩu quá ngắn'),
-    militaryCode: Yup.string().trim().max(255, '*Mã số quá dài'),
+    militaryCode: Yup.string().trim().max(255, '*Mã số  quân nhân quá dài'),
+    role: Yup.string().required('*Bắt buộc'),
+    unit: Yup.string().trim().max(255, '*Nhập đơn vị quá dài'),
+    rank: Yup.string().trim().max(255, '*Nhập cấp bậc quá dài'),
+    position: Yup.string().trim().max(255, '*Nhập chức vụ quá dài'),
   });
 
   const handleSubmit = useCallback(

@@ -2,6 +2,11 @@ import { Home, Layers, User } from 'react-feather';
 
 export const listItemAdmin = [
   {
+    title: 'Kết quả khảo sát',
+    itemId: '/officer_tests',
+    elemBefore: () => <Home />,
+  },
+  {
     title: 'Quản lý đợt khảo sát',
     itemId: '/version_tests',
     elemBefore: () => <Layers />,

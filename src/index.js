@@ -8,7 +8,7 @@ import '../src/common/style/mainStyle.scss';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const App = lazy(() => import(`domain/containers/App`));
+const App = lazy(() => import('domain/containers/App'));
 
 ReactDOM.render(
   <Router history={createBrowserHistory()}>

@@ -1,6 +1,7 @@
+import NotFound from 'domain/containers/NotFound';
 import React, { Suspense } from 'react';
 
-import { Router, View } from 'react-navi';
+import { NotFoundBoundary, Router, View } from 'react-navi';
 
 // import PageTitle from 'components/PageTitle';
 // import NotFoundPage from 'containers/NotFoundPage';
@@ -11,9 +12,11 @@ import { Router, View } from 'react-navi';
 function BaseApp({ routes }) {
   return (
     <Router routes={routes}>
-      <Suspense fallback={null}>
-        <View />
-      </Suspense>
+      <NotFoundBoundary render={() => <NotFound />}>
+        <Suspense fallback={null}>
+          <View />
+        </Suspense>
+      </NotFoundBoundary>
     </Router>
   );
 }
