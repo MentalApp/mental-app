@@ -3,10 +3,9 @@ import { useCurrentRoute, useNavigation } from 'react-navi';
 import Wrapper from './Header.styles';
 import { Navigation } from 'react-minimal-side-navigation';
 import 'react-minimal-side-navigation/lib/ReactMinimalSideNavigation.css';
-import { AlignLeft, Power, User, PenTool } from 'react-feather';
+import { AlignLeft, Power, User, PenTool, Layers, Home } from 'react-feather';
 import { TOKEN, CURRENT_USER } from 'utils/constants';
 import { NavDropdown } from 'react-bootstrap';
-import { listItemAdmin, listItemDoctor } from './listItemsSideBar';
 
 // import { TOKEN } from 'utils/constants';
 
@@ -14,14 +13,7 @@ const Header = () => {
   const { navigate } = useNavigation();
   const activeRoute = useCurrentRoute().url.pathname;
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const user = JSON.parse(localStorage.getItem(CURRENT_USER));
-
-  useEffect(() => {
-    if (user && user.role === 'admin') {
-      setIsAdmin(true);
-    }
-  }, [user]);
 
   const handleOpenSidebar = useCallback(() => {
     document.getElementById('overlay').style.display = 'block';
@@ -40,15 +32,8 @@ const Header = () => {
     };
   }, []);
 
-  const titleHeaderDoctor = useMemo(() => {
+  const titleHeader = useMemo(() => {
     if (activeRoute.match('/officer_tests')) return 'Kết quả khảo sát';
-    if (activeRoute.match('/version_tests')) return 'Đợt khảo sát';
-    if (activeRoute.match('/profile')) return 'Thông tin tài khoản';
-    if (activeRoute.match('/account')) return 'Tạo tài khoản';
-    return '';
-  }, [activeRoute]);
-
-  const titleHeaderAdmin = useMemo(() => {
     if (activeRoute.match('/version_tests')) return 'Đợt khảo sát';
     if (activeRoute.match('/profile')) return 'Thông tin tài khoản';
     if (activeRoute.match('/account')) return 'Quản lý tài khoản';
@@ -60,7 +45,7 @@ const Header = () => {
       <div className="header-wrapper">
         <div className="group-left">
           <AlignLeft name="burger" cursor="pointer" onClick={handleOpenSidebar} className="w-6 h-6" />
-          <div className="text-title">{isAdmin ? titleHeaderAdmin : titleHeaderDoctor}</div>
+          <div className="text-title">{titleHeader}</div>
         </div>
         <NavDropdown className="user-wrapper" title={<User size={30} />}>
           <NavDropdown.Item
@@ -97,7 +82,23 @@ const Header = () => {
               navigate(itemId);
               handleCloseSidebar();
             }}
-            items={isAdmin ? listItemAdmin : listItemDoctor}
+            items={[
+              (user.roleMaster.roleCategories.includes(5) || user.roleMaster.name === 'doctor') && {
+                title: 'Kết quả khảo sát',
+                itemId: '/officer_tests',
+                elemBefore: () => <Home />,
+              },
+              {
+                title: 'Quản lý đợt khảo sát',
+                itemId: '/version_tests',
+                elemBefore: () => <Layers />,
+              },
+              (user.roleMaster.roleCategories.includes(1) || user.roleMaster.name === 'admin') && {
+                title: 'Quản lý tài khoản',
+                itemId: '/account',
+                elemBefore: () => <User />,
+              },
+            ]}
           />
         </div>
       )}

@@ -168,6 +168,42 @@ const Wrapper = styled.div`
       }
     }
   }
+
+  .group-comment {
+    .user-comment {
+      display: flex;
+      justify-content: space-between;
+
+      .user-name {
+        font-weight: 600;
+      }
+    }
+
+    .comment {
+      color: #707070;
+      margin-left: 10px;
+    }
+  }
+
+  .field-comment {
+    width: 100%;
+    height: 70px;
+    border-color: #0000001a;
+    padding: 8px;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  .has-error {
+    border-color: #ff0000;
+  }
+
+  .text-error {
+    color: #ff0000;
+  }
 `;
 
 export default Wrapper;

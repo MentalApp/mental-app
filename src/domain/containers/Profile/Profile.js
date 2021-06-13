@@ -1,7 +1,6 @@
-import React, { useMemo, useState, useEffect, useCallback } from 'react';
-import { Row, Col, Card, Form, InputGroup, FormControl, Container, Alert, Dropdown } from 'react-bootstrap';
-import { useMutation, useQuery } from 'hooks/axios.hooks';
-import Loading from 'components/Loading';
+import React, { useMemo, useState, useCallback } from 'react';
+import { Row, Col, Card, Form, InputGroup, FormControl, Container, Dropdown } from 'react-bootstrap';
+import { useMutation } from 'hooks/axios.hooks';
 import * as Yup from 'yup';
 import { toastSuccess } from 'utils/toastify';
 import ModalEditProfile from './ModalEditProfile/ModalEditProfile';
@@ -22,11 +21,9 @@ const Profile = () => {
   const handleClosePass = () => setShowModelPass(false);
   const handleShowPass = () => setShowModelPass(true);
   const [errorPass, setErrorPass] = useState(null);
-  const [errorGetData, setErrorGetData] = useState(null);
 
   const [updateProfile] = useMutation({ url: `/admin/users/${currentUser.id}`, method: 'PUT' });
 
-  // const dataDetail = useMemo(() => !loading && !!data && data.data, [data, loading]);
   const initialValues = useMemo(
     () => ({
       fullName: currentUser?.fullName || '',

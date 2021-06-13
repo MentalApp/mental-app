@@ -80,6 +80,32 @@ const Wrapper = styled.div`
       border-bottom: 1px solid #707070;
     }
   }
+
+  .filter-group {
+    display: flex;
+    background-color: #fff;
+    margin: 0 15px 15px;
+    border-radius: 8px;
+    padding: 15px;
+    align-items: center;
+    justify-content: space-between;
+
+    .search-select {
+      display: flex;
+      align-items: center;
+
+      input,
+      select {
+        height: 37px;
+        border-color: #e5f1f1;
+        background-color: #fff;
+      }
+
+      .select-search {
+        margin-left: 50px;
+      }
+    }
+  }
 `;
 
 export default Wrapper;

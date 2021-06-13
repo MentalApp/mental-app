@@ -1,14 +1,17 @@
 import React from 'react';
 import Wrapper from './Filter.styles';
-import { Container, Row, Col, FormControl, InputGroup } from 'react-bootstrap';
+import { Container, FormControl, InputGroup, Button } from 'react-bootstrap';
+import { authService } from 'utils/auth.service';
 // import { Search } from 'react-feather';
 
-const Filter = ({ values, onFilter }) => {
+const Filter = ({ values, onFilter, handleShow }) => {
+  const currentUser = authService.getCurrentUser();
+
   return (
     <Wrapper>
       <Container fluid>
-        <Row>
-          <Col xs={12} sm={12} md={4} lg={3}>
+        <div className="group-filter">
+          <div>
             <label htmlFor="searchVersionTest">Tìm kiếm</label>
             <InputGroup className="mb-3">
               <FormControl
@@ -20,8 +23,13 @@ const Filter = ({ values, onFilter }) => {
                 onChange={(event) => onFilter({ name: event.target.value })}
               />
             </InputGroup>
-          </Col>
-        </Row>
+          </div>
+          {currentUser.roleMaster?.roleCategories.includes(3) && (
+            <Button variant="primary" className="create--button" onClick={handleShow} style={{ marginLeft: 'auto' }}>
+              Tạo
+            </Button>
+          )}
+        </div>
       </Container>
     </Wrapper>
   );

@@ -12,7 +12,6 @@ import InformationForm from 'domain/components/InformationForm/InformationForm';
 import { addDays, compareDesc, format } from 'date-fns';
 import ModalCreateForm from './ModalCreate';
 import { toastSuccess } from 'utils/toastify';
-import { checkAdminPermission } from 'utils/utils';
 
 const VersionTest = () => {
   const [params, setParams] = useState({});
@@ -24,7 +23,6 @@ const VersionTest = () => {
   const [page, setPage] = useState(1);
   const [idTest, setIDTest] = useState(null);
   const [error, setError] = useState(null);
-  const isAdmin = checkAdminPermission();
 
   const [createTestVersion] = useMutation({ url: '/admin/tests' });
   const [startVersion] = useMutation({ url: '/admin/tests/start' });
@@ -120,7 +118,7 @@ const VersionTest = () => {
         41,
         42,
         43,
-        43,
+        44,
         45,
         46,
         47,
@@ -230,13 +228,8 @@ const VersionTest = () => {
   return (
     <Wrapper>
       <Container fluid>
-        <div style={{ display: 'flex' }}>
-          {isAdmin && (
-            <Button variant="primary" className="create--button" onClick={handleShow} style={{ marginLeft: 'auto' }}>
-              Tạo
-            </Button>
-          )}
-
+        <div className="filter">
+          <Filter values={params} onFilter={handleOnFilter} handleShow={handleShow} />
           <ModalCreateForm
             title="Tạo đợt khảo sát"
             initialValues={initialValues}
@@ -247,9 +240,6 @@ const VersionTest = () => {
             setError={setError}
             handleClose={handleClose}
           />
-        </div>
-        <div className="filter">
-          <Filter values={params} onFilter={handleOnFilter} />
         </div>
         <TablePaginationData
           columns={collums}

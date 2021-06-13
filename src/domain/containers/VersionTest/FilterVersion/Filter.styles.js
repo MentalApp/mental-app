@@ -10,6 +10,12 @@ const Wrapper = styled.div`
     width: 200px;
     height: 37px;
   }
+
+  .group-filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 export default Wrapper;
