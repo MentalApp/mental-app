@@ -29,8 +29,10 @@ export const authService = {
   },
   getToken() {
     const token = window.localStorage.getItem(TOKEN);
+
     // token not exists
     if (!token) {
+      this.clearStorage();
       return undefined;
     }
     const tokenDecode = JSON.parse(token);

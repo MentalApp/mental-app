@@ -7,7 +7,7 @@ import { compareDesc, format } from 'date-fns';
 import * as Yup from 'yup';
 import ModalCreateForm from '../ModalCreate';
 import { toastSuccess } from 'utils/toastify';
-import { checkAdminPermission } from 'utils/utils';
+import { authService } from 'utils/auth.service';
 
 const VersionDetail = ({ id }) => {
   const { data, loading, force } = useQuery({ url: `/admin/tests/${id}` });
@@ -15,7 +15,8 @@ const VersionDetail = ({ id }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [error, setError] = useState(null);
-  const isAdmin = checkAdminPermission();
+
+  const currentUser = authService.getCurrentUser();
 
   const [createTestVersion] = useMutation({ url: `/admin/tests/${id}`, method: 'PUT' });
 
@@ -116,8 +117,8 @@ const VersionDetail = ({ id }) => {
       {loading && <Loading />}
       {!loading && data && (
         <Container>
-          <div style={{ display: 'flex' }}>
-            {isAdmin && (
+          <div className="btn-create">
+            {currentUser.roleMaster?.roleCategories.includes(3) && (
               <Button variant="primary" onClick={handleShow} style={{ marginLeft: 'auto' }}>
                 Sửa kì khảo sát
               </Button>

@@ -92,20 +92,20 @@ export const AccountCollums = [
     field: 'stt',
   },
   {
-    name: 'Tên',
+    name: 'Tên tài khoản',
     field: 'name',
   },
   {
-    name: 'Mã quân nhân',
-    field: 'militaryCode',
+    name: 'Email',
+    field: 'email',
   },
   {
-    name: 'Trạng thái tài khoản',
-    field: 'status',
+    name: 'Số điện thoại',
+    field: 'phone',
   },
   {
-    name: 'Thời gian tạo',
-    field: 'startDate',
+    name: 'Phân quyền',
+    field: 'role',
   },
   {
     name: 'Xóa',

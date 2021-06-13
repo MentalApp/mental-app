@@ -14,7 +14,7 @@ const propTypes = {
       name: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     }),
   ).isRequired,
-  data: PropTypes.array.isRequired,
+  data: PropTypes.array,
   isLoading: PropTypes.bool,
   onChangePage: PropTypes.func,
   onSort: PropTypes.func,

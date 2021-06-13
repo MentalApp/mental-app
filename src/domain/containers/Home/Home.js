@@ -16,7 +16,7 @@ const Home = () => {
 
   const { _history } = useNavigation();
   const { data, loading } = useQuery({
-    url: '/admin/officer_new_tests',
+    url: '/admin/officer_tests',
     params: { ...params, page },
   });
 
@@ -27,7 +27,7 @@ const Home = () => {
   const columns = TestCollums;
 
   useEffect(() => {
-    route !== '/home' && _history.replace('/home');
+    route !== '/officer_tests' && _history.replace('/officer_tests');
   }, [_history, route]);
 
   const handleOnFilter = useCallback(
@@ -60,7 +60,7 @@ const Home = () => {
         predictDeepFilter: item.predictDeepFilter === 1 && <Check color="#28a745" size={30} />,
         predictShallowFilter: item.predictShallowFilter === 1 && <Check color="#28a745" size={30} />,
         unit: handleUnit(item.unit),
-        onClick: () => window.open(`/home/${item.id}`),
+        onClick: () => window.open(`/officer_tests/${item.id}`),
         className: backgroudColor(item),
       }))
     );

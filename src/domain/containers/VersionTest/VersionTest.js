@@ -1,6 +1,6 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Container, Button, Modal, Form, Badge } from 'react-bootstrap';
-import { useNavigation } from 'react-navi';
+import { useCurrentRoute, useNavigation } from 'react-navi';
 import Wrapper, { ModalWrapper } from './VersionTest.styles';
 // import data from './mockVersionTest.json';
 import TablePaginationData from 'components/TablePagination';
@@ -12,16 +12,17 @@ import InformationForm from 'domain/components/InformationForm/InformationForm';
 import { addDays, compareDesc, format } from 'date-fns';
 import ModalCreateForm from './ModalCreate';
 import { toastSuccess } from 'utils/toastify';
-import { checkAdminPermission } from 'utils/utils';
 
 const VersionTest = () => {
   const [params, setParams] = useState({});
   const { navigate } = useNavigation();
+  const pathName = useCurrentRoute().url.pathname;
+
+  const { _history } = useNavigation();
   const [show, setShow] = useState(false);
   const [page, setPage] = useState(1);
   const [idTest, setIDTest] = useState(null);
   const [error, setError] = useState(null);
-  const isAdmin = checkAdminPermission();
 
   const [createTestVersion] = useMutation({ url: '/admin/tests' });
   const [startVersion] = useMutation({ url: '/admin/tests/start' });
@@ -29,6 +30,10 @@ const VersionTest = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const { data, loading, force } = useQuery({ url: '/admin/tests', params: { ...params, page } });
+
+  useEffect(() => {
+    pathName !== '/version_tests' && _history.replace('/version_tests');
+  }, [_history, pathName]);
 
   const collums = [
     {
@@ -88,10 +93,10 @@ const VersionTest = () => {
           ) : (
             <Badge variant="secondary">Đang đóng</Badge>
           ),
-        onClick: () => navigate(`/version/${item.id}`),
+        onClick: () => navigate(`${pathName}/${item.id}`),
       }))
     );
-  }, [data, navigate]);
+  }, [data, navigate, pathName]);
 
   const initialValues = useMemo(
     () => ({
@@ -113,7 +118,7 @@ const VersionTest = () => {
         41,
         42,
         43,
-        43,
+        44,
         45,
         46,
         47,
@@ -223,13 +228,8 @@ const VersionTest = () => {
   return (
     <Wrapper>
       <Container fluid>
-        <div style={{ display: 'flex' }}>
-          {isAdmin && (
-            <Button variant="primary" className="create--button" onClick={handleShow} style={{ marginLeft: 'auto' }}>
-              Tạo
-            </Button>
-          )}
-
+        <div className="filter">
+          <Filter values={params} onFilter={handleOnFilter} handleShow={handleShow} />
           <ModalCreateForm
             title="Tạo đợt khảo sát"
             initialValues={initialValues}
@@ -240,9 +240,6 @@ const VersionTest = () => {
             setError={setError}
             handleClose={handleClose}
           />
-        </div>
-        <div className="filter">
-          <Filter values={params} onFilter={handleOnFilter} />
         </div>
         <TablePaginationData
           columns={collums}

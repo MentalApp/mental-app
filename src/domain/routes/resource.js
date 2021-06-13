@@ -3,16 +3,12 @@ import React from 'react';
 import { mount, route, withView } from 'navi';
 
 import withNotAuth from 'middleware/withNotAuth';
-import OldHome from '../containers/OldHome';
-import Home from '../containers/Home';
 import CommonLayout from 'containers/layouts/CommonLayout';
 // import QuestionSurvey from '../containers/QuestionSurvey';
 import SignIn from '../containers/SignIn';
 import VersionTest from '../containers/VersionTest';
 import VersionDetail from '../containers/VersionTest/VersionDetail';
 import { View } from 'react-navi';
-import OldDetail from '../containers/OldHome/Detail';
-import Detail from '../containers/Home/Detail';
 import withAuth from 'middleware/withAuth';
 import withAuthEntryCode from 'middleware/withAuthEntryCode';
 import JoinInPage from '../containers/JoinInPage/JoinInPage';
@@ -23,6 +19,9 @@ import Profile from '../containers/Profile/Profile';
 import Account from '../containers/Account/Account';
 import AccountDetail from '../containers/Account/AccountDetail';
 import { authService } from 'utils/auth.service';
+import Home from 'domain/containers/Home';
+import Detail from 'domain/containers/Home/Detail';
+import { checkAdminPermission } from 'utils/utils';
 
 export const routes = {
   '/': !authService.getEntryCodeToken()
@@ -32,8 +31,8 @@ export const routes = {
   '/examination': withAuthEntryCode(route({ title: 'guest.routes.resource.question', view: <ExaminationHealth /> })),
   '/login': !authService.getToken()
     ? withNotAuth('/', route({ title: 'guest.routes.resource.sign_in', view: <SignIn /> }))
-    : withAuth(route({ view: <Home /> })),
-  '/home': withView(
+    : withAuth(route({ view: checkAdminPermission ? <VersionTest /> : <Home /> })),
+  '/officer_tests': withView(
     <CommonLayout>
       <View />
     </CommonLayout>,
@@ -50,24 +49,7 @@ export const routes = {
       ),
     }),
   ),
-  '/old_home': withView(
-    <CommonLayout>
-      <View />
-    </CommonLayout>,
-    mount({
-      '/': withAuth(
-        route({
-          view: <OldHome />,
-        }),
-      ),
-      '/:id': withAuth(
-        route((req) => ({
-          view: <OldDetail id={req.params.id} />,
-        })),
-      ),
-    }),
-  ),
-  '/version': withView(
+  '/version_tests': withView(
     <CommonLayout>
       <View />
     </CommonLayout>,
@@ -89,9 +71,9 @@ export const routes = {
       <View />
     </CommonLayout>,
     mount({
-      '/:id': withAuth(
-        route((req) => ({
-          view: <Profile id={req.params.id} />,
+      '/': withAuth(
+        route(() => ({
+          view: <Profile />,
         })),
       ),
     }),

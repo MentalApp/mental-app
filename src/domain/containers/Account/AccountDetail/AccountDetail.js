@@ -3,33 +3,64 @@ import { useMutation, useQuery } from 'hooks/axios.hooks';
 import { Container, Button, Badge } from 'react-bootstrap';
 import Wrapper from './AccountDetail.style';
 import { toastSuccess } from 'utils/toastify';
-import { format } from 'date-fns';
 import * as Yup from 'yup';
 import Loading from 'components/Loading';
-import ModalUpdateForm from '../ModalUpdateUser';
+import ModalCreateUser from '../ModalCreateUser';
+import { authService } from 'utils/auth.service';
 
 const AccountDetail = ({ id }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [error, setError] = useState(null);
+  const currentUser = authService.getCurrentUser();
 
   const { data, loading, force } = useQuery({ url: `/admin/users/${id}` });
 
-  const [updateUser] = useMutation({ url: `/admin/update_users/${id}`, method: 'PUT' });
+  const [updateUser] = useMutation({ url: `/admin/users/${id}`, method: 'PUT' });
 
   const dataDetail = useMemo(() => !loading && !!data && data.data, [data, loading]);
+
   const initialValues = useMemo(
     () => ({
-      fullName: dataDetail?.fullName || '',
-      isBlock: dataDetail?.isBlock || 1,
+      user: {
+        fullName: dataDetail?.fullName || '',
+        email: dataDetail?.email || '',
+        phone: dataDetail?.phone || '',
+        militaryCode: dataDetail?.militaryCode || '',
+        password: dataDetail?.password || '',
+        role: dataDetail?.role || '',
+        unit: dataDetail?.unit || '',
+        rank: dataDetail?.rank || '',
+        position: dataDetail?.position || '',
+      },
+      roleMaster: {
+        name: dataDetail?.roleMaster?.name || '',
+        roleMasterId: dataDetail?.roleMaster?.roleMasterCategory || '',
+        roleCategoryIds: dataDetail?.roleMaster?.roleCategories || [],
+      },
     }),
     [dataDetail],
   );
 
   const validateSchema = Yup.object({
-    fullName: Yup.string().required('*Bắt buộc').trim().max(255, '*Tên quá dài').min(8, '*Tên không hợp lệ'),
-    isBlock: Yup.number().required('*Bắt buộc'),
+    user: Yup.object({
+      fullName: Yup.string().required('*Bắt buộc').trim().max(255, '*Tên quá dài'),
+      email: Yup.string()
+        .email('*Vui lòng nhập một địa chỉ email')
+        .required('*Bắt buộc')
+        .trim()
+        .max(255, '*Email quá dài'),
+      phone: Yup.string()
+        .required('*Bắt buộc')
+        .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/, { message: '*Vui lòng nhập số điện thoại.' }),
+      password: Yup.string().required('*Bắt buộc').trim().max(255, '*Mật khẩu quá dài').min(6, '*Mật khẩu quá ngắn'),
+      militaryCode: Yup.string().trim().max(255, '*Mã số  quân nhân quá dài'),
+      role: Yup.string().required('*Bắt buộc'),
+      unit: Yup.string().trim().max(255, '*Nhập đơn vị quá dài'),
+      rank: Yup.string().trim().max(255, '*Nhập cấp bậc quá dài'),
+      position: Yup.string().trim().max(255, '*Nhập chức vụ quá dài'),
+    }),
   });
 
   const handleSubmit = useCallback(
@@ -72,11 +103,13 @@ const AccountDetail = ({ id }) => {
       {loading && <Loading />}
       {!loading && data && (
         <Container>
-          <div style={{ display: 'flex' }}>
-            <Button variant="primary" onClick={handleShow} style={{ marginLeft: 'auto' }}>
-              Sửa thông tin
-            </Button>
-            <ModalUpdateForm
+          <div style={{ display: 'flex', marginTop: '15px' }}>
+            {currentUser.roleMaster?.roleCategories.includes(1) && (
+              <Button variant="primary" onClick={handleShow} style={{ marginLeft: 'auto' }}>
+                Sửa thông tin
+              </Button>
+            )}
+            <ModalCreateUser
               title="Chỉnh sửa tài khoản"
               initialValues={initialValues}
               validateSchema={validateSchema}
@@ -118,16 +151,12 @@ const AccountDetail = ({ id }) => {
               </p>
               <p className="row">
                 <p className="col-6">Thời gian tạo tài khoản:</p>
-                <p className="col-6">{format(new Date(data.data?.createdAt), 'HH:mm dd/MM/yyyy') || '-'}</p>
+                {/* <p className="col-6">{format(new Date(data.data?.createdAt), 'HH:mm dd/MM/yyyy') || '-'}</p> */}
               </p>
               <p className="row">
                 <p className="col-6">Trạng thái tài khoản:</p>
                 <p className="col-6">
-                  {data.data?.isBlock === 2 ? (
-                    <Badge variant="success">Đang hoạt động</Badge>
-                  ) : (
-                    <Badge variant="secondary">Đang ngừng hoạt động</Badge>
-                  )}
+                  <Badge variant="success">Đang hoạt động</Badge>
                 </p>
               </p>
             </div>

@@ -21,12 +21,32 @@ const Wrapper = styled.div`
       }
     }
     .user-wrapper {
-      border: 1px solid;
-      border-radius: 50%;
+      .dropdown-toggle {
+        border: 1px solid;
+        border-radius: 50%;
+        padding: 5px;
+        color: #000;
+
+        &::after {
+          display: none;
+        }
+      }
+      .dropdown-item {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 40px;
+        border-bottom: 1px solid #707070;
+
+        &:last-child {
+          border-bottom: none;
+        }
+      }
     }
   }
   .active {
-    color: #29afaf;
+    color: #fff;
+    background-color: #6ecee4;
   }
   .side-bar-menu {
     position: fixed;

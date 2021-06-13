@@ -1,17 +1,17 @@
-import React, { useMemo, useState, useEffect, useCallback } from 'react';
-import { Row, Col, Card, Form, InputGroup, FormControl, Container, Alert, Dropdown } from 'react-bootstrap';
-import { useMutation, useQuery } from 'hooks/axios.hooks';
-import Loading from 'components/Loading';
+import React, { useMemo, useState, useCallback } from 'react';
+import { Row, Col, Card, Form, InputGroup, FormControl, Container, Dropdown } from 'react-bootstrap';
+import { useMutation } from 'hooks/axios.hooks';
 import * as Yup from 'yup';
 import { toastSuccess } from 'utils/toastify';
 import ModalEditProfile from './ModalEditProfile/ModalEditProfile';
 import ModalEditPassword from './ModalEditPass/ModalEditPass';
 import { LIST_UNIT } from 'utils/constants';
+import { authService } from 'utils/auth.service';
+import { AlignJustify } from 'react-feather';
+import Wrapper from './Profile.styles';
 
-const Profile = (userId) => {
-  const { data, loading, force, errors } = useQuery({
-    url: `admin/users/${userId.id}`,
-  });
+const Profile = () => {
+  const currentUser = authService.getCurrentUser();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -21,23 +21,21 @@ const Profile = (userId) => {
   const handleClosePass = () => setShowModelPass(false);
   const handleShowPass = () => setShowModelPass(true);
   const [errorPass, setErrorPass] = useState(null);
-  const [errorGetData, setErrorGetData] = useState(null);
 
-  const [updateProfile] = useMutation({ url: `/admin/users/${userId.id}`, method: 'PUT' });
+  const [updateProfile] = useMutation({ url: `/admin/users/${currentUser.id}`, method: 'PUT' });
 
-  const dataDetail = useMemo(() => !loading && !!data && data.data, [data, loading]);
   const initialValues = useMemo(
     () => ({
-      fullName: dataDetail?.fullName || '',
-      email: dataDetail?.email || '',
-      address: dataDetail?.address || '',
-      rank: dataDetail?.rank || '',
-      position: dataDetail?.position || '',
-      phone: dataDetail?.phone || '',
-      militaryCode: dataDetail?.militaryCode || '',
-      unit: dataDetail?.unit || '',
+      fullName: currentUser?.fullName || '',
+      email: currentUser?.email || '',
+      address: currentUser?.address || '',
+      rank: currentUser?.rank || '',
+      position: currentUser?.position || '',
+      phone: currentUser?.phone || '',
+      militaryCode: currentUser?.militaryCode || '',
+      unit: currentUser?.unit || '',
     }),
-    [dataDetail],
+    [currentUser],
   );
   const initialPassValues = useMemo(
     () => ({
@@ -78,7 +76,6 @@ const Profile = (userId) => {
           }
           handleClose();
           actions.resetForm({ values: { ...initialValues } });
-          force();
           toastSuccess('Cập nhật thông tin thành công.');
         })
         .catch((er) => {
@@ -94,7 +91,7 @@ const Profile = (userId) => {
           }, 3000);
         });
     },
-    [updateProfile, force, initialValues, validateSchema],
+    [updateProfile, initialValues, validateSchema],
   );
 
   const handleSubmitEditPass = useCallback(
@@ -113,7 +110,6 @@ const Profile = (userId) => {
           }
           handleClosePass();
           actions.resetForm({ values: { ...initialPassValues } });
-          force();
           toastSuccess('Cập nhật thông tin thành công.');
         })
         .catch((er) => {
@@ -129,153 +125,146 @@ const Profile = (userId) => {
           }, 3000);
         });
     },
-    [updateProfile, force, initialPassValues, validatePassSchema],
+    [updateProfile, initialPassValues, validatePassSchema],
   );
 
-  useEffect(() => {
-    if (errors && errors.response?.status === 404) {
-      setErrorGetData('Dữ liệu trả về không có!');
-    }
-    if (data) {
-      setErrorGetData(null);
-    }
-  }, [errors, data]);
-  const userInfor = useMemo(() => !loading && !!data && data.data, [data, loading]);
-
   return (
-    <>
-      {loading && <Loading />}
-      {errors && (
-        <Alert show={errorGetData} variant="danger">
-          {errorGetData}
-          <hr />
-        </Alert>
-      )}
-      {data && !errors && !loading && (
-        <Container className="mt-4">
-          <Row className="d-flex justify-content-center ">
-            <Col md="8">
-              <Card className="card-user">
-                <Card.Header>
-                  <Row>
-                    <Col
-                      md="8"
-                      className="d-flex justify-content-sm-center justify-content-xs-center
+    <Wrapper>
+      <Container className="mt-4">
+        <Row className="d-flex justify-content-center ">
+          <Col md="8">
+            <Card className="card-user">
+              <Card.Header>
+                <Row>
+                  <Col
+                    md="8"
+                    className="d-flex justify-content-sm-center justify-content-xs-center
                     justify-content-md-start
                     "
-                    >
-                      <Card.Title tag="h5">Thông tin tài khoản</Card.Title>
-                    </Col>
-                    <Col md="4" className="d-flex justify-content-end">
-                      <Dropdown>
-                        <Dropdown.Toggle className="update" color="primary" id="dropdown-basic">
-                          Sửa
-                        </Dropdown.Toggle>
+                  >
+                    <Card.Title tag="h5">Thông tin của bạn</Card.Title>
+                  </Col>
+                  <Col md="4" className="d-flex justify-content-end">
+                    <Dropdown>
+                      <Dropdown.Toggle className="update" color="outline-primary" id="dropdown-basic">
+                        <AlignJustify />
+                      </Dropdown.Toggle>
 
-                        <Dropdown.Menu>
-                          <Dropdown.Item onClick={handleShow}>Sửa thông tin</Dropdown.Item>
-                          <Dropdown.Item onClick={handleShowPass}>Đổi mật khẩu</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown>
-                      <ModalEditProfile
-                        title="Cập nhật thông tin cá nhân"
-                        initialValues={initialValues}
-                        validateSchema={validateSchema}
-                        handleSubmit={handleSubmit}
-                        show={show}
-                        error={error}
-                        setError={setError}
-                        handleClose={handleClose}
-                      />
-                      <ModalEditPassword
-                        title="Đổi mật khẩu"
-                        initialValues={initialPassValues}
-                        validateSchema={validatePassSchema}
-                        handleSubmit={handleSubmitEditPass}
-                        show={showModelPass}
-                        error={errorPass}
-                        setError={setErrorPass}
-                        handleClose={handleClosePass}
-                      />
+                      <Dropdown.Menu>
+                        <Dropdown.Item onClick={handleShow}>Sửa thông tin</Dropdown.Item>
+                        <Dropdown.Item onClick={handleShowPass}>Đổi mật khẩu</Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                    <ModalEditProfile
+                      title="Cập nhật thông tin cá nhân"
+                      initialValues={initialValues}
+                      validateSchema={validateSchema}
+                      handleSubmit={handleSubmit}
+                      show={show}
+                      error={error}
+                      setError={setError}
+                      handleClose={handleClose}
+                    />
+                    <ModalEditPassword
+                      title="Đổi mật khẩu"
+                      initialValues={initialPassValues}
+                      validateSchema={validatePassSchema}
+                      handleSubmit={handleSubmitEditPass}
+                      show={showModelPass}
+                      error={errorPass}
+                      setError={setErrorPass}
+                      handleClose={handleClosePass}
+                    />
+                  </Col>
+                </Row>
+              </Card.Header>
+              <Card.Body>
+                <Form autoComplete="off">
+                  <Row>
+                    <Col className="pr-md-1" md="6">
+                      <label>Tên đầy đủ</label>
+                      <InputGroup className="mb-3">
+                        <FormControl
+                          readOnly
+                          placeholder="Nguyễn Văn A"
+                          type="text"
+                          value={currentUser.fullName || '-'}
+                        />
+                      </InputGroup>
+                    </Col>
+                    <Col className="pl-md-1" md="6">
+                      <label>Email</label>
+                      <InputGroup className="mb-3">
+                        <FormControl
+                          readOnly
+                          placeholder="doctor@gmail.com"
+                          type="text"
+                          value={currentUser.email || '-'}
+                        />
+                      </InputGroup>
                     </Col>
                   </Row>
-                </Card.Header>
-                <Card.Body>
-                  <Form autoComplete="off">
-                    <Row>
-                      <Col className="pr-md-1" md="6">
-                        <label>Tên đầy đủ</label>
+                  <Row>
+                    <Col md="12">
+                      <label>Địa chỉ</label>
+                      <InputGroup className="mb-md-3">
+                        <FormControl
+                          readOnly
+                          placeholder="Số 1, ngõ 30, Tả Thành Oai, Thanh Trì, Hà Nội"
+                          type="text"
+                          value={currentUser.address || '-'}
+                        />
+                      </InputGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="4">
+                      <label>Cấp bậc</label>
+                      <InputGroup className="mb-3">
+                        <FormControl readOnly placeholder="Thượng tá" type="text" value={currentUser.rank || '-'} />
+                      </InputGroup>
+                    </Col>
+                    <Col md="4">
+                      <label>Chức vụ</label>
+                      <InputGroup className="mb-3">
+                        <FormControl readOnly placeholder="Bác sĩ" type="text" value={currentUser.position || '-'} />
+                      </InputGroup>
+                    </Col>
+                    <Col md="4">
+                      <label>Số điện thoại</label>
+                      <InputGroup className="mb-3">
+                        <FormControl readOnly placeholder="0914.538.xxx" type="text" value={currentUser.phone || '-'} />
+                      </InputGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md="6">
+                      <label>Mã số quân nhân</label>
+                      <InputGroup className="mb-3">
+                        <FormControl readOnly placeholder="" type="text" value={currentUser.militaryCode} />
+                      </InputGroup>
+                    </Col>
+                    <Col md="6">
+                      <Form.Group>
+                        <label>Đơn vị</label>
                         <InputGroup className="mb-3">
-                          <FormControl placeholder="Nguyễn Văn A" type="text" value={userInfor.fullName || '-'} />
-                        </InputGroup>
-                      </Col>
-                      <Col className="pl-md-1" md="6">
-                        <label>Email</label>
-                        <InputGroup className="mb-3">
-                          <FormControl placeholder="doctor@gmail.com" type="text" value={userInfor.email || '-'} />
-                        </InputGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md="12">
-                        <label>Địa chỉ</label>
-                        <InputGroup className="mb-md-3">
                           <FormControl
-                            placeholder="Số 1, ngõ 30, Tả Thành Oai, Thanh Trì, Hà Nội"
+                            readOnly
+                            placeholder="Học viện quân y"
                             type="text"
-                            value={userInfor.address || '-'}
+                            value={currentUser.unit ? LIST_UNIT[currentUser.unit - 1].name : '-'}
                           />
                         </InputGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md="4">
-                        <label>Cấp bậc</label>
-                        <InputGroup className="mb-3">
-                          <FormControl placeholder="Thượng tá" type="text" value={userInfor.rank || '-'} />
-                        </InputGroup>
-                      </Col>
-                      <Col md="4">
-                        <label>Chức vụ</label>
-                        <InputGroup className="mb-3">
-                          <FormControl placeholder="Bác sĩ" type="text" value={userInfor.position || '-'} />
-                        </InputGroup>
-                      </Col>
-                      <Col md="4">
-                        <label>Số điện thoại</label>
-                        <InputGroup className="mb-3">
-                          <FormControl placeholder="0914.538.xxx" type="text" value={userInfor.phone || '-'} />
-                        </InputGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md="6">
-                        <label>Mã số quân nhân</label>
-                        <InputGroup className="mb-3">
-                          <FormControl placeholder="" type="text" value={userInfor.militaryCode} />
-                        </InputGroup>
-                      </Col>
-                      <Col md="6">
-                        <Form.Group>
-                          <label>Đơn vị</label>
-                          <InputGroup className="mb-3">
-                            <FormControl
-                              placeholder="Học viện quân y"
-                              type="text"
-                              value={userInfor.unit ? LIST_UNIT[userInfor.unit - 1].name : '-'}
-                            />
-                          </InputGroup>
-                        </Form.Group>
-                      </Col>
-                    </Row>
-                  </Form>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      )}
-    </>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                </Form>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </Wrapper>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback, useEffect } from 'react';
-import { Button, Badge, Container, Modal } from 'react-bootstrap';
+import { Button, Badge, Container, Modal, InputGroup, FormControl } from 'react-bootstrap';
 import { useQuery, useMutation } from 'hooks/axios.hooks';
 import Loading from 'components/Loading';
 import Wrapper from './Account.styles';
@@ -8,10 +8,11 @@ import TablePaginationData from 'components/TablePagination';
 import { AccountCollums } from 'utils/constants';
 import { uppercaseString } from 'utils/utils';
 import ModalCreateUser from './ModalCreateUser';
-import { format } from 'date-fns';
 import AlertError from 'components/AlertError';
 import * as Yup from 'yup';
 import { toastSuccess, toastError } from 'utils/toastify';
+import { Trash2 } from 'react-feather';
+import { authService } from 'utils/auth.service';
 
 const Account = () => {
   const [errorGetData, setErrorGetData] = useState(null);
@@ -23,6 +24,8 @@ const Account = () => {
   const [error, setError] = useState(null);
   const [idDelete, setIdDelete] = useState(null);
 
+  const currentUser = authService.getCurrentUser();
+
   //show modal delete
   const [showDelete, setShowDelete] = useState(false);
 
@@ -30,7 +33,7 @@ const Account = () => {
   const handleModalDeleteShow = () => setShowDelete(true);
 
   const { data, loading, errors, force } = useQuery({
-    url: '/admin/doctors',
+    url: '/admin/users',
   });
 
   const [createAccount] = useMutation({
@@ -92,36 +95,26 @@ const Account = () => {
             {uppercaseString(item.fullName)}
           </div>
         ),
-        militaryCode: <div>{item.militaryCode}</div>,
-        status:
-          item.isBlock === 2 ? (
-            <Badge variant="success">Đang hoạt động</Badge>
-          ) : (
-            <Badge variant="secondary">Đang ngừng hoạt động</Badge>
-          ),
-        startDate: <div>{format(new Date(item.createdAt), 'HH:mm dd/MM/yyyy')}</div>,
-        delete: (
+        email: <div onClick={() => navigate(`/account/${item.id}`)}>{item.email}</div>,
+        phone: <div onClick={() => navigate(`/account/${item.id}`)}>{item.phone}</div>,
+        role: <Badge variant={item.role === 'admin' ? 'success' : 'primary'}>{item.role}</Badge>,
+        delete: currentUser.id !== item.id && currentUser.roleMaster?.roleCategories.includes(1) && (
           <>
-            <Button
-              variant="infor"
+            <Trash2
+              color="#ff1919"
               onClick={() => {
                 setId(item.id);
                 handleModalDeleteShow();
               }}
-            >
-              Xóa
-            </Button>
+            />
             <Modal show={showDelete} onHide={handleModalDeleteClose}>
-              <Modal.Header>
-                <Modal.Title>Xóa tài khoản</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>Bạn có muốn xóa tài khoản {item.fullName}</Modal.Body>
+              <Modal.Header>Bạn có muốn xóa tài khoản có tên {item.fullName} không?</Modal.Header>
               <Modal.Footer>
-                <Button variant="secondary" onClick={handleModalDeleteClose}>
+                <Button variant="outline-secondary" onClick={handleModalDeleteClose}>
                   Đóng
                 </Button>
                 <Button
-                  variant="infor"
+                  variant="outline-danger"
                   onClick={() => {
                     handleModalDeleteShow();
                     handleDelete();
@@ -135,24 +128,48 @@ const Account = () => {
         ),
       }))
     );
-  }, [data, showDelete, navigate, handleDelete]);
+  }, [data, currentUser, showDelete, navigate, handleDelete]);
 
   const initialValues = useMemo(
     () => ({
-      fullName: '',
-      email: '',
-      militaryCode: '',
-      password: '',
-      role: 'doctor',
+      user: {
+        fullName: '',
+        email: '',
+        phone: '',
+        militaryCode: '',
+        password: '',
+        role: '',
+        unit: '',
+        rank: '',
+        position: '',
+      },
+      roleMaster: {
+        name: '',
+        roleMasterId: '',
+        roleCategoryIds: [],
+      },
     }),
     [],
   );
 
   const validateSchema = Yup.object({
-    fullName: Yup.string().required('*Bắt buộc').trim().max(255, '*Tên quá dài').min(5, '*Tên quá ngắn'),
-    email: Yup.string().required('*Bắt buộc').trim().max(255, '*Tên quá dài').min(8, '*Tên quá ngắn'),
-    password: Yup.string().required('*Bắt buộc').trim().max(255, '*Mật khẩu quá dài').min(6, '*Mật khẩu quá ngắn'),
-    militaryCode: Yup.string().trim().max(255, '*Mã số quá dài'),
+    user: Yup.object({
+      fullName: Yup.string().required('*Bắt buộc').trim().max(255, '*Tên quá dài'),
+      email: Yup.string()
+        .email('*Vui lòng nhập một địa chỉ email')
+        .required('*Bắt buộc')
+        .trim()
+        .max(255, '*Email quá dài'),
+      phone: Yup.string()
+        .required('*Bắt buộc')
+        .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/, { message: '*Vui lòng nhập số điện thoại.' }),
+      password: Yup.string().required('*Bắt buộc').trim().max(255, '*Mật khẩu quá dài').min(6, '*Mật khẩu quá ngắn'),
+      militaryCode: Yup.string().trim().max(255, '*Mã số  quân nhân quá dài'),
+      role: Yup.string().required('*Bắt buộc'),
+      unit: Yup.string().trim().max(255, '*Nhập đơn vị quá dài'),
+      rank: Yup.string().trim().max(255, '*Nhập cấp bậc quá dài'),
+      position: Yup.string().trim().max(255, '*Nhập chức vụ quá dài'),
+    }),
   });
 
   const handleSubmit = useCallback(
@@ -197,25 +214,33 @@ const Account = () => {
       {data && !errorGetData && !loading && (
         <Wrapper>
           <Container className="mt-4" fluid>
-            <div style={{ display: 'flex' }}>
-              <Button
-                variant="primary"
-                className="create--button mb-4"
-                onClick={handleShow}
-                style={{ marginLeft: 'auto' }}
-              >
-                Tạo tài khoản
-              </Button>
-              <ModalCreateUser
-                title="Tạo tài khoản"
-                initialValues={initialValues}
-                validateSchema={validateSchema}
-                handleSubmit={handleSubmit}
-                show={show}
-                error={error}
-                setError={setError}
-                handleClose={handleClose}
-              />
+            <div className="filter-group">
+              <div className="search-select">
+                <div className="input-search">
+                  <label>Tìm kiếm</label>
+                  <InputGroup>
+                    <FormControl
+                      placeholder="Nhập tên người dùng, email"
+                      aria-label="Recipient's username"
+                      aria-describedby="basic-addon2"
+                      style={{ border: '1px solid #c3b9b9' }}
+                    />
+                  </InputGroup>
+                </div>
+                <div className="select-search">
+                  <label>Phân loại</label>
+                  <FormControl as="select">
+                    <option>Tất cả</option>
+                    <option>Quản trị viên</option>
+                    <option>Bác sĩ</option>
+                  </FormControl>
+                </div>
+              </div>
+              {currentUser.roleMaster?.roleCategories.includes(1) && (
+                <Button variant="primary" className="create--button" onClick={handleShow}>
+                  Tạo tài khoản
+                </Button>
+              )}
             </div>
             <TablePaginationData
               columns={AccountCollums}
@@ -228,6 +253,16 @@ const Account = () => {
               }}
             />
           </Container>
+          <ModalCreateUser
+            title="Tạo tài khoản"
+            initialValues={initialValues}
+            validateSchema={validateSchema}
+            handleSubmit={handleSubmit}
+            show={show}
+            error={error}
+            setError={setError}
+            handleClose={handleClose}
+          />
         </Wrapper>
       )}
     </>
