@@ -24,6 +24,7 @@ const AccountDetail = ({ id }) => {
   const initialValues = useMemo(
     () => ({
       user: {
+        id: id,
         fullName: dataDetail?.fullName || '',
         email: dataDetail?.email || '',
         phone: dataDetail?.phone || '',
@@ -40,7 +41,7 @@ const AccountDetail = ({ id }) => {
         roleCategoryIds: dataDetail?.roleMaster?.roleCategories || [],
       },
     }),
-    [dataDetail],
+    [dataDetail, id],
   );
 
   const validateSchema = Yup.object({
